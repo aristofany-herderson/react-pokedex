@@ -1,0 +1,8 @@
+.main {
+  max-width: 48rem;
+  margin: 0 auto;
+  margin-top: var(--space-20);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-8);
+}
