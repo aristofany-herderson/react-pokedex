@@ -1,25 +1,21 @@
-import { PokemonCard } from "@/components/PokemonCard";
-import { PokemonCardSkeleton } from "@/components/PokemonsCardSkeleton";
-import styles from '@/styles/pages/home.module.scss'
-import { shuffle } from "@/utils/shuffle";
-import { Suspense } from "react";
-
-const POKEMONSLENGTH = 99;
-const pokemonsQuantity = Array.from(
-  { length: POKEMONSLENGTH },
-  (_, i) => i + 1
-);
+import { PokemonSearch } from "@/components/PokemonSearch";
+import { PokemonsLoad } from "@/components/PokemonsLoad";
+import styles from "@/styles/pages/home.module.scss";
+import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      {shuffle(pokemonsQuantity).map((id) => {
-        return (
-          <Suspense fallback={<PokemonCardSkeleton />}>
-            <PokemonCard id={id}></PokemonCard>
-          </Suspense>
-        );
-      })}
-    </main>
+    <div className={styles.appWrapper}>
+      <main className={styles.main}>
+        <PokemonSearch />
+        <PokemonsLoad />
+      </main>
+      <aside className={styles.aside}>
+        <div className={styles.noSelected}>
+          <Image width={20} height={20} src="/icons/info-circle.svg" alt="Info icon"/>
+          <p>No pokemon selected yet</p>
+        </div>
+      </aside>
+    </div>
   );
 }

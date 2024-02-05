@@ -17,6 +17,9 @@ dependencies:
   react-dom:
     specifier: ^18
     version: 18.2.0(react@18.2.0)
+  react-intersection-observer:
+    specifier: ^9.7.0
+    version: 9.7.0(react-dom@18.2.0)(react@18.2.0)
 
 devDependencies:
   '@types/node':
@@ -399,6 +402,19 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-intersection-observer@9.7.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-euleEjBVaMRwSOMNVcMX5WGn74GfZ9I78nx9SUb5a0eXd0IhegjJcUliSO9Jd+xiaZ5rgFvbGoVln66lpMyUUg==}
+    peerDependencies:
+      react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react@18.2.0:

@@ -1,0 +1,55 @@
+.loader {
+  width: min-content;
+  display: flex;
+  gap: var(--space-2);
+  margin: var(--space-10) auto var(--space-4);
+  justify-content: space-around;
+
+  .bounceOne,
+  .bounceTwo,
+  .bounceThree {
+    border-radius: var(--radii-full);
+		width: var(--space-3);
+    aspect-ratio: 1 / 1;
+    transform-origin: 50% 100%;
+    animation: bounce 1s linear infinite;
+    background: var(--colors-red);
+  }
+  .bounceOne {
+    animation-delay: 0;
+  }
+  .bounceTwo {
+    animation-delay: 0.1s;
+  }
+  .bounceThree {
+    animation-delay: 0.2s;
+  }
+}
+
+@keyframes bounce {
+  from,
+  to {
+    transform: translateY(0) scale(1, 1);
+    animation-timing-function: ease-in;
+  }
+  45% {
+    transform: translateY(var(--space-6)) scale(1, 1);
+    animation-timing-function: linear;
+  }
+  50% {
+    transform: translateY(var(--space-6)) scale(1.5, 0.5);
+    animation-timing-function: linear;
+  }
+  55% {
+    transform: translateY(var(--space-6)) scale(1, 1);
+    animation-timing-function: ease-out;
+  }
+}
+
+.pokemons {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: var(--space-5);
+  row-gap: var(--space-12);
+}

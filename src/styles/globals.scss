@@ -5,16 +5,11 @@
 }
 
 :root {
-  --colors-pokedex-ligth:#000;
-  --background: ##f2f1f0;
-  --colors-yellow: #f5cc45;
-  --colors-green: #04d361;
-  --colors-red: #f75a68;
-  --colors-white-transparent-100: #ffffff0a;
-  --colors-white-transparent-200: #ffffff66;
-  --colors-gray-100: #f3f2f4;
-  --colors-gray-200: #e0e0e0;
-  --colors-black-transparent-100: #000000b3;
+  --colors-pokedex-ligth: #f6f8fc;
+  --colors-pokedex-dark: #0d1e2f;
+  --colors-red: #ff5350;
+
+  --colors-gray-600: #8b9296;
   --colors-black: #000000;
   --colors-white: #ffffff;
 
@@ -90,7 +85,6 @@
   --z-index-modal: 9999;
 }
 
-
 @media screen and (max-width: 1080px) {
   html {
     font-size: 93.75%;
@@ -99,22 +93,25 @@
 
 @media screen and (max-width: 720px) {
   html {
-    font-size: 87.50%;
+    font-size: 87.5%;
   }
 }
 
 body {
   width: 100%;
-  background: var(--background);
+  background: url("/icons/background.svg") var(--colors-pokedex-ligth);
+  background-repeat: no-repeat;
+  background-size: 40rem;
+  background-position: -14rem -10rem;
+  background-attachment: fixed;
 }
 
 body,
 input,
 textarea,
 button {
-  font-weight: 400;
-  font-size: var(--font-size-sm);
-  color: var(--colors-gray-800);
+  font: "Poppins", sans-serif 400 var(--font-size-sm);
+  color: var(--colors-pokedex-dark);
   line-height: var(--line-height-tall);
 }
 
