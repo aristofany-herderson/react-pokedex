@@ -5,12 +5,13 @@ import styles from "./styles.module.scss";
 import { PokemonTypeColors } from "@/utils/colors";
 import { baseImageUrl } from "@/services/api";
 import { PokemonType } from "@/@types/PokemonType";
+import Link from "next/link";
 
 export const PokemonCard = ({ id, name, types }: PokemonType) => {
   const paddedID = String(id).padStart(3, "0");
 
   return (
-    <div className={styles.card}>
+    <Link href={`?selected=${id}`} className={styles.card}>
       <div className={styles.figure}>
         <Image
           width={50}
@@ -40,6 +41,6 @@ export const PokemonCard = ({ id, name, types }: PokemonType) => {
           );
         })}
       </div>
-    </div>
+    </Link>
   );
 };

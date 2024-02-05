@@ -5,34 +5,44 @@ import { useEffect, useState } from "react";
 import { getPokemons } from "@/services/serverRequests";
 import { PokemonType } from "@/@types/PokemonType";
 import { PokemonCard } from "../PokemonCard";
-
-let pagination = 1;
+import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE } from "@/services/api";
 
 export const PokemonsLoad = () => {
-  const { ref, inView } = useInView();
-  const [data, setData] = useState<PokemonType[]>([]);
+  const { ref: loadingRef, inView } = useInView();
+  const [pokemons, setPokemonsData] = useState<PokemonType[]>([]);
+  const [pagination, setPagination] = useState(1);
 
   useEffect(() => {
     if (inView) {
       getPokemons(pagination).then((res: PokemonType[]) => {
-        setData([...data, ...res]);
-        pagination++;
+        setPokemonsData([...pokemons, ...res]);
+        setPagination(pagination + 1);
       });
     }
-  }, [data, inView]);
-
+  }, [pokemons, inView]);
+  
   return (
     <>
       <section className={styles.pokemons}>
-        {data.map((pokemon) => {
-          return <PokemonCard key={pokemon.id} {...pokemon} />;
-        })}
+        {pokemons
+          // .filter((pokemon) => {
+          //   if (search == undefined || search == "") {
+          //     return pokemon;
+          //   } else if (pokemon.name.toLocaleLowerCase().includes(search)) {
+          //     return pokemon;
+          //   }
+          // })
+          .map((pokemon, key) => {
+            return <PokemonCard key={key} {...pokemon} />;
+          })}
       </section>
-      <div className={styles.loader} ref={ref}>
-        <div className={styles.bounceOne}></div>
-        <div className={styles.bounceTwo}></div>
-        <div className={styles.bounceThree}></div>
-      </div>
+      {MAXPOKEMONSRENDERED + POKEMONSPERPAGE > POKEMONSPERPAGE * pagination && (
+        <div className={styles.loader} ref={loadingRef}>
+          <div className={styles.bounceOne}></div>
+          <div className={styles.bounceTwo}></div>
+          <div className={styles.bounceThree}></div>
+        </div>
+      )}
     </>
   );
 };

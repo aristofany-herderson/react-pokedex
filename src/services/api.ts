@@ -6,3 +6,6 @@ export const api = axios.create({
 
 export const baseImageUrl =
   "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/";
+
+export const MAXPOKEMONSRENDERED = 905;
+export const POKEMONSPERPAGE = 6;

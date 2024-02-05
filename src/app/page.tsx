@@ -1,3 +1,4 @@
+import { PokemonAside } from "@/components/PokemonAside";
 import { PokemonSearch } from "@/components/PokemonSearch";
 import { PokemonsLoad } from "@/components/PokemonsLoad";
 import styles from "@/styles/pages/home.module.scss";
@@ -11,10 +12,11 @@ export default function Home() {
         <PokemonsLoad />
       </main>
       <aside className={styles.aside}>
-        <div className={styles.noSelected}>
+        {/* <div className={styles.noSelected}>
           <Image width={20} height={20} src="/icons/info-circle.svg" alt="Info icon"/>
           <p>No pokemon selected yet</p>
-        </div>
+        </div> */}
+        <PokemonAside />
       </aside>
     </div>
   );

@@ -1,11 +1,12 @@
 export const shuffle = (array: any[]): any[] => {
-  for (let index = array.length - 1; index > 0; index--) {
-    const newIndex = Math.floor(Math.random() * index);
+  let counter = array.length;
 
-    const currentItem = array[index];
-
-    array[index] = array[newIndex];
-    array[newIndex] = currentItem;
+  while (counter > 0) {
+    let index = Math.floor(Math.random() * counter);
+    counter--;
+    let temp = array[counter];
+    array[counter] = array[index];
+    array[index] = temp;
   }
 
   return array;

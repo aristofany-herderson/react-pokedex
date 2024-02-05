@@ -1,17 +1,15 @@
 "use server";
 import { PokemonType } from "@/@types/PokemonType";
-import { api } from "./api";
+import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE, api } from "./api";
 import { shuffle } from "@/utils/shuffle";
 
 export const getPokemons = async (pagination: number) => {
-  const MOSTPOKEMONSRENDERED = 905;
-  const POKEMONSPERPAGE = 6;
   const pokemonIDs = Array.from(
-    { length: MOSTPOKEMONSRENDERED },
+    { length: MAXPOKEMONSRENDERED },
     (_, i) => i + 1
   );
 
-  const filteredIDs = shuffle(pokemonIDs).filter((id, index) => {
+  const filteredIDs = pokemonIDs.filter((id, index) => {
     if (
       index < pagination * POKEMONSPERPAGE &&
       index >= (pagination - 1) * POKEMONSPERPAGE
