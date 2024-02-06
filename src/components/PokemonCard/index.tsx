@@ -1,8 +1,7 @@
 "use client";
-import { getPokemonByID } from "@/services/clientRequests";
 import Image from "next/image";
 import styles from "./styles.module.scss";
-import { PokemonTypeColors } from "@/utils/colors";
+import { POKEMONTYPECOLORS } from "@/utils/pokemons";
 import { baseImageUrl } from "@/services/api";
 import { PokemonType } from "@/@types/PokemonType";
 import Link from "next/link";
@@ -11,12 +10,16 @@ export const PokemonCard = ({ id, name, types }: PokemonType) => {
   const paddedID = String(id).padStart(3, "0");
 
   return (
-    <Link href={`?selected=${id}`} className={styles.card}>
+    <Link href={`?selected=${name}`} className={styles.card} scroll={false}>
       <div className={styles.figure}>
         <Image
           width={50}
           height={50}
-          src={`${baseImageUrl}${paddedID}.png`}
+          src={
+            id != undefined
+              ? `${baseImageUrl}${paddedID}.png`
+              : "/icons/pokebal.svg"
+          }
           alt={name}
         />
       </div>
@@ -25,7 +28,7 @@ export const PokemonCard = ({ id, name, types }: PokemonType) => {
       <div className={styles.types}>
         {types.map((type, key) => {
           const [[, backgroundColor]] = Object.entries(
-            PokemonTypeColors
+            POKEMONTYPECOLORS
           ).filter(([key, _]) => key === type.type.name);
 
           return (

@@ -14,29 +14,13 @@
 
 .aside {
   position: sticky;
-  top: var(--space-8);
+  top: var(--space-20);
+  transition: 0.3s;
+  height: min-content;
   flex: 1;
-  height: calc(100vh - var(--space-16));
+  padding: var(--space-4);
   background: var(--colors-white);
   border-radius: var(--radii-lg);
-
+  text-align: center;
   box-shadow: 0 0 8px 4px rgba(200, 200, 200, 0.1);
-}
-
-.noSelected {
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  img {
-    margin-bottom: var(--space-1);
-  }
-
-  p {
-    color: var(--colors-gray-600);
-  }
 }

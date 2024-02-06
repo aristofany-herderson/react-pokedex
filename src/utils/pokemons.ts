@@ -1,4 +1,4 @@
-export const PokemonTypeColors = {
+export const POKEMONTYPECOLORS = {
   normal: {
     light: "#CDCDB9",
     medium: "#8F8F79",
@@ -70,5 +70,32 @@ export const PokemonTypeColors = {
   fairy: {
     light: "#EFA7B7",
     medium: "#B0708E",
+  },
+};
+
+export const POKEMONSTATS = {
+  hp:{
+    name:  "hp",
+    color: "#df2140"
+  },
+  attack: {
+    name: "atk",
+    color: "#ff994d"
+  },
+  defense: {
+    name: "def",
+    color: "#fedc61"
+  },
+  "special-attack": {
+    name: "spA",
+    color: "#85ddff"
+  },
+  "special-defense": {
+    name: "spD",
+    color: "#a8ef95"
+  },
+  speed: {
+    name: "spd",
+    color: "#fb94a8"
   },
 };

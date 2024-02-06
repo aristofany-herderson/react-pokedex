@@ -1,0 +1,300 @@
+.figure {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-16);
+
+  img {
+    top: 0;
+    position: absolute;
+    transform: translateY(-50%);
+  }
+}
+
+.id {
+  color: var(--colors-gray-600);
+  font-size: var(--font-size-xs);
+  font-weight: bold;
+}
+
+.name {
+  text-transform: capitalize;
+  margin-top: var(--space-1);
+  font-size: var(--font-size-2xl);
+}
+.types {
+  margin-top: var(--space-1);
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: center;
+
+  p {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: var(--font-size-xs);
+    padding: var(--space-px) var(--space-1);
+    border-radius: var(--radii-sm);
+  }
+}
+
+.title {
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: var(--space-px);
+  text-align: center;
+  font-weight: bold;
+}
+
+.abilities,
+.characteristics,
+.stats {
+  margin-top: var(--space-5);
+}
+
+.abilities {
+  h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  & > div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+
+  p {
+    text-align: left;
+    flex: 1;
+    font-weight: bold;
+    font-size: var(--font-size-xs);
+    text-transform: capitalize;
+    padding: var(--space-1) var(--space-3);
+    background: var(--colors-pokedex-ligth);
+    border: var(--border-width-thin) solid var(--colors-gray-600);
+    border-radius: var(--radii-full);
+  }
+}
+
+.characteristics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: var(--space-2);
+  row-gap: var(--space-4);
+
+  h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  p {
+    width: 100%;
+    font-size: var(--font-size-xs);
+    font-weight: bold;
+    padding: var(--space-1) var(--space-2);
+    background: var(--colors-pokedex-ligth);
+    border-radius: var(--radii-full);
+  }
+}
+
+.stats {
+  h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+  }
+
+  span {
+    padding: var(--space-1);
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radii-full);
+    display: block;
+    font-size: var(--font-size-xxs);
+
+    text-transform: uppercase;
+    color: var(--colors-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  p {
+    flex: 1;
+    padding-bottom: var(--space-1);
+    font-size: var(--font-size-xs);
+    font-weight: bold;
+    background: var(--colors-pokedex-ligth);
+    border-radius: var(--radii-full);
+
+    &.total {
+      background: #98baff;
+      span {
+        background: #7195dc;
+      }
+    }
+  }
+}
+
+.noSelected {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    margin-bottom: var(--space-1);
+  }
+
+  p {
+    color: var(--colors-gray-600);
+  }
+}
+
+.skeletonFigure,
+.skeletonId,
+.skeletonName,
+.skeletonTypes,
+.skeletonAbilities,
+.skeletonCharacteristics,
+.skeletonStats {
+  margin: 0 auto;
+}
+
+.skeletonFigure {
+  width: var(--space-28);
+  aspect-ratio: 1 / 1;
+  transform: translateY(-50%);
+  border-radius: var(--radii-md);
+}
+
+.skeletonId {
+  width: var(--space-8);
+  height: var(--space-3);
+  border-radius: var(--radii-sm);
+}
+
+.skeletonName {
+  width: var(--space-28);
+  height: var(--space-7);
+  margin-top: var(--space-2);
+  border-radius: var(--radii-sm);
+}
+
+.skeletonTypes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--space-1);
+  gap: var(--space-3);
+
+  p {
+    width: var(--space-12);
+    height: var(--space-5);
+    border-radius: var(--radii-sm);
+    background: linear-gradient(
+        to left,
+        var(--colors-pokedex-ligth),
+        var(--colors-white)
+      )
+      var(--colors-pokedex-ligth);
+  }
+}
+
+.skeletonTitle {
+  width: var(--space-20);
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: var(--space-2);
+  height: var(--space-6);
+  margin-top: var(--space-2);
+  border-radius: var(--radii-sm);
+}
+
+.skeletonAbilities {
+  margin-top: var(--space-3);
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+  }
+
+  p {
+    flex: 1;
+    height: var(--space-6);
+    border-radius: var(--radii-full);
+    background: linear-gradient(
+        to left,
+        var(--colors-pokedex-ligth),
+        var(--colors-white)
+      )
+      var(--colors-pokedex-ligth);
+  }
+}
+
+.skeletonCharacteristics {
+  margin-top: var(--space-3);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: var(--space-2);
+  row-gap: var(--space-4);
+
+  p {
+    width: 100%;
+    height: var(--space-6);
+    border-radius: var(--radii-full);
+    background: linear-gradient(
+        to left,
+        var(--colors-pokedex-ligth),
+        var(--colors-white)
+      )
+      var(--colors-pokedex-ligth);
+  }
+}
+
+.skeletonStats {
+  margin-top: var(--space-3);
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+  }
+
+  p {
+    flex: 1;
+    height: var(--space-12);
+    border-radius: var(--radii-full);
+  }
+}
+
+.skeletonStats p,
+.skeletonCharacteristics p,
+.skeletonAbilities p,
+.skeletonTitle,
+.skeletonTypes p,
+.skeletonName,
+.skeletonId,
+.skeletonFigure {
+  animation: loading 1.5s ease infinite;
+  background-position: -150% 0;
+  background-size: 100% 100%;
+  background: linear-gradient(90deg, var(--colors-pokedex-medium) 35%, #ffffffaa, var(--colors-pokedex-medium) 55%) right / 300% 100%;
+
+}
+
+@keyframes loading {
+  to {
+    background-position: left;
+  }
+}
