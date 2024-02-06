@@ -4,33 +4,85 @@ import styles from "./styles.module.scss";
 import { useSearchParams } from "next/navigation";
 import { PokemonType } from "@/@types/PokemonType";
 import { useEffect, useState } from "react";
-import { getPokemonByNameOrID } from "@/services/clientRequests";
+import {
+  getPokemonByNameOrID,
+  getPokemonEntry,
+  getPokemonGender,
+} from "@/services/clientRequests";
 import { baseImageUrl } from "@/services/api";
 import { POKEMONSTATS, POKEMONTYPECOLORS } from "@/utils/pokemons";
 
 export const PokemonAside = () => {
   const searchParams = useSearchParams();
-  const selectedPokemon = searchParams.get("selected");
+  const selectedPokemonName = searchParams.get("selected");
   const [pokemon, setPokemon] = useState<PokemonType>();
+  const [pokemonEntry, setPokemonEntry] = useState("");
+  const [pokemonGender, setPokemonGender] = useState<{
+    isMale: boolean;
+    isFemale: boolean;
+  }>();
 
   useEffect(() => {
-    if (selectedPokemon != null && selectedPokemon?.trim() != "") {
-      getPokemonByNameOrID(selectedPokemon).then((res) => {
-        setPokemon(res);
+    if (selectedPokemonName != null && selectedPokemonName?.trim() != "") {
+      getPokemonByNameOrID(selectedPokemonName).then((pokemonData) => {
+        setPokemon(pokemonData);
+      });
+
+      getPokemonEntry(selectedPokemonName).then((entry) => {
+        setPokemonEntry(entry.replace("\f", " "));
+      });
+
+      getPokemonGender(selectedPokemonName).then((gender) => {
+        setPokemonGender(gender);
       });
     }
-  }, [selectedPokemon]);
+  }, [selectedPokemonName]);
 
   const paddedID = String(pokemon?.id).padStart(3, "0");
-  var totalStats = pokemon?.stats.reduce(
+  const totalStats = pokemon?.stats.reduce(
     (accum, item) => accum + item.base_stat,
     0
   );
-
+  const pokemonHeight = pokemon?.height ? pokemon.height / 10 : 0;
+  const pokemonWeight = pokemon?.weight ? pokemon.weight / 10 : 0;
+  const isGenderLess = !pokemonGender?.isFemale && !pokemonGender?.isMale;
   return (
     <>
-      {selectedPokemon != null && selectedPokemon?.trim() != "" ? (
+      {selectedPokemonName != null && selectedPokemonName?.trim() != "" ? (
         <>
+          <div className={styles.gender}>
+            {pokemonGender?.isFemale && (
+              <div className={styles.male}>
+                <Image
+                  width={20}
+                  height={20}
+                  src="/icons/male.svg"
+                  alt="Male Icon"
+                />
+              </div>
+            )}
+
+            {pokemonGender?.isMale && (
+              <div className={styles.female}>
+                <Image
+                  width={20}
+                  height={20}
+                  src="/icons/female.svg"
+                  alt="Female Icon"
+                />
+              </div>
+            )}
+            {isGenderLess && (
+              <div className={styles.genderLess}>
+                <Image
+                  width={20}
+                  height={20}
+                  src="/icons/minus-square.svg"
+                  alt="Genderless Icon"
+                />
+              </div>
+            )}
+          </div>
           <div className={styles.figure}>
             <Image
               width={120}
@@ -60,22 +112,38 @@ export const PokemonAside = () => {
               );
             })}
           </div>
+          <div className={styles.entry}>
+            <h2 className={styles.title}>POKÉDEX ENTRY</h2>
+            <p dangerouslySetInnerHTML={{ __html: pokemonEntry }}></p>
+          </div>
           <div className={styles.abilities}>
             <h2 className={styles.title}>Abilities</h2>
             <div>
-              {pokemon?.abilities.map(({ ability }, key) => {
-                return <p key={key}>{ability.name}</p>;
+              {pokemon?.abilities.map((ability, key) => {
+                return (
+                  <p data-hidden={ability.is_hidden} key={key}>
+                    {ability.ability.name}{" "}
+                    {ability.is_hidden && (
+                      <Image
+                        width={14}
+                        height={14}
+                        src="/icons/eye-slash.svg"
+                        alt="Hidden icon"
+                      />
+                    )}{" "}
+                  </p>
+                );
               })}
             </div>
           </div>
           <div className={styles.characteristics}>
             <div>
               <h2 className={styles.title}>Height</h2>
-              <p>{pokemon?.height}</p>
+              <p>{pokemonHeight}m</p>
             </div>
             <div>
               <h2 className={styles.title}>Weight</h2>
-              <p>{pokemon?.weight}</p>
+              <p>{pokemonWeight}kg</p>
             </div>
             <div>
               <h2 className={styles.title}>Weakness</h2>

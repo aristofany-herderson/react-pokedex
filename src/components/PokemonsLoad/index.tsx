@@ -25,13 +25,6 @@ export const PokemonsLoad = () => {
     <>
       <section className={styles.pokemons}>
         {pokemons
-          // .filter((pokemon) => {
-          //   if (search == undefined || search == "") {
-          //     return pokemon;
-          //   } else if (pokemon.name.toLocaleLowerCase().includes(search)) {
-          //     return pokemon;
-          //   }
-          // })
           .map((pokemon, key) => {
             return <PokemonCard key={key} {...pokemon} />;
           })}

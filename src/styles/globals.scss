@@ -144,10 +144,10 @@ ul {
   list-style: none;
 }
 
-// ::selection {
-//   color: var(--colors-gray-100);
-//   background: var(--colors-wanna-dark);
-// }
+::selection {
+  color: var(--colors-pokedex-ligth);
+  background: var(--colors-red);
+}
 
 // ::-webkit-scrollbar {
 //   width: 8px;
