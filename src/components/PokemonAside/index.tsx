@@ -1,57 +1,92 @@
 "use client";
 import Image from "next/image";
 import styles from "./styles.module.scss";
-import { useSearchParams } from "next/navigation";
-import { PokemonType } from "@/@types/PokemonType";
-import { useEffect, useState } from "react";
 import {
   getPokemonByNameOrID,
   getPokemonEntry,
-  getPokemonGender,
+  getPokemonGenderProps,
+  getPokemonWeakness,
 } from "@/services/clientRequests";
+import { Suspense, useEffect, useState } from "react";
+import { PokemonProps } from "@/@types/PokemonProps";
+import { PokemonTypeNameProps } from "@/@types/PokemonTypeProps";
 import { baseImageUrl } from "@/services/api";
-import { POKEMONSTATS, POKEMONTYPECOLORS } from "@/utils/pokemons";
+import { POKEMONTYPECOLORS, POKEMONSTATS } from "@/utils/pokemons";
 
-export const PokemonAside = () => {
-  const searchParams = useSearchParams();
-  const selectedPokemonName = searchParams.get("selected");
-  const [pokemon, setPokemon] = useState<PokemonType>();
-  const [pokemonEntry, setPokemonEntry] = useState("");
-  const [pokemonGender, setPokemonGender] = useState<{
-    isMale: boolean;
+type PokemonAsideProps = {
+  selectedPokemon?: string;
+};
+
+type PokemonDataProps = {
+  pokemonData: PokemonProps;
+  pokemonEntry: string;
+  pokemonGenderProps: {
     isFemale: boolean;
-  }>();
+    isMale: boolean;
+  };
+  pokemonWeakness: PokemonTypeNameProps[];
+};
+
+export const PokemonAside = ({ selectedPokemon }: PokemonAsideProps) => {
+  const [pokemon, setPokemonData] = useState<PokemonDataProps>();
+
+  const resquests = async () => {
+    if (selectedPokemon) {
+      const pokemonData = await getPokemonByNameOrID(selectedPokemon);
+      const pokemonEntry = (await getPokemonEntry(selectedPokemon)).replace(
+        "\f",
+        " "
+      );
+      const pokemonGenderProps = await getPokemonGenderProps(selectedPokemon);
+      const pokemonWeakness = await getPokemonWeakness(selectedPokemon);
+
+      const data = {
+        pokemonData,
+        pokemonEntry,
+        pokemonGenderProps,
+        pokemonWeakness,
+      };
+
+      return data;
+    }
+  };
 
   useEffect(() => {
-    if (selectedPokemonName != null && selectedPokemonName?.trim() != "") {
-      getPokemonByNameOrID(selectedPokemonName).then((pokemonData) => {
-        setPokemon(pokemonData);
-      });
+    const doRequests = async () => {
+      const data = await resquests();
 
-      getPokemonEntry(selectedPokemonName).then((entry) => {
-        setPokemonEntry(entry.replace("\f", " "));
-      });
+      setPokemonData(data);
+    };
 
-      getPokemonGender(selectedPokemonName).then((gender) => {
-        setPokemonGender(gender);
-      });
-    }
-  }, [selectedPokemonName]);
+    doRequests();
+  }, [selectedPokemon]);
 
-  const paddedID = String(pokemon?.id).padStart(3, "0");
-  const totalStats = pokemon?.stats.reduce(
+  const paddedID = String(pokemon?.pokemonData?.id).padStart(3, "0");
+  const totalStats = pokemon?.pokemonData?.stats.reduce(
     (accum, item) => accum + item.base_stat,
     0
   );
-  const pokemonHeight = pokemon?.height ? pokemon.height / 10 : 0;
-  const pokemonWeight = pokemon?.weight ? pokemon.weight / 10 : 0;
-  const isGenderLess = !pokemonGender?.isFemale && !pokemonGender?.isMale;
+  const pokemonHeight = pokemon?.pokemonData?.height
+    ? pokemon.pokemonData.height / 10
+    : 0;
+  const pokemonWeight = pokemon?.pokemonData?.weight
+    ? pokemon.pokemonData.weight / 10
+    : 0;
+  const isGenderLess =
+    !pokemon?.pokemonGenderProps?.isFemale &&
+    !pokemon?.pokemonGenderProps?.isMale;
+
+  const isNoSelect = !selectedPokemon;
+  const isSelectAndLoading = selectedPokemon != undefined && !pokemon?.pokemonData ;
+  const isSelectAndLoaded = selectedPokemon != undefined && pokemon?.pokemonData != undefined ;
   return (
     <>
-      {selectedPokemonName != null && selectedPokemonName?.trim() != "" ? (
+      {isNoSelect && <NoSelected />}
+      {isSelectAndLoading && <PokemonAsideSkeleton />}
+      {isSelectAndLoaded && (
         <>
           <div className={styles.gender}>
-            {pokemonGender?.isFemale && (
+            {pokemon?.pokemonGenderProps?.isFemale && (
               <div className={styles.male}>
                 <Image
                   width={20}
@@ -62,7 +97,7 @@ export const PokemonAside = () => {
               </div>
             )}
 
-            {pokemonGender?.isMale && (
+            {pokemon?.pokemonGenderProps?.isMale && (
               <div className={styles.female}>
                 <Image
                   width={20}
@@ -92,9 +127,9 @@ export const PokemonAside = () => {
             />
           </div>
           <span className={styles.id}>#{paddedID}</span>
-          <h2 className={styles.name}>{pokemon?.name}</h2>
+          <h2 className={styles.name}>{pokemon?.pokemonData?.name}</h2>
           <div className={styles.types}>
-            {pokemon?.types.map((type, key) => {
+            {pokemon?.pokemonData?.types.map((type, key) => {
               const [[, backgroundColor]] = Object.entries(
                 POKEMONTYPECOLORS
               ).filter(([key, _]) => key === type.type.name);
@@ -114,12 +149,12 @@ export const PokemonAside = () => {
           </div>
           <div className={styles.entry}>
             <h2 className={styles.title}>POKÉDEX ENTRY</h2>
-            <p dangerouslySetInnerHTML={{ __html: pokemonEntry }}></p>
+            <p>{pokemon?.pokemonEntry}</p>
           </div>
           <div className={styles.abilities}>
             <h2 className={styles.title}>Abilities</h2>
             <div>
-              {pokemon?.abilities.map((ability, key) => {
+              {pokemon?.pokemonData?.abilities.map((ability, key) => {
                 return (
                   <p data-hidden={ability.is_hidden} key={key}>
                     {ability.ability.name}{" "}
@@ -147,17 +182,37 @@ export const PokemonAside = () => {
             </div>
             <div>
               <h2 className={styles.title}>Weakness</h2>
-              <p>asasdsd</p>
+              <p>
+                {pokemon?.pokemonWeakness.map((weak, key) => {
+                  const [[, backgroundColor]] = Object.entries(
+                    POKEMONTYPECOLORS
+                  ).filter(([key, _]) => key === weak);
+
+                  return (
+                    <span
+                      key={key}
+                      style={{ background: backgroundColor.medium }}
+                    >
+                      <Image
+                        width={10}
+                        height={10}
+                        src={`/icons/${weak}.svg`}
+                        alt={`${weak} icon`}
+                      />
+                    </span>
+                  );
+                })}
+              </p>
             </div>
             <div>
               <h2 className={styles.title}>Base EXP</h2>
-              <p>{pokemon?.base_experience}</p>
+              <p>{pokemon?.pokemonData?.base_experience}</p>
             </div>
           </div>
           <div className={styles.stats}>
             <h2 className={styles.title}>Stats</h2>
             <div>
-              {pokemon?.stats.map((stat, key) => {
+              {pokemon?.pokemonData?.stats.map((stat, key) => {
                 const [[, statAtributtes]] = Object.entries(
                   POKEMONSTATS
                 ).filter(([key, _]) => key === stat.stat.name);
@@ -177,18 +232,22 @@ export const PokemonAside = () => {
             </div>
           </div>
         </>
-      ) : (
-        <div className={styles.noSelected}>
-          <Image
-            width={20}
-            height={20}
-            src="/icons/info-circle.svg"
-            alt="Info icon"
-          />
-          <p>No pokemon selected yet</p>
-        </div>
       )}
     </>
+  );
+};
+
+export const NoSelected = () => {
+  return (
+    <div className={styles.noSelected}>
+      <Image
+        width={20}
+        height={20}
+        src="/icons/info-circle.svg"
+        alt="Info icon"
+      />
+      <p>No pokemon selected yet</p>
+    </div>
   );
 };
 

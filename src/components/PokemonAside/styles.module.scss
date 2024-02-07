@@ -138,11 +138,29 @@
 
   p {
     width: 100%;
+    height: var(--space-8);
     font-size: var(--font-size-xs);
     font-weight: bold;
     padding: var(--space-1) var(--space-2);
     background: var(--colors-pokedex-ligth);
     border-radius: var(--radii-full);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-1);
+  }
+
+  span {
+    height: var(--space-5);
+    display: block;
+    aspect-ratio: 1 / 1;
+    // padding: var(--space-1);
+    border-radius: var(--radii-full);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

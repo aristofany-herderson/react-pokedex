@@ -1,4 +1,4 @@
-type PokemonsType = {
+export type PokemonTypeProps = {
   type: {
     name:
       | "normal"
@@ -19,29 +19,30 @@ type PokemonsType = {
       | "dark"
       | "steel"
       | "fairy";
+      url: string;
   };
 };
 
-type PokemonsAbilityType = {
+type PokemonAbilityProps = {
   ability: {
     name: string;
-  },
+  };
   is_hidden: boolean;
-}
+};
 
-type PokemonsStatType = {
-  base_stat: number,
+type PokemonStatProps = {
+  base_stat: number;
   stat: {
     name: string;
-  }
-}
+  };
+};
 
-export type PokemonType = {
+export type PokemonProps = {
   id: number;
   name: string;
-  types: PokemonsType[];
-  abilities: PokemonsAbilityType[];
-  stats: PokemonsStatType[];
+  types: PokemonTypeProps[];
+  abilities: PokemonAbilityProps[];
+  stats: PokemonStatProps[];
   base_experience: number;
   weight: number;
   height: number;

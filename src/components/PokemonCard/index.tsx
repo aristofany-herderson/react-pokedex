@@ -3,14 +3,14 @@ import Image from "next/image";
 import styles from "./styles.module.scss";
 import { POKEMONTYPECOLORS } from "@/utils/pokemons";
 import { baseImageUrl } from "@/services/api";
-import { PokemonType } from "@/@types/PokemonType";
+import { PokemonProps } from "@/@types/PokemonProps";
 import Link from "next/link";
 
-export const PokemonCard = ({ id, name, types }: PokemonType) => {
+export const PokemonCard = ({ id, name, types }: PokemonProps) => {
   const paddedID = String(id).padStart(3, "0");
 
   return (
-    <Link href={`?selected=${name}`} className={styles.card} scroll={false}>
+    <Link href={`/?selected=${name}`} className={styles.card} scroll={false}>
       <div className={styles.figure}>
         <Image
           width={50}

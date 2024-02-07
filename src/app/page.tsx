@@ -1,10 +1,20 @@
-import { PokemonAside, PokemonAsideSkeleton } from "@/components/PokemonAside";
+import {
+  PokemonAside,
+  PokemonAsideSkeleton,
+  NoSelected,
+} from "@/components/PokemonAside";
 import { PokemonSearch } from "@/components/PokemonSearch";
 import { PokemonsLoad } from "@/components/PokemonsLoad";
 import styles from "@/styles/pages/home.module.scss";
 import { Suspense } from "react";
 
-export default function Home() {
+export default function Home({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
+  const selectedPokemon = searchParams?.selected?.toString();
+
   return (
     <div className={styles.appWrapper}>
       <main className={styles.main}>
@@ -12,9 +22,7 @@ export default function Home() {
         <PokemonsLoad />
       </main>
       <aside className={styles.aside}>
-        <Suspense fallback={<PokemonAsideSkeleton />}>
-          <PokemonAside />
-        </Suspense>
+        <PokemonAside selectedPokemon={selectedPokemon} />
       </aside>
     </div>
   );

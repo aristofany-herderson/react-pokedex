@@ -1,4 +1,4 @@
-type PokemonsFlavorTextEntries = {
+type PokemonFlavorTextEntrieProps = {
   flavor_text: string;
   language: {
     name: string;
@@ -10,6 +10,6 @@ type PokemonsFlavorTextEntries = {
   };
 };
 
-export type PokemonSpecieType = {
-  flavor_text_entries: PokemonsFlavorTextEntries[];
+export type PokemonSpecieProps = {
+  flavor_text_entries: PokemonFlavorTextEntrieProps[];
 };

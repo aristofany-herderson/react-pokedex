@@ -3,31 +3,30 @@ import { useInView } from "react-intersection-observer";
 import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
 import { getPokemons } from "@/services/serverRequests";
-import { PokemonType } from "@/@types/PokemonType";
+import { PokemonProps } from "@/@types/PokemonProps";
 import { PokemonCard } from "../PokemonCard";
 import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE } from "@/services/api";
 
 export const PokemonsLoad = () => {
   const { ref: loadingRef, inView } = useInView();
-  const [pokemons, setPokemonsData] = useState<PokemonType[]>([]);
+  const [pokemons, setPokemonsData] = useState<PokemonProps[]>([]);
   const [pagination, setPagination] = useState(1);
 
   useEffect(() => {
     if (inView) {
-      getPokemons(pagination).then((res: PokemonType[]) => {
+      getPokemons(pagination).then((res: PokemonProps[]) => {
         setPokemonsData([...pokemons, ...res]);
         setPagination(pagination + 1);
       });
     }
   }, [pokemons, inView]);
-  
+
   return (
     <>
       <section className={styles.pokemons}>
-        {pokemons
-          .map((pokemon, key) => {
-            return <PokemonCard key={key} {...pokemon} />;
-          })}
+        {pokemons.map((pokemon, key) => {
+          return <PokemonCard key={key} {...pokemon} />;
+        })}
       </section>
       {MAXPOKEMONSRENDERED + POKEMONSPERPAGE > POKEMONSPERPAGE * pagination && (
         <div className={styles.loader} ref={loadingRef}>

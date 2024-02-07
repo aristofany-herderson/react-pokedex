@@ -74,28 +74,28 @@ export const POKEMONTYPECOLORS = {
 };
 
 export const POKEMONSTATS = {
-  hp:{
-    name:  "hp",
-    color: "#df2140"
+  hp: {
+    name: "hp",
+    color: "#df2140",
   },
   attack: {
     name: "atk",
-    color: "#ff994d"
+    color: "#ff994d",
   },
   defense: {
     name: "def",
-    color: "#fedc61"
+    color: "#fedc61",
   },
   "special-attack": {
     name: "spA",
-    color: "#85ddff"
+    color: "#85ddff",
   },
   "special-defense": {
     name: "spD",
-    color: "#a8ef95"
+    color: "#a8ef95",
   },
   speed: {
     name: "spd",
-    color: "#fb94a8"
+    color: "#fb94a8",
   },
 };

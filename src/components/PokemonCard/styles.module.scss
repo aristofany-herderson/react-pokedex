@@ -3,14 +3,14 @@
   padding: var(--space-8);
   background: var(--colors-white);
   border-radius: var(--radii-lg);
-  box-shadow: 0 0 8px 4px rgba(200,200,200,0.1);
+  box-shadow: 0 0 8px 4px rgba(200, 200, 200, 0.1);
 
   transition: 0.3s;
   text-align: center;
   cursor: pointer;
 
   &:hover {
-    transform: translateY(calc(-1* var(--space-2)));
+    transform: translateY(calc(-1 * var(--space-2)));
   }
 }
 
@@ -24,7 +24,7 @@
     aspect-ratio: 1 / 1;
     object-fit: contain;
     object-position: center;
-    transform: translateY(calc(-1* (var(--space-8) + 50%)));
+    transform: translateY(calc(-1 * (var(--space-8) + 50%)));
   }
 }
 
