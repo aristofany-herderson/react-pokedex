@@ -6,11 +6,14 @@ import { getPokemons } from "@/services/serverRequests";
 import { PokemonProps } from "@/@types/PokemonProps";
 import { PokemonCard } from "../PokemonCard";
 import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE } from "@/services/api";
+import { useQueryState } from "nuqs";
 
 export const PokemonsLoad = () => {
   const { ref: loadingRef, inView } = useInView();
   const [pokemons, setPokemonsData] = useState<PokemonProps[]>([]);
   const [pagination, setPagination] = useState(1);
+  const [from, setFrom] = useQueryState("from");
+  const [to, setTo] = useQueryState("to");
 
   useEffect(() => {
     if (inView) {
@@ -24,9 +27,23 @@ export const PokemonsLoad = () => {
   return (
     <>
       <section className={styles.pokemons}>
-        {pokemons.map((pokemon, key) => {
-          return <PokemonCard key={key} {...pokemon} />;
-        })}
+        {pokemons
+          .filter((pokemon) => {
+            const fromVerification =
+              from?.trim() != "" && from != null
+                ? pokemon.id >= Number(from)
+                : pokemon.id >= 0;
+            const toVerification =
+              to?.trim() != "" && to != null
+                ? pokemon.id <= Number(to)
+                : pokemon.id <= MAXPOKEMONSRENDERED;
+            if (fromVerification && toVerification) {
+              return pokemon;
+            }
+          })
+          .map((pokemon, key) => {
+            return <PokemonCard key={key} {...pokemon} />;
+          })}
       </section>
       {MAXPOKEMONSRENDERED + POKEMONSPERPAGE > POKEMONSPERPAGE * pagination && (
         <div className={styles.loader} ref={loadingRef}>

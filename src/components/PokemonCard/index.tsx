@@ -4,13 +4,14 @@ import styles from "./styles.module.scss";
 import { POKEMONTYPECOLORS } from "@/utils/pokemons";
 import { baseImageUrl } from "@/services/api";
 import { PokemonProps } from "@/@types/PokemonProps";
-import Link from "next/link";
+import { useQueryState } from "nuqs";
 
 export const PokemonCard = ({ id, name, types }: PokemonProps) => {
   const paddedID = String(id).padStart(3, "0");
+  const [_, setPokemon] = useQueryState("pokemon");
 
   return (
-    <Link href={`/?selected=${name}`} className={styles.card} scroll={false}>
+    <button onClick={() => setPokemon(name)} className={styles.card}>
       <div className={styles.figure}>
         <Image
           width={50}
@@ -44,6 +45,6 @@ export const PokemonCard = ({ id, name, types }: PokemonProps) => {
           );
         })}
       </div>
-    </Link>
+    </button>
   );
 };

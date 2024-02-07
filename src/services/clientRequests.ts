@@ -7,16 +7,16 @@ import {
   PokemonTypeNameProps,
 } from "@/@types/PokemonTypeProps";
 
-export const getPokemonByNameOrID = async (id: string | number) => {
-  const pokemon = await api.get<PokemonProps>(`pokemon/${id}`);
+export const getPokemonByNameOrID = async (slug: string | number) => {
+  const pokemon = await api.get<PokemonProps>(`pokemon/${slug}`);
   const reponse = pokemon.data;
 
   return reponse;
 };
 
-export const getPokemonEntry = async (id: string | number) => {
+export const getPokemonEntry = async (slug: string | number) => {
   const pokemonSpecie = await api.get<PokemonSpecieProps>(
-    `https://pokeapi.co/api/v2/pokemon-species/${id}`
+    `https://pokeapi.co/api/v2/pokemon-species/${slug}`
   );
   const response = pokemonSpecie.data.flavor_text_entries.filter((entry) => {
     if (entry.language.name == "en") {
@@ -66,20 +66,20 @@ export const getPokemonWeakness = async (name: string) => {
   const moreDamage: PokemonTypeNameProps[] = [];
 
   damageRelations.map((relation) => {
-      const relationsWeakness = relation.damage_relations.double_damage_from
-      const relationsImmunity = relation.damage_relations.no_damage_from;
-      const relationsHalf = relation.damage_relations.half_damage_from;
+    const relationsWeakness = relation.damage_relations.double_damage_from;
+    const relationsImmunity = relation.damage_relations.no_damage_from;
+    const relationsHalf = relation.damage_relations.half_damage_from;
 
-      relationsWeakness.forEach((immunity) => {
-        moreDamage.push(immunity.name);
-      });
+    relationsWeakness.forEach((immunity) => {
+      moreDamage.push(immunity.name);
+    });
 
-      relationsImmunity.forEach((immunity) => {
-        lessDamage.push(immunity.name);
-      });
-      relationsHalf.forEach((half) => {
-        lessDamage.push(half.name);
-      });
+    relationsImmunity.forEach((immunity) => {
+      lessDamage.push(immunity.name);
+    });
+    relationsHalf.forEach((half) => {
+      lessDamage.push(half.name);
+    });
   });
 
   const repeatedWeakness = moreDamage.filter(

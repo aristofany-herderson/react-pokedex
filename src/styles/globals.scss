@@ -102,8 +102,9 @@ body {
   width: 100%;
   background: url("/icons/background.svg") var(--colors-pokedex-ligth);
   background-repeat: no-repeat;
-  background-size: 40rem;
-  background-position: -14rem -10rem;
+  background-size: auto 80%;
+  background-origin: content-box;
+  background-position: -20vh -20vh;
   background-attachment: fixed;
 }
 

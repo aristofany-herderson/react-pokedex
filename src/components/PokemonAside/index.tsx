@@ -7,15 +7,12 @@ import {
   getPokemonGenderProps,
   getPokemonWeakness,
 } from "@/services/clientRequests";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { PokemonProps } from "@/@types/PokemonProps";
 import { PokemonTypeNameProps } from "@/@types/PokemonTypeProps";
 import { baseImageUrl } from "@/services/api";
 import { POKEMONTYPECOLORS, POKEMONSTATS } from "@/utils/pokemons";
-
-type PokemonAsideProps = {
-  selectedPokemon?: string;
-};
+import { useQueryState } from "nuqs";
 
 type PokemonDataProps = {
   pokemonData: PokemonProps;
@@ -27,13 +24,14 @@ type PokemonDataProps = {
   pokemonWeakness: PokemonTypeNameProps[];
 };
 
-export const PokemonAside = ({ selectedPokemon }: PokemonAsideProps) => {
+export const PokemonAside = () => {
   const [pokemon, setPokemonData] = useState<PokemonDataProps>();
+  const [selectedPokemon, _] = useQueryState("pokemon");
 
   const resquests = async () => {
     if (selectedPokemon) {
       const pokemonData = await getPokemonByNameOrID(selectedPokemon);
-      const pokemonEntry = (await getPokemonEntry(selectedPokemon)).replace(
+      const pokemonEntry = (await getPokemonEntry(pokemonData.id)).replace(
         "\f",
         " "
       );
@@ -77,8 +75,10 @@ export const PokemonAside = ({ selectedPokemon }: PokemonAsideProps) => {
     !pokemon?.pokemonGenderProps?.isMale;
 
   const isNoSelect = !selectedPokemon;
-  const isSelectAndLoading = selectedPokemon != undefined && !pokemon?.pokemonData ;
-  const isSelectAndLoaded = selectedPokemon != undefined && pokemon?.pokemonData != undefined ;
+  const isSelectAndLoading =
+    selectedPokemon != undefined && !pokemon?.pokemonData;
+  const isSelectAndLoaded =
+    selectedPokemon != undefined && pokemon?.pokemonData != undefined;
   return (
     <>
       {isNoSelect && <NoSelected />}

@@ -19,7 +19,7 @@ export type PokemonTypeProps = {
       | "dark"
       | "steel"
       | "fairy";
-      url: string;
+    url: string;
   };
 };
 
