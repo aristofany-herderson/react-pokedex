@@ -2,26 +2,24 @@
 import { useInView } from "react-intersection-observer";
 import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
-import { getPokemons } from "@/services/serverRequests";
-import { PokemonProps } from "@/@types/PokemonProps";
-import { PokemonTypeNameProps } from "@/@types/PokemonTypeProps";
+import { fetchPokemons } from "@/services/server-requests";
 import { PokemonCard } from "../PokemonCard";
 import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE } from "@/services/api";
 import { useQueryState } from "nuqs";
-import { getPokemonWeakness } from "@/services/clientRequests";
+import { Pokemon, PokemonPosibleTypes } from "@/@types/pokemon";
 
 export const PokemonsLoad = () => {
   const { ref: loadingRef, inView } = useInView();
-  const [pokemons, setPokemonsData] = useState<PokemonProps[]>([]);
+  const [pokemons, setPokemonsData] = useState<Pokemon[]>([]);
   const [pagination, setPagination] = useState(1);
-  const [from, setFrom] = useQueryState("from");
-  const [to, setTo] = useQueryState("to");
-  const [type, setType] = useQueryState("type");
-  const [weakness, setWeakness] = useQueryState("weakness");
+  const [from] = useQueryState("from");
+  const [to] = useQueryState("to");
+  const [type] = useQueryState("type");
+  const [weakness] = useQueryState("weakness");
 
   useEffect(() => {
     if (inView) {
-      getPokemons(pagination).then((res: PokemonProps[]) => {
+      fetchPokemons(pagination).then((res: Pokemon[]) => {
         setPokemonsData([...pokemons, ...res]);
         setPagination(pagination + 1);
       });
@@ -47,7 +45,7 @@ export const PokemonsLoad = () => {
           })
           .filter((pokemon) => {
             const types = pokemon.types.map((type) => type.type.name);
-            const newType = type as PokemonTypeNameProps;
+            const newType = type as PokemonPosibleTypes;
 
             if (type != null && types.includes(newType)) {
               return pokemon;
