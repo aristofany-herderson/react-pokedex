@@ -41,6 +41,7 @@ const SelectPokemonGenerations = [
   { label: "VIII", value: "8" },
 ];
 export const PokemonFilters = () => {
+  const [search, setSearch] = useQueryState("search");
   const [from, setFrom] = useQueryState("from");
   const [to, setTo] = useQueryState("to");
   const [type, setType] = useQueryState("type");
@@ -50,7 +51,13 @@ export const PokemonFilters = () => {
   return (
     <>
       <div className={styles.search}>
-        <input type="text" placeholder="Search your pokemon!" max={50} />
+        <input
+          value={search || ""}
+          onChange={(event) => setSearch(event.target.value)}
+          type="text"
+          placeholder="Search your pokemon!"
+          max={50}
+        />
         <button>
           <Image
             width={20}
@@ -169,11 +176,14 @@ export const PokemonFilters = () => {
             );
           })}
         </Select>
-        <button onClick={() => {
-          setType("")
-          setWeakness("")
-          setGeneration("")
-        }} className={styles.clear}>
+        <button
+          onClick={() => {
+            setType("");
+            setWeakness("");
+            setGeneration("");
+          }}
+          className={styles.clear}
+        >
           <Image
             width={20}
             height={20}

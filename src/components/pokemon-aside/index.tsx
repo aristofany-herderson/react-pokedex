@@ -147,26 +147,35 @@ export const PokemonAside = () => {
             </div>
             <div>
               <h2 className={styles.title}>Weakness</h2>
-              <p>
-                {pokemon?.weakness.map((weak, key) => {
-                  const colors = (POKEMONTYPECOLORS as any)[weak];
+              {pokemon.weakness.length != 0 ? (
+                <p>
+                  {pokemon?.weakness.map((weak, key) => {
+                    console.log(weak)
+                    const colors = (POKEMONTYPECOLORS as any)[weak];
 
-                  return (
-                    <span key={key} style={{ background: colors.medium }}>
-                      <Image
-                        width={10}
-                        height={10}
-                        src={`/icons/pokemon/${weak}.svg`}
-                        alt={`${weak} icon`}
-                      />
-                    </span>
-                  );
-                })}
-              </p>
+                    return (
+                      <span key={key} style={{ background: colors.medium }}>
+                        <Image
+                          width={10}
+                          height={10}
+                          src={`/icons/pokemon/${weak}.svg`}
+                          alt={`${weak} icon`}
+                        />
+                      </span>
+                    );
+                  })}
+                </p>
+              ) : (
+                <p className={styles.noData}>no weakness</p>
+              )}
             </div>
             <div>
               <h2 className={styles.title}>Base EXP</h2>
-              <p>{pokemon?.base_experience}</p>
+              {pokemon.base_experience ? (
+                <p>{pokemon?.base_experience}</p>
+              ) : (
+                <p className={styles.noData}>no data</p>
+              )}
             </div>
           </div>
           <div className={styles.stats}>

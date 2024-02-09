@@ -1,3 +1,5 @@
+import { PokemonPosibleTypes } from "@/@types/pokemon";
+
 export const POKEMONTYPECOLORS = {
   normal: {
     light: "#CDCDB9",
@@ -127,5 +129,22 @@ export const POKEMONGENERATIONS = {
   },
   "generation-ix": {
     value: 9,
+  },
+};
+
+export const POKEMONSTRENGTHBYABILITY: {
+  [key: string]: { strength: PokemonPosibleTypes };
+} = {
+  levitate: {
+    strength: "ground",
+  },
+  "volt-absorb": {
+    strength: "electric",
+  },
+  "water-absorb": {
+    strength: "water",
+  },
+  "flash-fire": {
+    strength: "fire",
   },
 };

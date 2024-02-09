@@ -16,6 +16,7 @@ export const PokemonsLoad = () => {
     AsyncReturnType<typeof getLoadPokemonData>[]
   >([]);
   const [pagination, setPagination] = useState(1);
+  const [search] = useQueryState("search");
   const [from] = useQueryState("from");
   const [to] = useQueryState("to");
   const [type] = useQueryState("type");
@@ -35,6 +36,15 @@ export const PokemonsLoad = () => {
     <>
       <section className={styles.pokemons}>
         {pokemons
+          .filter((pokemon) => {
+            if (search?.trim() == "" || search == undefined || search == null) {
+              return pokemon;
+            } else if (
+              pokemon.name.toLowerCase().includes(search?.toLowerCase())
+            ) {
+              return pokemon;
+            }
+          })
           .filter((pokemon) => {
             const fromVerification =
               from?.trim() != "" && from != null
@@ -59,10 +69,12 @@ export const PokemonsLoad = () => {
             }
           })
           .filter((pokemon) => {
-            const types = pokemon.types.map((type) => type.type.name);
+            const types = pokemon.types.map((type) =>
+              type.type.name.toLowerCase()
+            );
             const newType = type as PokemonPosibleTypes;
 
-            if (type != null && types.includes(newType)) {
+            if (type != null && types.includes(newType.toLowerCase())) {
               return pokemon;
             }
 
@@ -71,10 +83,15 @@ export const PokemonsLoad = () => {
             }
           })
           .filter((pokemon) => {
-            const weaknessList = pokemon.weakness.map((weak) => weak);
+            const weaknessList = pokemon.weakness.map((weak) =>
+              weak.toLowerCase()
+            );
             const newWeakness = weakness as PokemonPosibleTypes;
 
-            if (weakness != null && weaknessList.includes(newWeakness)) {
+            if (
+              weakness != null &&
+              weaknessList.includes(newWeakness.toLowerCase())
+            ) {
               return pokemon;
             }
 

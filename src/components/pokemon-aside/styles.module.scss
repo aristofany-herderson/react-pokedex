@@ -78,6 +78,10 @@
   font-weight: bold;
 }
 
+.noData {
+  color: var(--colors-gray-600);
+}
+
 .entry,
 .abilities,
 .characteristics,
@@ -156,7 +160,6 @@
     height: var(--space-5);
     display: block;
     aspect-ratio: 1 / 1;
-    // padding: var(--space-1);
     border-radius: var(--radii-full);
 
     display: flex;
@@ -219,7 +222,7 @@
 .noSelected {
   width: 100%;
   height: 100%;
-  margin: 14rem 0;
+  margin: 16rem 0;
 
   display: flex;
   align-items: center;

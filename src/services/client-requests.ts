@@ -3,7 +3,7 @@ import { Pokemon, PokemonPosibleTypes } from "@/@types/pokemon";
 import { PokemonSpecies } from "@/@types/pokemon-species";
 import { PokemonsGender } from "@/@types/pokemons-gender";
 import { PokemonsTypes } from "@/@types/pokemons-types";
-import { POKEMONGENERATIONS } from "@/utils/pokemons";
+import { POKEMONGENERATIONS, POKEMONSTRENGTHBYABILITY } from "@/utils/pokemons";
 
 export const getBasePokemonData = async (slug: string | number) => {
   const { data: response } = await api.get<Pokemon>(`pokemon/${slug}`);
@@ -40,6 +40,12 @@ export const getPokemonGenders = async (name: string) => {
   return { isFemale, isMale };
 };
 
+export const getPokemonAbilities = async (name: string) => {
+  const { abilities: response } = await getBasePokemonData(name);
+
+  return response;
+};
+
 export const getPokemonDamageRelations = async (name: string) => {
   const data = await getBasePokemonData(name);
 
@@ -55,11 +61,20 @@ export const getPokemonDamageRelations = async (name: string) => {
 
 export const getPokemonWeakness = async (name: string) => {
   const damageRelations = await getPokemonDamageRelations(name);
-
+  const abilities = await getPokemonAbilities(name);
   const lessDamage: PokemonPosibleTypes[] = [];
   const moreDamage: PokemonPosibleTypes[] = [];
 
-  damageRelations.map((relation) => {
+  abilities.map((ability) => {
+    const newAbility = ability.ability.name;
+    const strength = POKEMONSTRENGTHBYABILITY[newAbility];
+
+    if (strength) {
+      lessDamage.push(strength.strength);
+    }
+  });
+
+  damageRelations.forEach((relation) => {
     const relationsWeakness = relation.damage_relations.double_damage_from;
     const relationsImmunity = relation.damage_relations.no_damage_from;
     const relationsHalf = relation.damage_relations.half_damage_from;
