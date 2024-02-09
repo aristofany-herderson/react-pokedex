@@ -1,14 +1,14 @@
 export const POKEMONTYPECOLORS = {
   normal: {
     light: "#CDCDB9",
-    medium: "#8F8F79",
+    medium: "#7E7E67",
   },
   fire: {
     light: "#F4934D",
     medium: "#A8512B",
   },
   fighting: {
-    light: "#BA5852",
+    light: "#DA736E",
     medium: "#802020",
   },
   water: {
@@ -24,7 +24,7 @@ export const POKEMONTYPECOLORS = {
     medium: "#3D6021",
   },
   poison: {
-    light: "#A768A7",
+    light: "#BE588B",
     medium: "#602040",
   },
   electric: {
@@ -49,18 +49,18 @@ export const POKEMONTYPECOLORS = {
   },
   bug: {
     light: "#B5C534",
-    medium: "#6B8C1F",
+    medium: "#577415",
   },
   dragon: {
-    light: "#8656FA",
+    light: "#966AFD",
     medium: "#4A3086",
   },
   ghost: {
-    light: "#7D6B9B",
+    light: "#917fAF",
     medium: "#403A54",
   },
   dark: {
-    light: "#756459",
+    light: "#968376",
     medium: "#403A31",
   },
   steel: {

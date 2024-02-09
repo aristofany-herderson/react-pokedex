@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 import { POKEMONTYPECOLORS } from "@/utils/pokemons";
 import { baseImageUrl } from "@/services/api";
 import { useQueryState } from "nuqs";
-import { Pokemon, PokemonType } from "@/@types/pokemon";
+import { PokemonType } from "@/@types/pokemon";
 
 type PokemonCardProps = {
   id: number;

@@ -6,10 +6,9 @@ import { fetchPokemons } from "@/services/server-requests";
 import { PokemonCard } from "../pokemon-card";
 import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE } from "@/services/api";
 import { useQueryState } from "nuqs";
-import { Pokemon, PokemonPosibleTypes } from "@/@types/pokemon";
+import { PokemonPosibleTypes } from "@/@types/pokemon";
 import { AsyncReturnType } from "@/@types/async-return-type";
 import { getLoadPokemonData } from "@/services/client-requests";
-import types from "next/types";
 
 export const PokemonsLoad = () => {
   const { ref: loadingRef, inView } = useInView();

@@ -90,7 +90,7 @@ export const getPokemonWeakness = async (name: string) => {
 export const getAllPokemonData = async (slug: string | number) => {
   const pokemonBaseData = await getBasePokemonData(slug);
   const pokemonWeakness = await getPokemonWeakness(pokemonBaseData.name);
-  const pokemonSpecie = await getPokemonSpecie(pokemonBaseData.name);
+  const pokemonSpecie = await getPokemonSpecie(pokemonBaseData.id);
   const pokemonGender = await getPokemonGenders(pokemonBaseData.name);
 
   return {
@@ -114,7 +114,7 @@ export const getAllPokemonData = async (slug: string | number) => {
 export const getLoadPokemonData = async (slug: string | number) => {
   const pokemonBaseData = await getBasePokemonData(slug);
   const pokemonWeakness = await getPokemonWeakness(pokemonBaseData.name);
-  const pokemonSpecie = await getPokemonSpecie(pokemonBaseData.name);
+  const pokemonSpecie = await getPokemonSpecie(pokemonBaseData.id);
 
   return {
     id: pokemonBaseData.id,

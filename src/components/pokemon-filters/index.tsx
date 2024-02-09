@@ -38,6 +38,7 @@ const SelectPokemonGenerations = [
   { label: "V", value: "5" },
   { label: "VI", value: "6" },
   { label: "VII", value: "7" },
+  { label: "VIII", value: "8" },
 ];
 export const PokemonFilters = () => {
   const [from, setFrom] = useQueryState("from");
