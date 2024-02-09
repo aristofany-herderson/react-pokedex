@@ -65,7 +65,7 @@
     text-transform: uppercase;
     font-weight: bold;
     font-size: var(--font-size-xs);
-    padding: var(--space-px) var(--space-1);
+    padding: var(--space-px) var(--space-2);
     border-radius: var(--radii-sm);
   }
 }
@@ -108,6 +108,7 @@
 
   p {
     flex: 1;
+    white-space: nowrap;
     font-weight: bold;
     font-size: var(--font-size-xs);
     text-transform: capitalize;
@@ -237,11 +238,30 @@
 .skeletonFigure,
 .skeletonId,
 .skeletonName,
+.skeletonEntry,
 .skeletonTypes,
 .skeletonAbilities,
 .skeletonCharacteristics,
 .skeletonStats {
   margin: 0 auto;
+  margin-top: var(--space-4);
+}
+
+.skeletonGender {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--space-6);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+
+  p {
+    width: var(--space-7);
+    aspect-ratio: 1/1;
+    border-radius: var(--radii-md);
+  }
 }
 
 .skeletonFigure {
@@ -252,6 +272,7 @@
 }
 
 .skeletonId {
+  margin-top: -3rem;
   width: var(--space-8);
   height: var(--space-3);
   border-radius: var(--radii-sm);
@@ -260,7 +281,6 @@
 .skeletonName {
   width: var(--space-28);
   height: var(--space-7);
-  margin-top: var(--space-2);
   border-radius: var(--radii-sm);
 }
 
@@ -294,9 +314,14 @@
   border-radius: var(--radii-sm);
 }
 
-.skeletonAbilities {
-  margin-top: var(--space-3);
+.skeletonEntry {
+  p {
+    width: 100%;
+    height: var(--space-12);
+  }
+}
 
+.skeletonAbilities {
   div {
     display: flex;
     align-items: center;
@@ -318,11 +343,10 @@
 }
 
 .skeletonCharacteristics {
-  margin-top: var(--space-3);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: var(--space-2);
-  row-gap: var(--space-4);
+  row-gap: var(--space-2);
 
   p {
     width: 100%;
@@ -338,8 +362,6 @@
 }
 
 .skeletonStats {
-  margin-top: var(--space-3);
-
   div {
     display: flex;
     align-items: center;
@@ -354,6 +376,8 @@
   }
 }
 
+.skeletonGender p,
+.skeletonEntry p,
 .skeletonStats p,
 .skeletonCharacteristics p,
 .skeletonAbilities p,

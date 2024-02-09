@@ -4,9 +4,15 @@ import styles from "./styles.module.scss";
 import { POKEMONTYPECOLORS } from "@/utils/pokemons";
 import { baseImageUrl } from "@/services/api";
 import { useQueryState } from "nuqs";
-import { Pokemon } from "@/@types/pokemon";
+import { Pokemon, PokemonType } from "@/@types/pokemon";
 
-export const PokemonCard = ({ id, name, types }: Pokemon) => {
+type PokemonCardProps = {
+  id: number;
+  name: string;
+  types: PokemonType[];
+};
+
+export const PokemonCard = ({ id, name, types }: PokemonCardProps) => {
   const paddedID = String(id).padStart(3, "0");
   const [, setPokemon] = useQueryState("pokemon");
 
@@ -28,9 +34,7 @@ export const PokemonCard = ({ id, name, types }: Pokemon) => {
       <h2 className={styles.name}>{name}</h2>
       <div className={styles.types}>
         {types.map((type, key) => {
-          const [[, colors]] = Object.entries(POKEMONTYPECOLORS).filter(
-            ([key, _]) => key === type.type.name
-          );
+          const colors = (POKEMONTYPECOLORS as any)[type.type.name];
 
           return (
             <p

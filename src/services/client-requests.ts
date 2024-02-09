@@ -3,6 +3,7 @@ import { Pokemon, PokemonPosibleTypes } from "@/@types/pokemon";
 import { PokemonSpecies } from "@/@types/pokemon-species";
 import { PokemonsGender } from "@/@types/pokemons-gender";
 import { PokemonsTypes } from "@/@types/pokemons-types";
+import { POKEMONGENERATIONS } from "@/utils/pokemons";
 
 export const getBasePokemonData = async (slug: string | number) => {
   const { data: response } = await api.get<Pokemon>(`pokemon/${slug}`);
@@ -10,13 +11,10 @@ export const getBasePokemonData = async (slug: string | number) => {
   return response;
 };
 
-export const getPokemonEntry = async (slug: string | number) => {
-  const { data } = await api.get<PokemonSpecies>(
+export const getPokemonSpecie = async (slug: string | number) => {
+  const { data: response } = await api.get<PokemonSpecies>(
     `https://pokeapi.co/api/v2/pokemon-species/${slug}`
   );
-  const response = data.flavor_text_entries.filter((entry) => {
-    if (entry.language.name == "en") return entry;
-  })[0].flavor_text;
 
   return response;
 };
@@ -92,11 +90,8 @@ export const getPokemonWeakness = async (name: string) => {
 export const getAllPokemonData = async (slug: string | number) => {
   const pokemonBaseData = await getBasePokemonData(slug);
   const pokemonWeakness = await getPokemonWeakness(pokemonBaseData.name);
-  const pokemonEntry = await getPokemonEntry(pokemonBaseData.name);
+  const pokemonSpecie = await getPokemonSpecie(pokemonBaseData.name);
   const pokemonGender = await getPokemonGenders(pokemonBaseData.name);
-  const pokemonDamageRelations = await getPokemonDamageRelations(
-    pokemonBaseData.name
-  );
 
   return {
     id: pokemonBaseData.id,
@@ -107,10 +102,28 @@ export const getAllPokemonData = async (slug: string | number) => {
     base_experience: pokemonBaseData.base_experience,
     weight: pokemonBaseData.weight,
     height: pokemonBaseData.height,
-    pokemonBaseData,
     weakness: pokemonWeakness,
-    entry: pokemonEntry,
+    entry:
+      pokemonSpecie?.flavor_text_entries?.filter((entry) => {
+        if (entry.language.name == "en") return entry;
+      })[0]?.flavor_text || "",
     gender: pokemonGender,
-    damage_relation: pokemonDamageRelations,
+  };
+};
+
+export const getLoadPokemonData = async (slug: string | number) => {
+  const pokemonBaseData = await getBasePokemonData(slug);
+  const pokemonWeakness = await getPokemonWeakness(pokemonBaseData.name);
+  const pokemonSpecie = await getPokemonSpecie(pokemonBaseData.name);
+
+  return {
+    id: pokemonBaseData.id,
+    name: pokemonBaseData.name,
+    types: pokemonBaseData.types,
+    abilities: pokemonBaseData.abilities,
+    weight: pokemonBaseData.weight,
+    height: pokemonBaseData.height,
+    generation: POKEMONGENERATIONS[pokemonSpecie.generation.name].value,
+    weakness: pokemonWeakness,
   };
 };

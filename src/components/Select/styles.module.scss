@@ -20,6 +20,9 @@
   }
 
   p {
+    flex: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-bold);
     color: var(--colors-gray-600);
@@ -45,7 +48,6 @@
     background: var(--colors-pokedex-medium);
   }
 
-  
   &:not([data-state="checked"]):hover {
     background: var(--colors-pokedex-ligth);
   }

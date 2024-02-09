@@ -3,24 +3,30 @@ import { useInView } from "react-intersection-observer";
 import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
 import { fetchPokemons } from "@/services/server-requests";
-import { PokemonCard } from "../PokemonCard";
+import { PokemonCard } from "../pokemon-card";
 import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE } from "@/services/api";
 import { useQueryState } from "nuqs";
 import { Pokemon, PokemonPosibleTypes } from "@/@types/pokemon";
+import { AsyncReturnType } from "@/@types/async-return-type";
+import { getLoadPokemonData } from "@/services/client-requests";
+import types from "next/types";
 
 export const PokemonsLoad = () => {
   const { ref: loadingRef, inView } = useInView();
-  const [pokemons, setPokemonsData] = useState<Pokemon[]>([]);
+  const [pokemons, setPokemonsData] = useState<
+    AsyncReturnType<typeof getLoadPokemonData>[]
+  >([]);
   const [pagination, setPagination] = useState(1);
   const [from] = useQueryState("from");
   const [to] = useQueryState("to");
   const [type] = useQueryState("type");
   const [weakness] = useQueryState("weakness");
+  const [generation] = useQueryState("generation");
 
   useEffect(() => {
     if (inView) {
-      fetchPokemons(pagination).then((res: Pokemon[]) => {
-        setPokemonsData([...pokemons, ...res]);
+      fetchPokemons(pagination).then((response) => {
+        setPokemonsData([...pokemons, ...response]);
         setPagination(pagination + 1);
       });
     }
@@ -42,6 +48,16 @@ export const PokemonsLoad = () => {
             if (fromVerification && toVerification) {
               return pokemon;
             }
+
+            if (
+              from == "" ||
+              from == null ||
+              (from == undefined && to == "") ||
+              to == null ||
+              to == undefined
+            ) {
+              return pokemon;
+            }
           })
           .filter((pokemon) => {
             const types = pokemon.types.map((type) => type.type.name);
@@ -51,7 +67,35 @@ export const PokemonsLoad = () => {
               return pokemon;
             }
 
-            if (type == null) {
+            if (type == "" || type == null || type == undefined) {
+              return pokemon;
+            }
+          })
+          .filter((pokemon) => {
+            const weaknessList = pokemon.weakness.map((weak) => weak);
+            const newWeakness = weakness as PokemonPosibleTypes;
+
+            if (weakness != null && weaknessList.includes(newWeakness)) {
+              return pokemon;
+            }
+
+            if (weakness == "" || weakness == null || weakness == undefined) {
+              return pokemon;
+            }
+          })
+          .filter((pokemon) => {
+            if (
+              pokemon.generation != null &&
+              pokemon.generation == Number(generation)
+            ) {
+              return pokemon;
+            }
+
+            if (
+              generation == "" ||
+              generation == null ||
+              generation == undefined
+            ) {
               return pokemon;
             }
           })

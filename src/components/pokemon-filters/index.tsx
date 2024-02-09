@@ -7,7 +7,7 @@ import {
   Select,
   SelectItemPokemonGeneration,
   SelectItemPokemonType,
-} from "../Select";
+} from "../select";
 
 const SelectPokemonTypes = [
   { value: "normal" },
@@ -31,15 +31,15 @@ const SelectPokemonTypes = [
 ];
 
 const SelectPokemonGenerations = [
-  { label: "I", value: "1"  },
-  { label: "II", value: "2"  },
-  { label: "III", value: "3"  },
-  { label: "IV", value: "4"  },
-  { label: "V", value: "5"  },
-  { label: "VI", value: "6"  },
-  { label: "VII", value: "7"  },
+  { label: "I", value: "1" },
+  { label: "II", value: "2" },
+  { label: "III", value: "3" },
+  { label: "IV", value: "4" },
+  { label: "V", value: "5" },
+  { label: "VI", value: "6" },
+  { label: "VII", value: "7" },
 ];
-export const PokemonControllers = () => {
+export const PokemonFilters = () => {
   const [from, setFrom] = useQueryState("from");
   const [to, setTo] = useQueryState("to");
   const [type, setType] = useQueryState("type");
@@ -91,7 +91,7 @@ export const PokemonControllers = () => {
             setType(event);
           }}
           placeholder={
-            <div className={styles.triggerPlaceholder}>
+            <div className={styles.placeholder}>
               <Image
                 width={15}
                 height={15}
@@ -120,7 +120,7 @@ export const PokemonControllers = () => {
             setWeakness(event);
           }}
           placeholder={
-            <div className={styles.triggerPlaceholder}>
+            <div className={styles.placeholder}>
               <Image
                 width={15}
                 height={15}
@@ -149,7 +149,7 @@ export const PokemonControllers = () => {
             setGeneration(event);
           }}
           placeholder={
-            <div className={styles.triggerPlaceholder}>
+            <div className={styles.placeholder}>
               <Image
                 width={15}
                 height={15}
@@ -168,6 +168,18 @@ export const PokemonControllers = () => {
             );
           })}
         </Select>
+        <button onClick={() => {
+          setType("")
+          setWeakness("")
+          setGeneration("")
+        }} className={styles.clear}>
+          <Image
+            width={20}
+            height={20}
+            src="/icons/trash.svg"
+            alt="Trash icon"
+          />
+        </button>
       </div>
     </>
   );

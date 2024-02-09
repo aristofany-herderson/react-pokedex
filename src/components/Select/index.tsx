@@ -45,9 +45,7 @@ export const SelectItemPokemonType = ({
   type,
   ...props
 }: SelectItemPokemonTypeProps) => {
-  const [[, colors]] = Object.entries(POKEMONTYPECOLORS).filter(
-    ([key, _]) => key === type
-  );
+  const colors = (POKEMONTYPECOLORS as any)[type];
 
   return (
     <SelectPrimitive.Item
@@ -61,7 +59,7 @@ export const SelectItemPokemonType = ({
             <Image
               width={12}
               height={12}
-              src={`/icons/${type}.svg`}
+              src={`/icons/pokemon/${type}.svg`}
               alt="icon"
             />
           </span>
@@ -89,10 +87,15 @@ export const SelectItemPokemonGeneration = ({
     >
       <SelectPrimitive.ItemText asChild>
         <div className={styles.itemWrapper}>
-          <span className={styles.span} style={{ background: "var(--colors-gray-600)" }}>
+          <span
+            className={styles.span}
+            style={{ background: "var(--colors-gray-600)" }}
+          >
             {children}
           </span>
-          <p style={{ color: "var(--colors-gray-600)" }}>Generation {children}</p>
+          <p style={{ color: "var(--colors-gray-600)" }}>
+            Generation {children}
+          </p>
         </div>
       </SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator></SelectPrimitive.ItemIndicator>

@@ -88,16 +88,14 @@ export const PokemonAside = () => {
               width={120}
               height={120}
               src={`${baseImageUrl}${paddedID}.png`}
-              alt={"Pikachu"}
+              alt={`${pokemon.name} image`}
             />
           </div>
           <span className={styles.id}>#{paddedID}</span>
           <h2 className={styles.name}>{pokemon?.name}</h2>
           <div className={styles.types}>
             {pokemon?.types.map((type, key) => {
-              const [[, colors]] = Object.entries(POKEMONTYPECOLORS).filter(
-                ([key, _]) => key === type.type.name
-              );
+              const colors = (POKEMONTYPECOLORS as any)[type.type.name];
 
               return (
                 <p
@@ -112,10 +110,12 @@ export const PokemonAside = () => {
               );
             })}
           </div>
-          <div className={styles.entry}>
-            <h2 className={styles.title}>POKÉDEX ENTRY</h2>
-            <p>{pokemon?.entry}</p>
-          </div>
+          {pokemon.entry != "" && (
+            <div className={styles.entry}>
+              <h2 className={styles.title}>POKÉDEX ENTRY</h2>
+              <p>{pokemon?.entry.replace("\f", " ")}</p>
+            </div>
+          )}
           <div className={styles.abilities}>
             <h2 className={styles.title}>Abilities</h2>
             <div>
@@ -149,16 +149,14 @@ export const PokemonAside = () => {
               <h2 className={styles.title}>Weakness</h2>
               <p>
                 {pokemon?.weakness.map((weak, key) => {
-                  const [[, colors]] = Object.entries(POKEMONTYPECOLORS).filter(
-                    ([key, _]) => key === weak
-                  );
+                  const colors = (POKEMONTYPECOLORS as any)[weak];
 
                   return (
                     <span key={key} style={{ background: colors.medium }}>
                       <Image
                         width={10}
                         height={10}
-                        src={`/icons/${weak}.svg`}
+                        src={`/icons/pokemon/${weak}.svg`}
                         alt={`${weak} icon`}
                       />
                     </span>
@@ -216,11 +214,19 @@ export const NoSelected = () => {
 export const PokemonAsideSkeleton = () => {
   return (
     <>
+      <div className={styles.skeletonGender}>
+        <p></p>
+        <p></p>
+      </div>
       <div className={styles.skeletonFigure}></div>
       <div className={styles.skeletonId}></div>
       <h2 className={styles.skeletonName}></h2>
       <div className={styles.skeletonTypes}>
         <p></p>
+        <p></p>
+      </div>
+      <div className={styles.skeletonEntry}>
+        <h2 className={styles.skeletonTitle}></h2>
         <p></p>
       </div>
       <div className={styles.skeletonAbilities}>

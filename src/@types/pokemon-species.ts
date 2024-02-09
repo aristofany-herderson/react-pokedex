@@ -10,6 +10,20 @@ type FlavorTexEntrie = {
   };
 };
 
+type PokemonGeneration = {
+  name:
+    | "generation-i"
+    | "generation-ii"
+    | "generation-iii"
+    | "generation-iv"
+    | "generation-v"
+    | "generation-vi"
+    | "generation-vii"
+    | "generation-viii"
+    | "generation-ix";
+  url: string;
+};
+
 export type PokemonSpecies = {
   base_happiness: number;
   capture_rate: number;
@@ -17,12 +31,12 @@ export type PokemonSpecies = {
   egg_groups: any[];
   evolution_chain: any[];
   evolves_from_species: any[];
-  flavor_text_entries: FlavorTexEntrie[];
+  flavor_text_entries: FlavorTexEntrie[] | null;
   form_description: any[];
   forms_switchable: boolean;
   gender_rate: number;
   genera: any[];
-  generation: any[];
+  generation: PokemonGeneration;
   growth_rate: any[];
   name: string;
   url: string;

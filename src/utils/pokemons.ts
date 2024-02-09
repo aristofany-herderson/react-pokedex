@@ -99,3 +99,33 @@ export const POKEMONSTATS = {
     color: "#fb94a8",
   },
 };
+
+export const POKEMONGENERATIONS = {
+  "generation-i": {
+    value: 1,
+  },
+  "generation-ii": {
+    value: 2,
+  },
+  "generation-iii": {
+    value: 3,
+  },
+  "generation-iv": {
+    value: 4,
+  },
+  "generation-v": {
+    value: 5,
+  },
+  "generation-vi": {
+    value: 6,
+  },
+  "generation-vii": {
+    value: 7,
+  },
+  "generation-viii": {
+    value: 8,
+  },
+  "generation-ix": {
+    value: 9,
+  },
+};
