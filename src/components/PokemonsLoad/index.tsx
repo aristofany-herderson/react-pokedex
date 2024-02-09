@@ -4,9 +4,11 @@ import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
 import { getPokemons } from "@/services/serverRequests";
 import { PokemonProps } from "@/@types/PokemonProps";
+import { PokemonTypeNameProps } from "@/@types/PokemonTypeProps";
 import { PokemonCard } from "../PokemonCard";
 import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE } from "@/services/api";
 import { useQueryState } from "nuqs";
+import { getPokemonWeakness } from "@/services/clientRequests";
 
 export const PokemonsLoad = () => {
   const { ref: loadingRef, inView } = useInView();
@@ -14,6 +16,8 @@ export const PokemonsLoad = () => {
   const [pagination, setPagination] = useState(1);
   const [from, setFrom] = useQueryState("from");
   const [to, setTo] = useQueryState("to");
+  const [type, setType] = useQueryState("type");
+  const [weakness, setWeakness] = useQueryState("weakness");
 
   useEffect(() => {
     if (inView) {
@@ -38,6 +42,18 @@ export const PokemonsLoad = () => {
                 ? pokemon.id <= Number(to)
                 : pokemon.id <= MAXPOKEMONSRENDERED;
             if (fromVerification && toVerification) {
+              return pokemon;
+            }
+          })
+          .filter((pokemon) => {
+            const types = pokemon.types.map((type) => type.type.name);
+            const newType = type as PokemonTypeNameProps;
+
+            if (type != null && types.includes(newType)) {
+              return pokemon;
+            }
+
+            if (type == null) {
               return pokemon;
             }
           })

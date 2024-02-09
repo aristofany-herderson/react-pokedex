@@ -130,15 +130,15 @@ export const PokemonAside = () => {
           <h2 className={styles.name}>{pokemon?.pokemonData?.name}</h2>
           <div className={styles.types}>
             {pokemon?.pokemonData?.types.map((type, key) => {
-              const [[, backgroundColor]] = Object.entries(
+              const [[, colors]] = Object.entries(
                 POKEMONTYPECOLORS
               ).filter(([key, _]) => key === type.type.name);
 
               return (
                 <p
                   style={{
-                    color: backgroundColor.medium,
-                    background: backgroundColor.light,
+                    color: colors.medium,
+                    background: colors.light,
                   }}
                   key={key}
                 >
@@ -184,14 +184,14 @@ export const PokemonAside = () => {
               <h2 className={styles.title}>Weakness</h2>
               <p>
                 {pokemon?.pokemonWeakness.map((weak, key) => {
-                  const [[, backgroundColor]] = Object.entries(
+                  const [[, colors]] = Object.entries(
                     POKEMONTYPECOLORS
                   ).filter(([key, _]) => key === weak);
 
                   return (
                     <span
                       key={key}
-                      style={{ background: backgroundColor.medium }}
+                      style={{ background: colors.medium }}
                     >
                       <Image
                         width={10}

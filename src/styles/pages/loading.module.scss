@@ -1,0 +1,33 @@
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--colors-red);
+  z-index: var(--z-index-overlay);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    animation: rotating 1s infinite linear;
+  }
+
+  p {
+    // margin-top: var(--space-3);
+    font-size: var(--font-size-xs);
+    color: var(--colors-white);
+  }
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
