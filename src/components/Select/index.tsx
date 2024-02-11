@@ -102,3 +102,80 @@ export const SelectItemPokemonGeneration = ({
     </SelectPrimitive.Item>
   );
 };
+
+
+export type SelectItemPokemonNumberProps = React.ComponentProps<
+  typeof SelectPrimitive.Item
+>;
+
+export const SelectItemPokemonNumber = ({
+  children,
+  ...props
+}: SelectItemPokemonGenerationProps) => {
+  return (
+    <SelectPrimitive.Item
+      className={styles.item}
+      style={{ width: "100%" }}
+      {...props}
+    >
+      <SelectPrimitive.ItemText asChild>
+        <div className={styles.itemWrapper}>
+          <span
+            className={styles.span}
+            style={{ background: "var(--colors-gray-600)" }}
+          >
+            <Image
+              width={12}
+              height={12}
+              src={`/icons/sort-descending.svg`}
+              alt="icon"
+            />
+          </span>
+          <p style={{ color: "var(--colors-gray-600)" }}>
+            {children}
+          </p>
+        </div>
+      </SelectPrimitive.ItemText>
+      <SelectPrimitive.ItemIndicator></SelectPrimitive.ItemIndicator>
+    </SelectPrimitive.Item>
+  );
+};
+
+
+
+export type SelectItemPokemonAbilityProps = React.ComponentProps<
+  typeof SelectPrimitive.Item
+>;
+
+export const SelectItemPokemonAbility = ({
+  children,
+  ...props
+}: SelectItemPokemonGenerationProps) => {
+  return (
+    <SelectPrimitive.Item
+      className={styles.item}
+      style={{ width: "100%" }}
+      {...props}
+    >
+      <SelectPrimitive.ItemText asChild>
+        <div className={styles.itemWrapper}>
+          <span
+            className={styles.span}
+            style={{ background: "var(--colors-gray-600)" }}
+          >
+            <Image
+              width={12}
+              height={12}
+              src={`/icons/star.svg`}
+              alt="icon"
+            />
+          </span>
+          <p style={{ color: "var(--colors-gray-600)" }}>
+            {children}
+          </p>
+        </div>
+      </SelectPrimitive.ItemText>
+      <SelectPrimitive.ItemIndicator></SelectPrimitive.ItemIndicator>
+    </SelectPrimitive.Item>
+  );
+};

@@ -1,20 +1,37 @@
 import { api } from "./api";
 import { Pokemon, PokemonPosibleTypes } from "@/@types/pokemon";
 import { PokemonSpecies } from "@/@types/pokemon-species";
+import { PokemonsAbilities } from "@/@types/pokemons-abilities";
 import { PokemonsGender } from "@/@types/pokemons-gender";
 import { PokemonsTypes } from "@/@types/pokemons-types";
 import { POKEMONGENERATIONS, POKEMONSTRENGTHBYABILITY } from "@/utils/pokemons";
 
 export const getBasePokemonData = async (slug: string | number) => {
-  const { data: response } = await api.get<Pokemon>(`pokemon/${slug}`);
+  const { data } = await api.get<Pokemon>(`pokemon/${slug}`);
+
+  const response = {
+    id: data.id,
+    name: data.name,
+    types: data.types,
+    abilities: data.abilities,
+    weight: data.weight,
+    height: data.height,
+    stats: data.stats,
+    base_experience: data.base_experience,
+  };
 
   return response;
 };
 
 export const getPokemonSpecie = async (slug: string | number) => {
-  const { data: response } = await api.get<PokemonSpecies>(
+  const { data } = await api.get<PokemonSpecies>(
     `https://pokeapi.co/api/v2/pokemon-species/${slug}`
   );
+
+  const response = {
+    flavor_text_entries: data.flavor_text_entries,
+    generation: data.generation,
+  };
 
   return response;
 };
@@ -46,6 +63,15 @@ export const getPokemonAbilities = async (name: string) => {
   return response;
 };
 
+export const getAllPokemonAbilities = async () => {
+  const { data } = await api.get<PokemonsAbilities>(
+    "https://pokeapi.co/api/v2/ability?offset=0&limit=99999"
+  );
+  const response = data.results
+
+  return response;
+};
+
 export const getPokemonDamageRelations = async (name: string) => {
   const data = await getBasePokemonData(name);
 
@@ -66,8 +92,8 @@ export const getPokemonWeakness = async (name: string) => {
   const moreDamage: PokemonPosibleTypes[] = [];
 
   abilities.map((ability) => {
-    const newAbility = ability.ability.name;
-    const strength = POKEMONSTRENGTHBYABILITY[newAbility];
+    const currentAbility = ability.ability.name;
+    const strength = POKEMONSTRENGTHBYABILITY[currentAbility];
 
     if (strength) {
       lessDamage.push(strength.strength);
@@ -108,6 +134,11 @@ export const getAllPokemonData = async (slug: string | number) => {
   const pokemonSpecie = await getPokemonSpecie(pokemonBaseData.id);
   const pokemonGender = await getPokemonGenders(pokemonBaseData.name);
 
+  const entry =
+    pokemonSpecie?.flavor_text_entries?.filter((entry) => {
+      if (entry.language.name == "en") return entry;
+    })[0]?.flavor_text || "";
+
   return {
     id: pokemonBaseData.id,
     name: pokemonBaseData.name,
@@ -118,17 +149,13 @@ export const getAllPokemonData = async (slug: string | number) => {
     weight: pokemonBaseData.weight,
     height: pokemonBaseData.height,
     weakness: pokemonWeakness,
-    entry:
-      pokemonSpecie?.flavor_text_entries?.filter((entry) => {
-        if (entry.language.name == "en") return entry;
-      })[0]?.flavor_text || "",
+    entry,
     gender: pokemonGender,
   };
 };
 
 export const getLoadPokemonData = async (slug: string | number) => {
   const pokemonBaseData = await getBasePokemonData(slug);
-  const pokemonWeakness = await getPokemonWeakness(pokemonBaseData.name);
   const pokemonSpecie = await getPokemonSpecie(pokemonBaseData.id);
 
   return {
@@ -139,6 +166,5 @@ export const getLoadPokemonData = async (slug: string | number) => {
     weight: pokemonBaseData.weight,
     height: pokemonBaseData.height,
     generation: POKEMONGENERATIONS[pokemonSpecie.generation.name].value,
-    weakness: pokemonWeakness,
   };
 };

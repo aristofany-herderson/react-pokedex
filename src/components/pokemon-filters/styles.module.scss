@@ -62,15 +62,17 @@
 }
 
 .pokemonAttributes {
+  max-width: 100%;
+  overflow: auto;
   margin-bottom: var(--space-12);
 
   display: flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
 }
 
 .placeholder {
-  padding: var(--space-1) var(--space-3);
+  padding: var(--space-1) 0;
   display: flex;
   align-items: center;
 }

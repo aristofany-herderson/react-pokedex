@@ -5,48 +5,37 @@ import { MAXPOKEMONSRENDERED } from "@/services/api";
 import { useQueryState } from "nuqs";
 import {
   Select,
-  SelectItemPokemonGeneration,
+  SelectItemPokemonAbility,
+  SelectItemPokemonNumber,
   SelectItemPokemonType,
 } from "../select";
+import { getAllPokemonAbilities } from "@/services/client-requests";
+import { useEffect, useState } from "react";
+import { Ability } from "@/@types/pokemons-abilities";
+import { SELECTPOKEMONTYPES, SELECTPOKEMONHEIGHTS, SELECTPOKEMONWEIGHTS } from "@/utils/pokemons";
 
-const SelectPokemonTypes = [
-  { value: "normal" },
-  { value: "fire" },
-  { value: "fighting" },
-  { value: "water" },
-  { value: "flying" },
-  { value: "grass" },
-  { value: "poison" },
-  { value: "electric" },
-  { value: "ground" },
-  { value: "psychic" },
-  { value: "rock" },
-  { value: "ice" },
-  { value: "bug" },
-  { value: "dragon" },
-  { value: "ghost" },
-  { value: "dark" },
-  { value: "steel" },
-  { value: "fairy" },
-];
-
-const SelectPokemonGenerations = [
-  { label: "I", value: "1" },
-  { label: "II", value: "2" },
-  { label: "III", value: "3" },
-  { label: "IV", value: "4" },
-  { label: "V", value: "5" },
-  { label: "VI", value: "6" },
-  { label: "VII", value: "7" },
-  { label: "VIII", value: "8" },
-];
 export const PokemonFilters = () => {
   const [search, setSearch] = useQueryState("search");
   const [from, setFrom] = useQueryState("from");
   const [to, setTo] = useQueryState("to");
   const [type, setType] = useQueryState("type");
   const [weakness, setWeakness] = useQueryState("weakness");
-  const [generation, setGeneration] = useQueryState("generation");
+  const [ability, setAbility] = useQueryState("ability");
+  const [height, setHeight] = useQueryState("height");
+  const [weight, setWeight] = useQueryState("weight");
+  const [abilities, setAbilities] = useState<Ability[]>();
+
+  const fetchPokemonAbilities = async () => {
+    const abilities = await getAllPokemonAbilities();
+
+    return abilities;
+  };
+
+  useEffect(() => {
+    fetchPokemonAbilities().then((data) => {
+      setAbilities(data);
+    });
+  }, []);
 
   return (
     <>
@@ -110,7 +99,7 @@ export const PokemonFilters = () => {
             </div>
           }
         >
-          {SelectPokemonTypes.map((type, key) => {
+          {SELECTPOKEMONTYPES.map((type, key) => {
             return (
               <SelectItemPokemonType
                 key={key}
@@ -139,7 +128,7 @@ export const PokemonFilters = () => {
             </div>
           }
         >
-          {SelectPokemonTypes.map((type, key) => {
+          {SELECTPOKEMONTYPES.map((type, key) => {
             return (
               <SelectItemPokemonType
                 key={key}
@@ -152,9 +141,9 @@ export const PokemonFilters = () => {
           })}
         </Select>
         <Select
-          value={!generation ? "" : generation}
+          value={!ability ? "" : ability}
           onValueChange={(event) => {
-            setGeneration(event);
+            setAbility(event);
           }}
           placeholder={
             <div className={styles.placeholder}>
@@ -164,15 +153,66 @@ export const PokemonFilters = () => {
                 src="/icons/pokeball-gray.svg"
                 alt="icon"
               />
-              <p>Generation</p>
+              <p>Ability</p>
             </div>
           }
         >
-          {SelectPokemonGenerations.map((generation, key) => {
+          {abilities
+            ?.sort((current, next) => {
+              return current.name
+                .toLowerCase()
+                .localeCompare(next.name.toLowerCase());
+            })
+            ?.map((ability, key) => {
+              return (
+                <SelectItemPokemonAbility key={key} value={ability.name}>
+                  {ability.name}
+                </SelectItemPokemonAbility>
+              );
+            })}
+        </Select>
+        <Select
+          value={!height ? "" : height}
+          onValueChange={(event) => {
+            setHeight(event);
+          }}
+          placeholder={
+            <div className={styles.placeholder}>
+              <Image width={15} height={15} src="/icons/egg.svg" alt="icon" />
+              <p>Height</p>
+            </div>
+          }
+        >
+          {SELECTPOKEMONHEIGHTS.map((height, key) => {
             return (
-              <SelectItemPokemonGeneration key={key} value={generation.value}>
-                {generation.label}
-              </SelectItemPokemonGeneration>
+              <SelectItemPokemonNumber key={key} value={key.toString()}>
+                {height.label}
+              </SelectItemPokemonNumber>
+            );
+          })}
+        </Select>
+        <Select
+          value={!weight ? "" : weight}
+          onValueChange={(event) => {
+            setWeight(event);
+          }}
+          placeholder={
+            <div className={styles.placeholder}>
+              <Image
+                width={15}
+                height={15}
+                src="/icons/weight.svg"
+                alt="icon"
+              />
+              <p>Weight</p>
+            </div>
+          }
+        >
+          {SELECTPOKEMONWEIGHTS.map((weight, key) => {
+            return (
+              <SelectItemPokemonNumber key={key} value={key.toString()}>
+                {weight.label}
+              </SelectItemPokemonNumber>
             );
           })}
         </Select>
@@ -180,7 +220,9 @@ export const PokemonFilters = () => {
           onClick={() => {
             setType("");
             setWeakness("");
-            setGeneration("");
+            setAbility("");
+            setHeight("");
+            setWeight("");
           }}
           className={styles.clear}
         >

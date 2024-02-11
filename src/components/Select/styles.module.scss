@@ -1,8 +1,8 @@
 .trigger {
-  max-width: none;
+  max-width: 8rem;
   flex: 1;
   flex-wrap: nowrap;
-  padding: var(--space-1) var(--space-3);
+  padding: var(--space-1) var(--space-2);
   display: flex;
   align-items: center;
   outline: none;
@@ -11,7 +11,7 @@
   border-radius: var(--radii-md);
   box-shadow: 0 0 8px 4px rgba(200, 200, 200, 0.1);
 
-  img {
+  span > div > img {
     margin-right: var(--space-2);
   }
 
@@ -21,17 +21,22 @@
 
   p {
     flex: 1;
-    white-space: nowrap;
-    text-overflow: ellipsis;
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-bold);
     color: var(--colors-gray-600);
+  }
+
+  span > div > span ~ p {
+    max-width: 2rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }
 
 .triggerIcon {
   margin: 0;
-  margin-left: var(--space-5);
+  margin-left: var(--space-4);
 }
 
 .content {
@@ -44,6 +49,11 @@
 .item {
   border-radius: var(--radii-sm);
   outline: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
   &[data-state="checked"] {
     background: var(--colors-pokedex-medium);
   }
@@ -63,6 +73,7 @@
 
   display: flex;
   align-items: center;
+  justify-content: flex-start;
 
   .span {
     height: var(--space-5);
@@ -79,9 +90,15 @@
     color: var(--colors-pokedex-ligth);
   }
   p {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-bold);
     color: var(--colors-gray-600);
-    text-transform: capitalize;
+    &::first-letter {
+      text-transform: uppercase;
+    }
   }
 }

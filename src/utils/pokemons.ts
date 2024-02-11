@@ -148,3 +148,100 @@ export const POKEMONSTRENGTHBYABILITY: {
     strength: "fire",
   },
 };
+
+export const SELECTPOKEMONTYPES = [
+  { value: "normal" },
+  { value: "fire" },
+  { value: "fighting" },
+  { value: "water" },
+  { value: "flying" },
+  { value: "grass" },
+  { value: "poison" },
+  { value: "electric" },
+  { value: "ground" },
+  { value: "psychic" },
+  { value: "rock" },
+  { value: "ice" },
+  { value: "bug" },
+  { value: "dragon" },
+  { value: "ghost" },
+  { value: "dark" },
+  { value: "steel" },
+  { value: "fairy" },
+];
+
+export const SELECTPOKEMONHEIGHTS = [
+  {
+    label: "0.1m - 3m",
+    values: {
+      min: 0,
+      max: 3,
+    },
+  },
+  {
+    label: "3.1m - 6m",
+    values: {
+      min: 3,
+      max: 6,
+    },
+  },
+  {
+    label: "6.1m - 9m",
+    values: {
+      min: 6,
+      max: 9,
+    },
+  },
+  {
+    label: "9.1m - 12m",
+    values: {
+      min: 9,
+      max: 12,
+    },
+  },
+  {
+    label: "12.1m - 14.5m",
+    values: {
+      min: 12,
+      max: 14.5,
+    },
+  },
+];
+
+export const SELECTPOKEMONWEIGHTS = [
+  {
+    label: "0.1kg - 200.0kg",
+    values: {
+      min: 0,
+      max: 200,
+    },
+  },
+  {
+    label: "200.1kg - 400.0kg",
+    values: {
+      min: 200,
+      max: 400,
+    },
+  },
+  {
+    label: "400.1kg - 600.0kg",
+    values: {
+      min: 400,
+      max: 600,
+    },
+  },
+  {
+    label: "600.1kg - 800.0kg",
+    values: {
+      min: 600,
+      max: 800,
+    },
+  },
+  {
+    label: "800.1kg - 999.9kg",
+    values: {
+      min: 800,
+      max: 1000,
+    },
+  },
+];

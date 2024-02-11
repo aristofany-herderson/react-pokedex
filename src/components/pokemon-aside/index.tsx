@@ -41,9 +41,10 @@ export const PokemonAside = () => {
   const isGenderLess = !pokemon?.gender.isFemale && !pokemon?.gender.isMale;
 
   const isNoSelect = !selectedPokemon;
-  const isSelectAndLoading = selectedPokemon != undefined && !pokemon?.id;
+  const isSelectAndLoading =
+    selectedPokemon != undefined && pokemon?.name != selectedPokemon;
   const isSelectAndLoaded =
-    selectedPokemon != undefined && pokemon?.id != undefined;
+    selectedPokemon != undefined && pokemon?.name == selectedPokemon;
   return (
     <>
       {isNoSelect && <NoSelected />}
@@ -61,7 +62,6 @@ export const PokemonAside = () => {
                 />
               </div>
             )}
-
             {pokemon?.gender.isMale && (
               <div className={styles.female}>
                 <Image
@@ -89,6 +89,8 @@ export const PokemonAside = () => {
               height={120}
               src={`${baseImageUrl}${paddedID}.png`}
               alt={`${pokemon.name} image`}
+              blurDataURL={`${baseImageUrl}${paddedID}.png`}
+              placeholder="blur"
             />
           </div>
           <span className={styles.id}>#{paddedID}</span>
@@ -150,7 +152,6 @@ export const PokemonAside = () => {
               {pokemon.weakness.length != 0 ? (
                 <p>
                   {pokemon?.weakness.map((weak, key) => {
-                    console.log(weak)
                     const colors = (POKEMONTYPECOLORS as any)[weak];
 
                     return (
@@ -199,6 +200,20 @@ export const PokemonAside = () => {
                 {totalStats}
               </p>
             </div>
+          </div>
+          <div className={styles.nextPrevPokemons}>
+            <button>
+              <Image width={10} height={10} src="/icons/chevron-left.svg" alt="icons" />
+              <Image width={16} height={16} src={`${baseImageUrl}${pokemon.id.toString().padStart(3, "0")}.png`} alt="pokemon" />
+              <p>Pikachu</p>
+              <span>#002</span>
+            </button>
+            <button>
+              <Image width={16} height={16} src={`${baseImageUrl}${pokemon.id.toString().padStart(3, "0")}.png`} alt="pokemon" />
+              <p>Pikachu</p>
+              <span>#004</span>
+              <Image width={10} height={10} src="/icons/chevron-left.svg" alt="icons" />
+            </button>
           </div>
         </>
       )}
