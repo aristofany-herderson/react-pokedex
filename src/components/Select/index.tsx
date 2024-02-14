@@ -25,9 +25,23 @@ export const Select = ({ children, placeholder, ...props }: SelectProps) => {
       </SelectPrimitive.Trigger>
       <SelectPrimitive.Portal>
         <SelectPrimitive.Content className={styles.content}>
-          <SelectPrimitive.ScrollUpButton></SelectPrimitive.ScrollUpButton>
+          <SelectPrimitive.ScrollUpButton className={styles.scrollTopButton}>
+            <Image
+              width={12}
+              height={12}
+              src={"/icons/chevron-up.svg"}
+              alt="icon"
+            />
+          </SelectPrimitive.ScrollUpButton>
           <SelectPrimitive.Viewport>{children}</SelectPrimitive.Viewport>
-          <SelectPrimitive.ScrollDownButton></SelectPrimitive.ScrollDownButton>
+          <SelectPrimitive.ScrollDownButton className={styles.scrollDownButton}>
+            <Image
+              width={12}
+              height={12}
+              src={"/icons/chevron-down.svg"}
+              alt="icon"
+            />
+          </SelectPrimitive.ScrollDownButton>
         </SelectPrimitive.Content>
       </SelectPrimitive.Portal>
     </SelectPrimitive.Root>
@@ -103,7 +117,6 @@ export const SelectItemPokemonGeneration = ({
   );
 };
 
-
 export type SelectItemPokemonNumberProps = React.ComponentProps<
   typeof SelectPrimitive.Item
 >;
@@ -131,17 +144,13 @@ export const SelectItemPokemonNumber = ({
               alt="icon"
             />
           </span>
-          <p style={{ color: "var(--colors-gray-600)" }}>
-            {children}
-          </p>
+          <p style={{ color: "var(--colors-gray-600)" }}>{children}</p>
         </div>
       </SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator></SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>
   );
 };
-
-
 
 export type SelectItemPokemonAbilityProps = React.ComponentProps<
   typeof SelectPrimitive.Item
@@ -163,16 +172,9 @@ export const SelectItemPokemonAbility = ({
             className={styles.span}
             style={{ background: "var(--colors-gray-600)" }}
           >
-            <Image
-              width={12}
-              height={12}
-              src={`/icons/star.svg`}
-              alt="icon"
-            />
+            <Image width={12} height={12} src={`/icons/star.svg`} alt="icon" />
           </span>
-          <p style={{ color: "var(--colors-gray-600)" }}>
-            {children}
-          </p>
+          <p style={{ color: "var(--colors-gray-600)" }}>{children}</p>
         </div>
       </SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator></SelectPrimitive.ItemIndicator>

@@ -62,6 +62,18 @@ export const filter = (
       }
     })
     .filter((pokemon) => {
+      const weaknesses = pokemon.weakness;
+      const currentWeakness = weakness as PokemonPosibleTypes;
+
+      if (weakness != null && weaknesses.includes(currentWeakness)) {
+        return pokemon;
+      }
+
+      if (weakness == "" || weakness == null || weakness == undefined) {
+        return pokemon;
+      }
+    })
+    .filter((pokemon) => {
       const abilityList = pokemon.abilities.map((ability) =>
         ability.ability.name.toLowerCase()
       );

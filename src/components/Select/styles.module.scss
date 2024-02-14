@@ -46,6 +46,20 @@
   padding: var(--space-3);
 }
 
+.scrollTopButton, .scrollDownButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scrollTopButton {
+  padding: var(--space-2) var(--space-2) 0;
+}
+
+.scrollDownButton {
+  padding: 0 var(--space-2) var(--space-2);
+}
+
 .item {
   border-radius: var(--radii-sm);
   outline: none;

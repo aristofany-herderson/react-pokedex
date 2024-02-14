@@ -1,4 +1,4 @@
-import { api } from "./api";
+import { MAXPOKEMONSRENDERED, api } from "./api";
 import { Pokemon, PokemonPosibleTypes } from "@/@types/pokemon";
 import { PokemonSpecies } from "@/@types/pokemon-species";
 import { PokemonsAbilities } from "@/@types/pokemons-abilities";
@@ -67,7 +67,7 @@ export const getAllPokemonAbilities = async () => {
   const { data } = await api.get<PokemonsAbilities>(
     "https://pokeapi.co/api/v2/ability?offset=0&limit=99999"
   );
-  const response = data.results
+  const response = data.results;
 
   return response;
 };
@@ -128,11 +128,32 @@ export const getPokemonWeakness = async (name: string) => {
   return weakness;
 };
 
+export const getNextAndPrevPokemonData = async (slug: number) => {
+  const prevID = slug - 1 < 1 ? MAXPOKEMONSRENDERED : slug - 1;
+  const nextID = slug + 1 > MAXPOKEMONSRENDERED ? 1 : slug + 1;
+  const prevPokemon = await getBasePokemonData(prevID);
+  const nextPokemon = await getBasePokemonData(nextID);
+
+  return {
+    previous: {
+      id: prevPokemon.id,
+      name: prevPokemon.name,
+    },
+    next: {
+      id: nextPokemon.id,
+      name: nextPokemon.name,
+    },
+  };
+};
+
 export const getAllPokemonData = async (slug: string | number) => {
   const pokemonBaseData = await getBasePokemonData(slug);
   const pokemonWeakness = await getPokemonWeakness(pokemonBaseData.name);
   const pokemonSpecie = await getPokemonSpecie(pokemonBaseData.id);
   const pokemonGender = await getPokemonGenders(pokemonBaseData.name);
+  const pokemonPrevAndNext = await getNextAndPrevPokemonData(
+    pokemonBaseData.id
+  );
 
   const entry =
     pokemonSpecie?.flavor_text_entries?.filter((entry) => {
@@ -151,12 +172,14 @@ export const getAllPokemonData = async (slug: string | number) => {
     weakness: pokemonWeakness,
     entry,
     gender: pokemonGender,
+    adjacent_pokemons: pokemonPrevAndNext,
   };
 };
 
 export const getLoadPokemonData = async (slug: string | number) => {
   const pokemonBaseData = await getBasePokemonData(slug);
   const pokemonSpecie = await getPokemonSpecie(pokemonBaseData.id);
+  const pokemonWeakness = await getPokemonWeakness(pokemonBaseData.name);
 
   return {
     id: pokemonBaseData.id,
@@ -166,5 +189,6 @@ export const getLoadPokemonData = async (slug: string | number) => {
     weight: pokemonBaseData.weight,
     height: pokemonBaseData.height,
     generation: POKEMONGENERATIONS[pokemonSpecie.generation.name].value,
+    weakness: pokemonWeakness,
   };
 };

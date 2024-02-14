@@ -12,7 +12,7 @@ export const PokemonAside = () => {
   const [pokemon, setPokemonData] = useState<AsyncReturnType<
     typeof getAllPokemonData
   > | null>();
-  const [selectedPokemon, _] = useQueryState("pokemon");
+  const [selectedPokemon, setSelectedPokemon] = useQueryState("pokemon");
 
   const getPokemon = async () => {
     if (selectedPokemon) {
@@ -39,12 +39,19 @@ export const PokemonAside = () => {
   const pokemonHeight = pokemon?.height ? pokemon.height / 10 : 0;
   const pokemonWeight = pokemon?.weight ? pokemon.weight / 10 : 0;
   const isGenderLess = !pokemon?.gender.isFemale && !pokemon?.gender.isMale;
+  const adjacentPrevPokemonPaddedID = pokemon?.adjacent_pokemons.previous.id
+    .toString()
+    .padStart(3, "0");
+  const adjacentNextPokemonPaddedID = pokemon?.adjacent_pokemons.next.id
+    .toString()
+    .padStart(3, "0");
 
   const isNoSelect = !selectedPokemon;
   const isSelectAndLoading =
     selectedPokemon != undefined && pokemon?.name != selectedPokemon;
   const isSelectAndLoaded =
     selectedPokemon != undefined && pokemon?.name == selectedPokemon;
+
   return (
     <>
       {isNoSelect && <NoSelected />}
@@ -202,17 +209,47 @@ export const PokemonAside = () => {
             </div>
           </div>
           <div className={styles.nextPrevPokemons}>
-            <button>
-              <Image width={10} height={10} src="/icons/chevron-left.svg" alt="icons" />
-              <Image width={16} height={16} src={`${baseImageUrl}${pokemon.id.toString().padStart(3, "0")}.png`} alt="pokemon" />
-              <p>Pikachu</p>
-              <span>#002</span>
+            <button
+              onClick={() => {
+                setSelectedPokemon(pokemon.adjacent_pokemons.previous.name);
+              }}
+            >
+              <Image
+                width={10}
+                height={10}
+                src="/icons/chevron-left.svg"
+                alt="icons"
+              />
+              <Image
+                className={styles.pokemonImage}
+                width={18}
+                height={18}
+                src={`${baseImageUrl}${adjacentPrevPokemonPaddedID}.png`}
+                alt="pokemon"
+              />
+              <p>{pokemon.adjacent_pokemons.previous.name}</p>
+              <span>#{adjacentPrevPokemonPaddedID}</span>
             </button>
-            <button>
-              <Image width={16} height={16} src={`${baseImageUrl}${pokemon.id.toString().padStart(3, "0")}.png`} alt="pokemon" />
-              <p>Pikachu</p>
-              <span>#004</span>
-              <Image width={10} height={10} src="/icons/chevron-left.svg" alt="icons" />
+            <button
+              onClick={() => {
+                setSelectedPokemon(pokemon.adjacent_pokemons.next.name);
+              }}
+            >
+              <span>#{adjacentNextPokemonPaddedID}</span>
+              <p>{pokemon.adjacent_pokemons.next.name}</p>
+              <Image
+                className={styles.pokemonImage}
+                width={18}
+                height={18}
+                src={`${baseImageUrl}${adjacentNextPokemonPaddedID}.png`}
+                alt="pokemon"
+              />
+              <Image
+                width={10}
+                height={10}
+                src="/icons/chevron-right.svg"
+                alt="icons"
+              />
             </button>
           </div>
         </>
@@ -290,6 +327,7 @@ export const PokemonAsideSkeleton = () => {
           <p></p>
         </div>
       </div>
+      <div className={styles.skeletonNextPrevPokemons}></div>
     </>
   );
 };
