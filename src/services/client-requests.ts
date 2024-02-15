@@ -23,9 +23,9 @@ export const getBasePokemonData = async (slug: string | number) => {
   return response;
 };
 
-export const getPokemonSpecie = async (slug: string | number) => {
+export const getPokemonSpecie = async (id: number) => {
   const { data } = await api.get<PokemonSpecies>(
-    `https://pokeapi.co/api/v2/pokemon-species/${slug}`
+    `https://pokeapi.co/api/v2/pokemon-species/${id}`
   );
 
   const response = {
@@ -37,12 +37,16 @@ export const getPokemonSpecie = async (slug: string | number) => {
 };
 
 export const getPokemonGenders = async (name: string) => {
-  const { data: female } = await api.get<PokemonsGender>(
+  const femaleRequest = api.get<PokemonsGender>(
     `https://pokeapi.co/api/v2/gender/1`
   );
-  const { data: male } = await api.get<PokemonsGender>(
+  const maleRequest = api.get<PokemonsGender>(
     `https://pokeapi.co/api/v2/gender/2`
   );
+  const [{ data: female }, { data: male }] = await Promise.all([
+    femaleRequest,
+    maleRequest,
+  ]);
 
   const isFemale =
     female.pokemon_species_details.filter((pokemon) => {
@@ -57,8 +61,8 @@ export const getPokemonGenders = async (name: string) => {
   return { isFemale, isMale };
 };
 
-export const getPokemonAbilities = async (name: string) => {
-  const { abilities: response } = await getBasePokemonData(name);
+export const getPokemonAbilities = async (slug: string | number) => {
+  const { abilities: response } = await getBasePokemonData(slug);
 
   return response;
 };
@@ -72,8 +76,8 @@ export const getAllPokemonAbilities = async () => {
   return response;
 };
 
-export const getPokemonDamageRelations = async (name: string) => {
-  const data = await getBasePokemonData(name);
+export const getPokemonDamageRelations = async (slug: string | number) => {
+  const data = await getBasePokemonData(slug);
 
   const response = await Promise.all(
     data.types.map(async (type) => {
@@ -85,9 +89,11 @@ export const getPokemonDamageRelations = async (name: string) => {
   return response;
 };
 
-export const getPokemonWeakness = async (name: string) => {
-  const damageRelations = await getPokemonDamageRelations(name);
-  const abilities = await getPokemonAbilities(name);
+export const getPokemonWeakness = async (slug: string | number) => {
+  const [damageRelations, abilities] = await Promise.all([
+    getPokemonDamageRelations(slug),
+    getPokemonAbilities(slug),
+  ]);
   const lessDamage: PokemonPosibleTypes[] = [];
   const moreDamage: PokemonPosibleTypes[] = [];
 
@@ -128,11 +134,16 @@ export const getPokemonWeakness = async (name: string) => {
   return weakness;
 };
 
-export const getNextAndPrevPokemonData = async (slug: number) => {
-  const prevID = slug - 1 < 1 ? MAXPOKEMONSRENDERED : slug - 1;
-  const nextID = slug + 1 > MAXPOKEMONSRENDERED ? 1 : slug + 1;
-  const prevPokemon = await getBasePokemonData(prevID);
-  const nextPokemon = await getBasePokemonData(nextID);
+export const getNextAndPrevPokemonData = async (name: string) => {
+  const currentPokemon = await getBasePokemonData(name);
+  const prevID =
+    currentPokemon.id - 1 < 1 ? MAXPOKEMONSRENDERED : currentPokemon.id - 1;
+  const nextID =
+    currentPokemon.id + 1 > MAXPOKEMONSRENDERED ? 1 : currentPokemon.id + 1;
+  const [prevPokemon, nextPokemon] = await Promise.all([
+    getBasePokemonData(prevID),
+    getBasePokemonData(nextID),
+  ]);
 
   return {
     previous: {
@@ -146,14 +157,15 @@ export const getNextAndPrevPokemonData = async (slug: number) => {
   };
 };
 
-export const getAllPokemonData = async (slug: string | number) => {
-  const pokemonBaseData = await getBasePokemonData(slug);
-  const pokemonWeakness = await getPokemonWeakness(pokemonBaseData.name);
+export const getAllPokemonData = async (name: string) => {
+  const [pokemonBaseData, pokemonWeakness, pokemonGender, pokemonPrevAndNext] =
+    await Promise.all([
+      getBasePokemonData(name),
+      getPokemonWeakness(name),
+      getPokemonGenders(name),
+      getNextAndPrevPokemonData(name),
+    ]);
   const pokemonSpecie = await getPokemonSpecie(pokemonBaseData.id);
-  const pokemonGender = await getPokemonGenders(pokemonBaseData.name);
-  const pokemonPrevAndNext = await getNextAndPrevPokemonData(
-    pokemonBaseData.id
-  );
 
   const entry =
     pokemonSpecie?.flavor_text_entries?.filter((entry) => {
@@ -176,10 +188,12 @@ export const getAllPokemonData = async (slug: string | number) => {
   };
 };
 
-export const getLoadPokemonData = async (slug: string | number) => {
-  const pokemonBaseData = await getBasePokemonData(slug);
-  const pokemonSpecie = await getPokemonSpecie(pokemonBaseData.id);
-  const pokemonWeakness = await getPokemonWeakness(pokemonBaseData.name);
+export const getLoadPokemonData = async (id: number) => {
+  const [pokemonBaseData, pokemonSpecie, pokemonWeakness] = await Promise.all([
+    getBasePokemonData(id),
+    getPokemonSpecie(id),
+    getPokemonWeakness(id),
+  ]);
 
   return {
     id: pokemonBaseData.id,

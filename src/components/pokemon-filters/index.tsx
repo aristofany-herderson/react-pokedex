@@ -12,7 +12,11 @@ import {
 import { getAllPokemonAbilities } from "@/services/client-requests";
 import { useEffect, useState } from "react";
 import { Ability } from "@/@types/pokemons-abilities";
-import { SELECTPOKEMONTYPES, SELECTPOKEMONHEIGHTS, SELECTPOKEMONWEIGHTS } from "@/utils/pokemons";
+import {
+  SELECTPOKEMONTYPES,
+  SELECTPOKEMONHEIGHTS,
+  SELECTPOKEMONWEIGHTS,
+} from "@/utils/pokemons";
 
 export const PokemonFilters = () => {
   const [search, setSearch] = useQueryState("search");

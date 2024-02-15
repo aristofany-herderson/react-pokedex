@@ -1,7 +1,7 @@
 type DamageRelationType = {
   name: string;
   url: string;
-}
+};
 
 type DamageRelation = {
   double_damage_from: DamageRelationType[];
