@@ -96,8 +96,6 @@ export const PokemonAside = () => {
               height={120}
               src={`${baseImageUrl}${paddedID}.png`}
               alt={`${pokemon.name} image`}
-              blurDataURL={`${baseImageUrl}${paddedID}.png`}
-              placeholder="blur"
             />
           </div>
           <span className={styles.id}>#{paddedID}</span>

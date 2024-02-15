@@ -293,13 +293,7 @@
 }
 
 .skeletonFigure,
-.skeletonId,
-.skeletonName,
-.skeletonEntry,
-.skeletonTypes,
-.skeletonAbilities,
-.skeletonCharacteristics,
-.skeletonStats {
+.skeletonId {
   margin: 0 auto;
   margin-top: var(--space-4);
 }
@@ -324,20 +318,21 @@
 .skeletonFigure {
   width: var(--space-28);
   aspect-ratio: 1 / 1;
-  transform: translateY(-50%);
+  transform: translateY(calc(-50% - var(--space-3)));
   border-radius: var(--radii-md);
 }
 
 .skeletonId {
-  margin-top: -3rem;
+  margin-top: -3.4rem;
   width: var(--space-8);
   height: var(--space-3);
   border-radius: var(--radii-sm);
 }
 
 .skeletonName {
-  width: var(--space-28);
+  width: var(--space-32);
   height: var(--space-7);
+  margin: var(--space-3) auto 0;
   border-radius: var(--radii-sm);
 }
 
@@ -345,12 +340,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: var(--space-1);
-  gap: var(--space-3);
+  margin: var(--space-1) auto 0;
+  gap: var(--space-2);
 
   p {
     width: var(--space-12);
-    height: var(--space-5);
+    height: var(--space-7);
     border-radius: var(--radii-sm);
     background: linear-gradient(
         to left,
@@ -363,15 +358,19 @@
 
 .skeletonTitle {
   width: var(--space-20);
+  height: var(--space-5);
   text-align: center;
   margin: 0 auto;
   margin-bottom: var(--space-2);
-  height: var(--space-6);
   margin-top: var(--space-2);
   border-radius: var(--radii-sm);
 }
 
 .skeletonEntry {
+  margin: var(--space-3) auto 0;
+  h2 {
+    width: var(--space-32);
+  }
   p {
     width: 100%;
     height: var(--space-12);
@@ -379,6 +378,8 @@
 }
 
 .skeletonAbilities {
+  margin: var(--space-3) auto 0;
+
   div {
     display: flex;
     align-items: center;
@@ -388,7 +389,7 @@
 
   p {
     flex: 1;
-    height: var(--space-6);
+    height: var(--space-8);
     border-radius: var(--radii-full);
     background: linear-gradient(
         to left,
@@ -400,6 +401,7 @@
 }
 
 .skeletonCharacteristics {
+  margin: var(--space-3) auto 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: var(--space-2);
@@ -407,7 +409,7 @@
 
   p {
     width: 100%;
-    height: var(--space-6);
+    height: var(--space-7);
     border-radius: var(--radii-full);
     background: linear-gradient(
         to left,
@@ -419,11 +421,17 @@
 }
 
 .skeletonStats {
+  margin: var(--space-1) auto 0;
+
   div {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: var(--space-2);
+  }
+
+  h2 {
+    width: var(--space-16);
   }
 
   p {
@@ -436,8 +444,8 @@
 
 .skeletonNextPrevPokemons {
   width: 100%;
-  margin-top: var(--space-8);
-  height: var(--space-12);
+  margin-top: var(--space-10);
+  height: var(--space-14);
   border-radius: var(--radii-md);
 }
 
