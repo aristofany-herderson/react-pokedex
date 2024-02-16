@@ -33,7 +33,7 @@ export const PokemonCard = ({ id, name, types }: PokemonCardProps) => {
   const [, setPokemon] = useQueryState("pokemon", parseAsString);
 
   return (
-    <button onClick={() => setPokemon(name)} className={styles.card}>
+    <button type="button" onClick={() => setPokemon(name)} className={styles.card}>
       <div className={styles.figure}>
         <Image
           width={50}

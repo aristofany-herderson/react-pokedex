@@ -56,6 +56,7 @@ export const PokemonFilters = () => {
     <>
       <div className={styles.search}>
         <input
+          spellCheck={false}
           value={search || ""}
           onChange={(event) => setSearch(event.target.value || null)}
           type="text"

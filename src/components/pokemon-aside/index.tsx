@@ -150,7 +150,7 @@ export const PokemonAside = () => {
               {pokemon?.abilities.map((ability, key) => {
                 return (
                   <p data-hidden={ability.is_hidden} key={key}>
-                    {ability.ability.name}{" "}
+                    {ability.ability.name}
                     {ability.is_hidden && (
                       <Image
                         width={14}
@@ -181,7 +181,11 @@ export const PokemonAside = () => {
                     const colors = (POKEMONTYPECOLORS as any)[weak];
 
                     return (
-                      <span key={key} style={{ background: colors.medium }}>
+                      <span
+                        title={weak}
+                        key={key}
+                        style={{ background: colors.medium }}
+                      >
                         <Image
                           width={10}
                           height={10}
@@ -229,6 +233,7 @@ export const PokemonAside = () => {
           </div>
           <div className={styles.nextPrevPokemons}>
             <button
+              title={pokemon.adjacent_pokemons.previous.name}
               onClick={() => {
                 setSelectedPokemon(pokemon.adjacent_pokemons.previous.name);
               }}
@@ -253,6 +258,7 @@ export const PokemonAside = () => {
               <span>#{adjacentPrevPokemonPaddedID}</span>
             </button>
             <button
+              title={pokemon.adjacent_pokemons.next.name}
               onClick={() => {
                 setSelectedPokemon(pokemon.adjacent_pokemons.next.name);
               }}

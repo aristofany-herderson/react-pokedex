@@ -1,44 +1,36 @@
 .loader {
-  --bar-width: var(--space-1);
-  --bar-min-height: var(--space-2);
-  --bar-max-height: var(--space-4);
-  --bar-gap: var(--space-2);
+  width: min-content;
+  height: var(--space-8);
+  margin: var(--space-10) auto;
+  display: flex;
+  align-items: center;
 
-  position: relative;
-  width: var(--bar-width);
-  height: var(--bar-min-height);
-  margin: var(--space-10) auto var(--space-5);
-  animation: loader 1s infinite ease-in-out;
-  animation-delay: -0.16s;
-  background: var(--colors-red);
+  gap: var(--space-2);
 
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: var(--bar-gap);
-    width: var(--bar-width);
-    height: var(--bar-min-height);
+  .bar {
+    width: var(--space-1);
+    height: var(--space-2);
     animation: loader 1s infinite ease-in-out;
     background: var(--colors-red);
-  }
-
-  &::before {
-    left: calc(-1 * var(--bar-gap));
+    animation: loader 1s infinite ease-in-out;
+  
+    &:nth-child(2) {
+      animation-delay: -0.16s;
+    }
+    &:nth-child(1) {
     animation-delay: -0.32s;
+    }
   }
 }
+
 @keyframes loader {
   0%,
   80%,
   100% {
-    box-shadow: 0 0 var(--colors-red);
-    height: var(--bar-min-height);
+    height: var(--space-4);
   }
   40% {
-    box-shadow: 0 calc(-1 * var(--bar-max-height)) var(--colors-red);
-    height: var(--bar-max-height);
+    height: var(--space-8);
   }
 }
 

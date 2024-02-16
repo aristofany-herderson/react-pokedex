@@ -154,6 +154,7 @@ ul {
 
 ::-webkit-scrollbar {
   width: 14px;
+  height: 14px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -166,6 +167,7 @@ a,
 img,
 svg,
 button,
-iframe {
+iframe,
+input::placeholder {
   user-select: none;
 }

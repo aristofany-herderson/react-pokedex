@@ -9,14 +9,9 @@
   transform: translateY(var(--space-4));
   opacity: 0;
 
-  transition: 0.3s;
   text-align: center;
   cursor: pointer;
   animation: load 0.4s forwards;
-
-  &:hover {
-    transform: translateY(calc(-1 * var(--space-2)));
-  }
 
   &:nth-child(6n - 4) {
     animation-delay: calc(1 * var(--animation-delay));

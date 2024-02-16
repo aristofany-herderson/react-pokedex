@@ -13,6 +13,14 @@ export const metadata: Metadata = {
   title: "React Pokedex | For advanced pokeinfo",
   description: "A advanced pokemon data",
   icons: "/icons/pokeball.svg",
+  creator: "Aristofany Herderson",
+  keywords: "Pokemon, Pokedex, Pokeapi",
+  openGraph: {
+    type: "website",
+    images: "/images/open-graph.jpeg",
+    title: "React Pokedex",
+    description: "For advanced pokeinfo",
+  }
 };
 
 export default function RootLayout({

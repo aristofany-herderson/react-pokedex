@@ -145,7 +145,11 @@ export const PokemonsLoad = () => {
           })}
       </section>
       {MAXPOKEMONSRENDERED + POKEMONSPERPAGE > POKEMONSPERPAGE * pagination && (
-        <div ref={loadingRef} className={styles.loader} />
+        <div ref={loadingRef} className={styles.loader}>
+          <div className={styles.bar} />
+          <div className={styles.bar} />
+          <div className={styles.bar} />
+        </div>
       )}
     </>
   );
