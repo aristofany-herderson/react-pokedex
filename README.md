@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p id="title" align="center">
+  <a href="#title">
+    <img width="80" height="80" src="./public/icons/pokeball.svg" height="128">
+    <h1 align="center">React Pokedex</h1>
+  </a>
+</p>
 
-## Getting Started
+<p align="center">
+  <a aria-label="Made By Aristofany" href="https://github.com/aristofany-herderson/">
+    <img src="https://img.shields.io/badge/MADE%20BY%20Aristofany-000000.svg?style=for-the-badge&labelColor=000&logo=starship&logoColor=fff&logoWidth=20">
+  </a>
+  <a aria-label="Project version" href="https://github.com/aristofany-herderson/react-pokedex/blob/main/package.json">
+    <img alt="" src="https://img.shields.io/github/package-json/v/aristofany-herderson/react-pokedex?color=000&style=for-the-badge&labelColor=000000">
+  </a>
+  <a aria-label="License" href="https://github.com/aristofany-herderson/react-pokedex/blob/main/license.md">
+    <img alt="" src="https://img.shields.io/github/license/aristofany-herderson/react-pokedex?color=000&style=for-the-badge&labelColor=000000">
+  </a>
+  <a aria-label="Enjoy My Repos" href="https://github.com/aristofany-herderson?tab=repositories">
+    <img alt="" src="https://img.shields.io/badge/Enjoy%20My%20Projects-000000.svg?style=for-the-badge&color=000&logo=github&labelColor=000000&logoColor=fff&logoWidth=20">
+  </a>
+</p>
 
-First, run the development server:
+<p align="center">🐉 A React pokedex using Next.js</p>
+
+<br>
+
+## 🧪&nbsp; Technologies
+
+This project was developed with the following technologies:
+
+- [React](https://reactjs.org)
+- [Next](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [SASS](https://sass-lang.com/)
+
+Project Dependencies:
+- [radix](https://www.radix-ui.com/)
+- [axios](https://axios-http.com/)
+- [nuqs](https://nuqs.47ng.com/)
+- [react-intersection-observer](https://react-intersection-observer.vercel.app/)
+- [sharp](https://www.npmjs.com/package/sharp)
+- [next](https://www.npmjs.com/package/next)
+- [react](https://www.npmjs.com/package/react)
+- [react-dom](https://www.npmjs.com/package/react-dom)
+
+Dev Dependencies:
+
+- [@types/node](https://www.npmjs.com/package/@types/node)
+- [@types/react](https://www.npmjs.com/package/@types/react)
+- [@types/react-dom](https://www.npmjs.com/package/@types/react-dom)
+- [sass](https://www.npmjs.com/package/sass)
+- [typescript](https://www.npmjs.com/package/typescript)
+
+<br>
+
+## 🧑🏻‍💻&nbsp; Getting Started
+
+Clone the project and access the project folder
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+$ git clone https://github.com/aristofany-herderson/react-pokedex
+$ cd react-pokedex
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To run it, follow the steps below:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Install dependecies
+$ pnpm install
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# Run the project
+$ pnpm dev
+```
 
-## Learn More
+Open http://localhost:3000 with your browser to see the result.
 
-To learn more about Next.js, take a look at the following resources:
+<br>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 💻&nbsp; Project
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+🐉 A complete pokemon data for you. Including image, name, types, stats, characteristhics and more!
 
-## Deploy on Vercel
+<br>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🧑🏻&nbsp; Author
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<p align="center">
+    <img width="20%" src="https://github.com/aristofany-herderson.png" alt="aristofany-herderson">
+  <p align="center">
+    Aristofany Herderson
+  </p >
+  <p align="center">
+    <a  href="https://www.linkedin.com/in/aristofany-herderson/" target="_blank">
+    <img align="center" src="https://img.shields.io/badge/LINKEDIN-000000.svg?style=for-the-badge&labelColor=0a66c2&logo=linkedin&logoColor=fff&logoWidth=20" alt="linkedin"/>
+  </a>
+  <a href="https://twitter.com/aristofanyherde" target="_blank">
+    <img align="center" src="https://img.shields.io/badge/TWITTER-000000.svg?style=for-the-badge&labelColor=1d9bf0&logo=twitter&logoColor=fff&logoWidth=20" alt="linkedin"/>
+  </a>
+  <a href="https://www.instagram.com/aristofany_herderson/" target="_blank">
+    <img align="center" src="https://img.shields.io/badge/INSTAGRAM-000000.svg?style=for-the-badge&labelColor=dd326f&logo=instagram&logoColor=fff&logoWidth=20" alt="linkedin"/>
+  </a>
+  </p>
+</p>
