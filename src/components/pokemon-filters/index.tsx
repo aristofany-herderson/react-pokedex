@@ -99,6 +99,7 @@ export const PokemonFilters = () => {
       </div>
       <div className={styles.pokemonAttributes}>
         <Select
+          ariaLabel={"type"}
           value={type || ""}
           onValueChange={(event: PokemonPosibleTypes) => {
             setType(event);
@@ -128,6 +129,7 @@ export const PokemonFilters = () => {
           })}
         </Select>
         <Select
+          ariaLabel={"weakness"}
           value={weakness || ""}
           onValueChange={(event: PokemonPosibleTypes) => {
             setWeakness(event);
@@ -157,6 +159,7 @@ export const PokemonFilters = () => {
           })}
         </Select>
         <Select
+          ariaLabel={"ability"}
           value={ability || ""}
           onValueChange={(event) => {
             setAbility(event);
@@ -188,6 +191,7 @@ export const PokemonFilters = () => {
             })}
         </Select>
         <Select
+          ariaLabel={"height"}
           value={height?.toString() || ""}
           onValueChange={(event) => {
             setHeight(Number(event));
@@ -208,6 +212,7 @@ export const PokemonFilters = () => {
           })}
         </Select>
         <Select
+          ariaLabel={"weight"}
           value={weight?.toString() || ""}
           onValueChange={(event) => {
             setWeight(Number(event));
@@ -233,6 +238,7 @@ export const PokemonFilters = () => {
           })}
         </Select>
         <button
+          aria-label="clear"
           onClick={() => {
             setType(null);
             setWeakness(null);

@@ -6,12 +6,13 @@ import { POKEMONTYPECOLORS } from "@/utils/pokemons";
 
 export type SelectProps = React.ComponentProps<typeof SelectPrimitive.Root> & {
   placeholder?: ReactNode;
+  ariaLabel: string;
 };
 
-export const Select = ({ children, placeholder, ...props }: SelectProps) => {
+export const Select = ({ ariaLabel, children, placeholder, ...props }: SelectProps) => {
   return (
     <SelectPrimitive.Root {...props}>
-      <SelectPrimitive.Trigger className={styles.trigger}>
+      <SelectPrimitive.Trigger aria-label={ariaLabel} className={styles.trigger}>
         <SelectPrimitive.Value placeholder={placeholder} />
         <SelectPrimitive.Icon asChild>
           <Image
