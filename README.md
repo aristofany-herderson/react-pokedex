@@ -13,7 +13,7 @@
     <img alt="" src="https://img.shields.io/github/package-json/v/aristofany-herderson/react-pokedex?color=000&style=for-the-badge&labelColor=000000">
   </a>
   <a aria-label="License" href="https://github.com/aristofany-herderson/react-pokedex/blob/main/license.md">
-    <img alt="" src="https://img.shields.io/github/license/aristofany-herderson/react-pokedex?color=000&style=for-the-badge&labelColor=000000">
+    <img alt="" src="https://img.shields.io/github/license/aristofany-herderson/react-pokedex?color=000&style=for-the-badge&labelColor=000">
   </a>
   <a aria-label="Enjoy My Repos" href="https://github.com/aristofany-herderson?tab=repositories">
     <img alt="" src="https://img.shields.io/badge/Enjoy%20My%20Projects-000000.svg?style=for-the-badge&color=000&logo=github&labelColor=000000&logoColor=fff&logoWidth=20">
