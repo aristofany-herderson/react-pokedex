@@ -42,7 +42,7 @@ export const PokemonCard = ({ id, name, types }: PokemonCardProps) => {
             pokemonImageLoader(50, 50)
           )}`}
           src={`${baseImageUrl}${paddedID}.png`}
-          alt={name}
+          alt={`${name} pokemon image`}
         />
       </div>
       <span className={styles.id}>nº {paddedID}</span>

@@ -1,17 +1,44 @@
 .card {
+  --animation-delay: 0.1s;
   width: 100%;
   padding: var(--space-5);
   background: var(--colors-white);
   border-radius: var(--radii-lg);
   box-shadow: 0 0 8px 4px rgba(200, 200, 200, 0.1);
   flex-direction: column;
+  transform: translateY(var(--space-4));
+  opacity: 0;
 
   transition: 0.3s;
   text-align: center;
   cursor: pointer;
+  animation: load 0.4s forwards;
 
   &:hover {
     transform: translateY(calc(-1 * var(--space-2)));
+  }
+
+  &:nth-child(6n - 4) {
+    animation-delay: calc(1 * var(--animation-delay));
+  }
+  &:nth-child(6n - 3) {
+    animation-delay: calc(2 * var(--animation-delay));
+  }
+  &:nth-child(6n - 2) {
+    animation-delay: calc(3 * var(--animation-delay));
+  }
+  &:nth-child(6n - 1) {
+    animation-delay: calc(4 * var(--animation-delay));
+  }
+  &:nth-child(6n) {
+    animation-delay: calc(5 * var(--animation-delay));
+  }
+}
+
+@keyframes load {
+  100% {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 

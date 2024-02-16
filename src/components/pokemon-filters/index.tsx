@@ -2,7 +2,6 @@
 import Image from "next/image";
 import styles from "./styles.module.scss";
 import { MAXPOKEMONSRENDERED } from "@/services/api";
-import { useQueryState } from "nuqs";
 import {
   Select,
   SelectItemPokemonAbility,
@@ -110,7 +109,7 @@ export const PokemonFilters = () => {
                 width={15}
                 height={15}
                 src="/icons/target.svg"
-                alt="icon"
+                alt="Pokemon type icon"
               />
               <p>Type</p>
             </div>
@@ -140,7 +139,7 @@ export const PokemonFilters = () => {
                 width={15}
                 height={15}
                 src="/icons/weakness.svg"
-                alt="icon"
+                alt="Pokemon weakness icon"
               />
               <p>Weakness</p>
             </div>
@@ -170,7 +169,7 @@ export const PokemonFilters = () => {
                 width={15}
                 height={15}
                 src="/icons/pokeball-gray.svg"
-                alt="icon"
+                alt="Pokemon ability icon"
               />
               <p>Ability</p>
             </div>
@@ -198,14 +197,23 @@ export const PokemonFilters = () => {
           }}
           placeholder={
             <div className={styles.placeholder}>
-              <Image width={15} height={15} src="/icons/egg.svg" alt="icon" />
+              <Image
+                width={15}
+                height={15}
+                src="/icons/egg.svg"
+                alt="Pokemon height icon"
+              />
               <p>Height</p>
             </div>
           }
         >
           {SELECTPOKEMONHEIGHTS.map((height, key) => {
             return (
-              <SelectItemPokemonNumber key={key} value={key.toString()}>
+              <SelectItemPokemonNumber
+                level={height.level}
+                key={key}
+                value={key.toString()}
+              >
                 {height.label}
               </SelectItemPokemonNumber>
             );
@@ -223,7 +231,7 @@ export const PokemonFilters = () => {
                 width={15}
                 height={15}
                 src="/icons/weight.svg"
-                alt="icon"
+                alt="Pokemon weight icon"
               />
               <p>Weight</p>
             </div>
@@ -231,7 +239,11 @@ export const PokemonFilters = () => {
         >
           {SELECTPOKEMONWEIGHTS.map((weight, key) => {
             return (
-              <SelectItemPokemonNumber key={key} value={key.toString()}>
+              <SelectItemPokemonNumber
+                level={weight.level}
+                key={key}
+                value={key.toString()}
+              >
                 {weight.label}
               </SelectItemPokemonNumber>
             );
@@ -252,7 +264,7 @@ export const PokemonFilters = () => {
             width={20}
             height={20}
             src="/icons/trash.svg"
-            alt="Trash icon"
+            alt="Clear filters icon"
           />
         </button>
       </div>

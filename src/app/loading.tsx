@@ -9,7 +9,7 @@ export default function LoadingPage() {
         width={100}
         height={100}
         src={"/icons/pokeball.svg"}
-        alt="Loading image"
+        alt="Image of pokeball (loading image)"
       />
       <p>Loading...</p>
     </div>

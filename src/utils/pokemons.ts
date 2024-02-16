@@ -102,6 +102,24 @@ export const POKEMONSTATS = {
   },
 };
 
+export const POKEMONSLEVELS = {
+  1: {
+    color: "#5CA463",
+  },
+  2: {
+    color: "#90C78E",
+  },
+  3: {
+    color: "#B5A88A",
+  },
+  4: {
+    color: "#E3A857",
+  },
+  5: {
+    color: "#DC143C",
+  },
+};
+
 export const POKEMONGENERATIONS = {
   "generation-i": {
     value: 1,
@@ -170,8 +188,18 @@ export const SELECTPOKEMONTYPES = [
   { value: "fairy" },
 ];
 
-export const SELECTPOKEMONHEIGHTS = [
+type SelectePokemonNumber = {
+  level: 1 | 2 | 3 | 4 | 5,
+  label: string;
+  values: {
+    min: number;
+    max: number;
+  }
+}
+
+export const SELECTPOKEMONHEIGHTS: SelectePokemonNumber[] = [
   {
+    level: 1,
     label: "0.1m - 3m",
     values: {
       min: 0,
@@ -179,6 +207,7 @@ export const SELECTPOKEMONHEIGHTS = [
     },
   },
   {
+    level: 2,
     label: "3.1m - 6m",
     values: {
       min: 3,
@@ -186,6 +215,7 @@ export const SELECTPOKEMONHEIGHTS = [
     },
   },
   {
+    level: 3,
     label: "6.1m - 9m",
     values: {
       min: 6,
@@ -193,6 +223,7 @@ export const SELECTPOKEMONHEIGHTS = [
     },
   },
   {
+    level: 4,
     label: "9.1m - 12m",
     values: {
       min: 9,
@@ -200,6 +231,7 @@ export const SELECTPOKEMONHEIGHTS = [
     },
   },
   {
+    level: 5,
     label: "12.1m - 14.5m",
     values: {
       min: 12,
@@ -208,8 +240,9 @@ export const SELECTPOKEMONHEIGHTS = [
   },
 ];
 
-export const SELECTPOKEMONWEIGHTS = [
+export const SELECTPOKEMONWEIGHTS: SelectePokemonNumber[] = [
   {
+    level: 1,
     label: "0.1kg - 200.0kg",
     values: {
       min: 0,
@@ -217,6 +250,7 @@ export const SELECTPOKEMONWEIGHTS = [
     },
   },
   {
+    level: 2,
     label: "200.1kg - 400.0kg",
     values: {
       min: 200,
@@ -224,6 +258,7 @@ export const SELECTPOKEMONWEIGHTS = [
     },
   },
   {
+    level: 3,
     label: "400.1kg - 600.0kg",
     values: {
       min: 400,
@@ -231,6 +266,7 @@ export const SELECTPOKEMONWEIGHTS = [
     },
   },
   {
+    level: 4,
     label: "600.1kg - 800.0kg",
     values: {
       min: 600,
@@ -238,6 +274,7 @@ export const SELECTPOKEMONWEIGHTS = [
     },
   },
   {
+    level: 5,
     label: "800.1kg - 999.9kg",
     values: {
       min: 800,

@@ -7,7 +7,6 @@ import { PokemonCard } from "../pokemon-card";
 import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE } from "@/services/api";
 import { AsyncReturnType } from "@/@types/async-return-type";
 import { getLoadPokemonData } from "@/services/client-requests";
-import { useQueryState } from "nuqs";
 import { PokemonPosibleTypes } from "@/@types/pokemon";
 import { SELECTPOKEMONHEIGHTS, SELECTPOKEMONWEIGHTS } from "@/utils/pokemons";
 import { usePokemonQueryParams } from "@/hooks/usePokemonQueryParams";
@@ -146,11 +145,7 @@ export const PokemonsLoad = () => {
           })}
       </section>
       {MAXPOKEMONSRENDERED + POKEMONSPERPAGE > POKEMONSPERPAGE * pagination && (
-        <div className={styles.loader} ref={loadingRef}>
-          <div className={styles.bounceOne}></div>
-          <div className={styles.bounceTwo}></div>
-          <div className={styles.bounceThree}></div>
-        </div>
+        <div ref={loadingRef} className={styles.loader} />
       )}
     </>
   );

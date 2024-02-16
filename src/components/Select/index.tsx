@@ -1,18 +1,26 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import styles from "./styles.module.scss";
 import Image from "next/image";
-import { POKEMONTYPECOLORS } from "@/utils/pokemons";
+import { POKEMONSLEVELS, POKEMONTYPECOLORS } from "@/utils/pokemons";
 
 export type SelectProps = React.ComponentProps<typeof SelectPrimitive.Root> & {
   placeholder?: ReactNode;
   ariaLabel: string;
 };
 
-export const Select = ({ ariaLabel, children, placeholder, ...props }: SelectProps) => {
+export const Select = ({
+  ariaLabel,
+  children,
+  placeholder,
+  ...props
+}: SelectProps) => {
   return (
     <SelectPrimitive.Root {...props}>
-      <SelectPrimitive.Trigger aria-label={ariaLabel} className={styles.trigger}>
+      <SelectPrimitive.Trigger
+        aria-label={ariaLabel}
+        className={styles.trigger}
+      >
         <SelectPrimitive.Value placeholder={placeholder} />
         <SelectPrimitive.Icon asChild>
           <Image
@@ -20,7 +28,7 @@ export const Select = ({ ariaLabel, children, placeholder, ...props }: SelectPro
             width={12}
             height={12}
             src={"/icons/chevron-down.svg"}
-            alt="Chevron icon"
+            alt="Open select icon"
           />
         </SelectPrimitive.Icon>
       </SelectPrimitive.Trigger>
@@ -31,7 +39,7 @@ export const Select = ({ ariaLabel, children, placeholder, ...props }: SelectPro
               width={12}
               height={12}
               src={"/icons/chevron-up.svg"}
-              alt="icon"
+              alt="Scroll top select icon (chevron)"
             />
           </SelectPrimitive.ScrollUpButton>
           <SelectPrimitive.Viewport>{children}</SelectPrimitive.Viewport>
@@ -40,7 +48,7 @@ export const Select = ({ ariaLabel, children, placeholder, ...props }: SelectPro
               width={12}
               height={12}
               src={"/icons/chevron-down.svg"}
-              alt="icon"
+              alt="Scroll down select icon (chevron)"
             />
           </SelectPrimitive.ScrollDownButton>
         </SelectPrimitive.Content>
@@ -75,7 +83,7 @@ export const SelectItemPokemonType = ({
               width={12}
               height={12}
               src={`/icons/pokemon/${type}.svg`}
-              alt="icon"
+              alt={`Pokemon ${type} type icon`}
             />
           </span>
           <p style={{ color: colors.medium }}>{children}</p>
@@ -86,46 +94,17 @@ export const SelectItemPokemonType = ({
   );
 };
 
-export type SelectItemPokemonGenerationProps = React.ComponentProps<
-  typeof SelectPrimitive.Item
->;
-
-export const SelectItemPokemonGeneration = ({
-  children,
-  ...props
-}: SelectItemPokemonGenerationProps) => {
-  return (
-    <SelectPrimitive.Item
-      className={styles.item}
-      style={{ width: "100%" }}
-      {...props}
-    >
-      <SelectPrimitive.ItemText asChild>
-        <div className={styles.itemWrapper}>
-          <span
-            className={styles.span}
-            style={{ background: "var(--colors-gray-600)" }}
-          >
-            {children}
-          </span>
-          <p style={{ color: "var(--colors-gray-600)" }}>
-            Generation {children}
-          </p>
-        </div>
-      </SelectPrimitive.ItemText>
-      <SelectPrimitive.ItemIndicator></SelectPrimitive.ItemIndicator>
-    </SelectPrimitive.Item>
-  );
-};
-
 export type SelectItemPokemonNumberProps = React.ComponentProps<
   typeof SelectPrimitive.Item
->;
+> & {
+  level: 1 | 2 | 3 | 4 | 5;
+};
 
 export const SelectItemPokemonNumber = ({
   children,
+  level,
   ...props
-}: SelectItemPokemonGenerationProps) => {
+}: SelectItemPokemonNumberProps) => {
   return (
     <SelectPrimitive.Item
       className={styles.item}
@@ -136,7 +115,7 @@ export const SelectItemPokemonNumber = ({
         <div className={styles.itemWrapper}>
           <span
             className={styles.span}
-            style={{ background: "var(--colors-gray-600)" }}
+            style={{ background: POKEMONSLEVELS[level].color }}
           >
             <Image
               width={12}
@@ -160,7 +139,7 @@ export type SelectItemPokemonAbilityProps = React.ComponentProps<
 export const SelectItemPokemonAbility = ({
   children,
   ...props
-}: SelectItemPokemonGenerationProps) => {
+}: SelectItemPokemonAbilityProps) => {
   return (
     <SelectPrimitive.Item
       className={styles.item}
@@ -171,7 +150,7 @@ export const SelectItemPokemonAbility = ({
         <div className={styles.itemWrapper}>
           <span
             className={styles.span}
-            style={{ background: "var(--colors-gray-600)" }}
+            style={{ background: "var(--colors-yellow)" }}
           >
             <Image width={12} height={12} src={`/icons/star.svg`} alt="icon" />
           </span>
