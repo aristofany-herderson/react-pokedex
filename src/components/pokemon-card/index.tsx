@@ -3,7 +3,7 @@ import Image from "next/image";
 import styles from "./styles.module.scss";
 import { POKEMONTYPECOLORS } from "@/utils/pokemons";
 import { baseImageUrl } from "@/services/api";
-import { useQueryState } from "nuqs";
+import { parseAsString, useQueryState } from "nuqs";
 import { PokemonType } from "@/@types/pokemon";
 import { toBase64 } from "@/utils/to-base-64";
 
@@ -30,7 +30,7 @@ const pokemonImageLoader = (width: number, height: number) => `
 
 export const PokemonCard = ({ id, name, types }: PokemonCardProps) => {
   const paddedID = String(id).padStart(3, "0");
-  const [, setPokemon] = useQueryState("pokemon");
+  const [, setPokemon] = useQueryState("pokemon", parseAsString);
 
   return (
     <button onClick={() => setPokemon(name)} className={styles.card}>

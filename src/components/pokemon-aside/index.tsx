@@ -5,14 +5,17 @@ import { getAllPokemonData } from "@/services/client-requests";
 import { useEffect, useState } from "react";
 import { baseImageUrl } from "@/services/api";
 import { POKEMONTYPECOLORS, POKEMONSTATS } from "@/utils/pokemons";
-import { useQueryState } from "nuqs";
+import { parseAsString, useQueryState } from "nuqs";
 import { AsyncReturnType } from "@/@types/async-return-type";
 
 export const PokemonAside = () => {
   const [pokemon, setPokemonData] = useState<AsyncReturnType<
     typeof getAllPokemonData
   > | null>();
-  const [selectedPokemon, setSelectedPokemon] = useQueryState("pokemon");
+  const [selectedPokemon, setSelectedPokemon] = useQueryState(
+    "pokemon",
+    parseAsString
+  );
 
   const getPokemon = async () => {
     if (selectedPokemon) {

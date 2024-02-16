@@ -10,6 +10,7 @@ import { getLoadPokemonData } from "@/services/client-requests";
 import { useQueryState } from "nuqs";
 import { PokemonPosibleTypes } from "@/@types/pokemon";
 import { SELECTPOKEMONHEIGHTS, SELECTPOKEMONWEIGHTS } from "@/utils/pokemons";
+import { usePokemonQueryParams } from "@/hooks/usePokemonQueryParams";
 
 export const PokemonsLoad = () => {
   const { ref: loadingRef, inView } = useInView();
@@ -18,14 +19,8 @@ export const PokemonsLoad = () => {
   >([]);
   const [pagination, setPagination] = useState(1);
 
-  const [search] = useQueryState("search");
-  const [from] = useQueryState("from");
-  const [to] = useQueryState("to");
-  const [type] = useQueryState("type");
-  const [weakness] = useQueryState("weakness");
-  const [ability] = useQueryState("ability");
-  const [weight] = useQueryState("weight");
-  const [height] = useQueryState("height");
+  const { search, from, to, type, weakness, ability, weight, height } =
+    usePokemonQueryParams();
 
   useEffect(() => {
     if (inView) {
@@ -41,7 +36,7 @@ export const PokemonsLoad = () => {
       <section className={styles.pokemons}>
         {pokemons
           .filter((pokemon) => {
-            if (search?.trim() == "" || search == undefined || search == null) {
+            if (search?.trim() == "" || search == null) {
               return pokemon;
             } else if (
               pokemon.name.toLowerCase().includes(search?.toLowerCase())
@@ -51,25 +46,17 @@ export const PokemonsLoad = () => {
           })
           .filter((pokemon) => {
             const fromVerification =
-              from?.trim() != "" && from != null
-                ? pokemon.id >= Number(from)
-                : pokemon.id >= 0;
+              from != null ? pokemon.id >= Number(from) : pokemon.id >= 0;
             const toVerification =
-              to?.trim() != "" && to != null
+              to != null
                 ? pokemon.id <= Number(to)
                 : pokemon.id <= MAXPOKEMONSRENDERED;
+
             if (fromVerification && toVerification) {
               return pokemon;
             }
 
-            if (
-              from == "" ||
-              from == null ||
-              from == undefined ||
-              to == "" ||
-              to == null ||
-              to == undefined
-            ) {
+            if (from == null || to == null) {
               return pokemon;
             }
           })
@@ -83,7 +70,7 @@ export const PokemonsLoad = () => {
               return pokemon;
             }
 
-            if (type == "" || type == null || type == undefined) {
+            if (type == null) {
               return pokemon;
             }
           })
@@ -95,7 +82,7 @@ export const PokemonsLoad = () => {
               return pokemon;
             }
 
-            if (weakness == "" || weakness == null || weakness == undefined) {
+            if (weakness == null) {
               return pokemon;
             }
           })
@@ -112,7 +99,7 @@ export const PokemonsLoad = () => {
               return pokemon;
             }
 
-            if (ability == "" || ability == null || ability == undefined) {
+            if (ability == null || ability == undefined) {
               return pokemon;
             }
           })
@@ -121,25 +108,17 @@ export const PokemonsLoad = () => {
             const pokemonWeight = pokemon.weight / 10;
 
             const minVerification =
-              (currentWeight != null ||
-                currentWeight != undefined ||
-                currentWeight == "") &&
+              currentWeight != null &&
               SELECTPOKEMONWEIGHTS[currentWeight]?.values?.min < pokemonWeight;
 
             const maxVerification =
-              (currentWeight != null ||
-                currentWeight != undefined ||
-                currentWeight == "") &&
+              currentWeight != null &&
               SELECTPOKEMONWEIGHTS[currentWeight]?.values?.max >= pokemonWeight;
             if (minVerification && maxVerification) {
               return pokemon;
             }
 
-            if (
-              currentWeight == null ||
-              currentWeight == undefined ||
-              String(currentWeight).trim() == ""
-            ) {
+            if (currentWeight == null) {
               return pokemon;
             }
           })
@@ -148,25 +127,17 @@ export const PokemonsLoad = () => {
             const pokemonHeight = pokemon.height / 10;
 
             const minVerification =
-              (currentHeight != null ||
-                currentHeight != undefined ||
-                currentHeight == "") &&
+              currentHeight != null &&
               SELECTPOKEMONHEIGHTS[currentHeight]?.values?.min < pokemonHeight;
 
             const maxVerification =
-              (currentHeight != null ||
-                currentHeight != undefined ||
-                currentHeight == "") &&
+              currentHeight != null &&
               SELECTPOKEMONHEIGHTS[currentHeight]?.values?.max >= pokemonHeight;
             if (minVerification && maxVerification) {
               return pokemon;
             }
 
-            if (
-              currentHeight == null ||
-              currentHeight == undefined ||
-              String(currentHeight).trim() == ""
-            ) {
+            if (currentHeight == null) {
               return pokemon;
             }
           })

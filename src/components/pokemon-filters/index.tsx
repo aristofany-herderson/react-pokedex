@@ -17,17 +17,29 @@ import {
   SELECTPOKEMONHEIGHTS,
   SELECTPOKEMONWEIGHTS,
 } from "@/utils/pokemons";
+import { usePokemonQueryParams } from "@/hooks/usePokemonQueryParams";
+import { PokemonPosibleTypes } from "@/@types/pokemon";
 
 export const PokemonFilters = () => {
-  const [search, setSearch] = useQueryState("search");
-  const [from, setFrom] = useQueryState("from");
-  const [to, setTo] = useQueryState("to");
-  const [type, setType] = useQueryState("type");
-  const [weakness, setWeakness] = useQueryState("weakness");
-  const [ability, setAbility] = useQueryState("ability");
-  const [height, setHeight] = useQueryState("height");
-  const [weight, setWeight] = useQueryState("weight");
   const [abilities, setAbilities] = useState<Ability[]>();
+  const {
+    ability,
+    from,
+    height,
+    search,
+    setAbility,
+    setFrom,
+    setHeight,
+    setSearch,
+    setTo,
+    setType,
+    setWeakness,
+    setWeight,
+    to,
+    type,
+    weakness,
+    weight,
+  } = usePokemonQueryParams();
 
   const fetchPokemonAbilities = async () => {
     const abilities = await getAllPokemonAbilities();
@@ -46,7 +58,7 @@ export const PokemonFilters = () => {
       <div className={styles.search}>
         <input
           value={search || ""}
-          onChange={(event) => setSearch(event.target.value)}
+          onChange={(event) => setSearch(event.target.value || null)}
           type="text"
           placeholder="Search your pokemon!"
           max={50}
@@ -66,7 +78,7 @@ export const PokemonFilters = () => {
           <label htmlFor="from">from</label>
           <input
             value={from || ""}
-            onChange={(e) => setFrom(e.target.value)}
+            onChange={(event) => setFrom(Number(event.target.value) || null)}
             min={1}
             max={MAXPOKEMONSRENDERED}
             type="number"
@@ -76,7 +88,7 @@ export const PokemonFilters = () => {
           <label htmlFor="to">to</label>
           <input
             value={to || ""}
-            onChange={(e) => setTo(e.target.value)}
+            onChange={(event) => setTo(Number(event.target.value) || null)}
             min={1}
             max={MAXPOKEMONSRENDERED}
             type="number"
@@ -87,8 +99,8 @@ export const PokemonFilters = () => {
       </div>
       <div className={styles.pokemonAttributes}>
         <Select
-          value={!type ? "" : type}
-          onValueChange={(event) => {
+          value={type || ""}
+          onValueChange={(event: PokemonPosibleTypes) => {
             setType(event);
           }}
           placeholder={
@@ -116,8 +128,8 @@ export const PokemonFilters = () => {
           })}
         </Select>
         <Select
-          value={!weakness ? "" : weakness}
-          onValueChange={(event) => {
+          value={weakness || ""}
+          onValueChange={(event: PokemonPosibleTypes) => {
             setWeakness(event);
           }}
           placeholder={
@@ -145,7 +157,7 @@ export const PokemonFilters = () => {
           })}
         </Select>
         <Select
-          value={!ability ? "" : ability}
+          value={ability || ""}
           onValueChange={(event) => {
             setAbility(event);
           }}
@@ -176,9 +188,9 @@ export const PokemonFilters = () => {
             })}
         </Select>
         <Select
-          value={!height ? "" : height}
+          value={height?.toString() || ""}
           onValueChange={(event) => {
-            setHeight(event);
+            setHeight(Number(event));
           }}
           placeholder={
             <div className={styles.placeholder}>
@@ -196,9 +208,9 @@ export const PokemonFilters = () => {
           })}
         </Select>
         <Select
-          value={!weight ? "" : weight}
+          value={weight?.toString() || ""}
           onValueChange={(event) => {
-            setWeight(event);
+            setWeight(Number(event));
           }}
           placeholder={
             <div className={styles.placeholder}>
@@ -222,11 +234,11 @@ export const PokemonFilters = () => {
         </Select>
         <button
           onClick={() => {
-            setType("");
-            setWeakness("");
-            setAbility("");
-            setHeight("");
-            setWeight("");
+            setType(null);
+            setWeakness(null);
+            setAbility(null);
+            setHeight(null);
+            setWeight(null);
           }}
           className={styles.clear}
         >
