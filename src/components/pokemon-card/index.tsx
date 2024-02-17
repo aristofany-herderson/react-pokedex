@@ -33,36 +33,42 @@ export const PokemonCard = ({ id, name, types }: PokemonCardProps) => {
   const [, setPokemon] = useQueryState("pokemon", parseAsString);
 
   return (
-    <button type="button" onClick={() => setPokemon(name)} className={styles.card}>
-      <div className={styles.figure}>
-        <Image
-          width={50}
-          height={50}
-          placeholder={`data:image/svg+xml;base64,${toBase64(
-            pokemonImageLoader(50, 50)
-          )}`}
-          src={`${baseImageUrl}${paddedID}.png`}
-          alt={`${name} pokemon image`}
-        />
-      </div>
-      <span className={styles.id}>nº {paddedID}</span>
-      <h2 className={styles.name}>{name}</h2>
-      <div className={styles.types}>
-        {types.map((type, key) => {
-          const colors = (POKEMONTYPECOLORS as any)[type.type.name];
+    <button
+      type="button"
+      onClick={() => setPokemon(name)}
+      className={styles.card}
+    >
+      <div className={styles.cardWrapper}>
+        <div className={styles.figure}>
+          <Image
+            width={50}
+            height={50}
+            placeholder={`data:image/svg+xml;base64,${toBase64(
+              pokemonImageLoader(50, 50)
+            )}`}
+            src={`${baseImageUrl}${paddedID}.png`}
+            alt={`${name} pokemon image`}
+          />
+        </div>
+        <span className={styles.id}>nº {paddedID}</span>
+        <h2 className={styles.name}>{name}</h2>
+        <div className={styles.types}>
+          {types.map((type, key) => {
+            const colors = (POKEMONTYPECOLORS as any)[type.type.name];
 
-          return (
-            <p
-              style={{
-                color: colors.medium,
-                background: colors.light,
-              }}
-              key={key}
-            >
-              {type.type.name}
-            </p>
-          );
-        })}
+            return (
+              <p
+                style={{
+                  color: colors.medium,
+                  background: colors.light,
+                }}
+                key={key}
+              >
+                {type.type.name}
+              </p>
+            );
+          })}
+        </div>
       </div>
     </button>
   );

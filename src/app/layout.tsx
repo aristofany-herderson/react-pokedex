@@ -10,6 +10,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("http://localhost:3000"),
   title: "React Pokedex | For advanced pokeinfo",
   description: "A advanced pokemon data",
   icons: "/icons/pokeball.svg",
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     images: "/images/open-graph.jpeg",
     title: "React Pokedex",
     description: "For advanced pokeinfo",
-  }
+  },
 };
 
 export default function RootLayout({

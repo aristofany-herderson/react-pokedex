@@ -66,9 +66,13 @@ export const PokemonAside = () => {
 
   const isNoSelect = !selectedPokemon;
   const isSelectAndLoading =
-    selectedPokemon != undefined && pokemon?.name != selectedPokemon;
+    selectedPokemon != undefined &&
+    String(selectedPokemon)?.trim() != "" &&
+    pokemon?.name != selectedPokemon;
   const isSelectAndLoaded =
-    selectedPokemon != undefined && pokemon?.name == selectedPokemon;
+    selectedPokemon != undefined &&
+    String(selectedPokemon)?.trim() != "" &&
+    pokemon?.name == selectedPokemon;
 
   return (
     <>
@@ -114,7 +118,7 @@ export const PokemonAside = () => {
               height={120}
               src={`${baseImageUrl}${paddedID}.png`}
               placeholder={`data:image/svg+xml;base64,${toBase64(
-                pokemonImageLoader(50, 50)
+                pokemonImageLoader(40, 40)
               )}`}
               alt={`${pokemon.name} pokemon image`}
             />

@@ -18,6 +18,7 @@ import {
 } from "@/utils/pokemons";
 import { usePokemonQueryParams } from "@/hooks/usePokemonQueryParams";
 import { PokemonPosibleTypes } from "@/@types/pokemon";
+import Link from "next/link";
 
 export const PokemonFilters = () => {
   const [abilities, setAbilities] = useState<Ability[]>();
@@ -73,7 +74,6 @@ export const PokemonFilters = () => {
         </button>
       </div>
       <div className={styles.listAttributes}>
-        <div></div>
         <div className={styles.idLimit}>
           <label htmlFor="from">from</label>
           <input

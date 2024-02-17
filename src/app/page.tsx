@@ -2,6 +2,8 @@ import { PokemonAside } from "@/components/pokemon-aside";
 import { PokemonFilters } from "@/components/pokemon-filters";
 import { PokemonsLoad } from "@/components/pokemons-load";
 import styles from "@/styles/pages/home.module.scss";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -15,6 +17,18 @@ export default function Home() {
           <PokemonAside />
         </aside>
       </div>
+      <Link
+        className={styles.githubLink}
+        target="_blank"
+        href={"https://github.com/aristofany-herderson/react-pokedex/"}
+      >
+        <Image
+          width={26}
+          height={26}
+          src={"/icons/github.svg"}
+          alt="Github icon"
+        />
+      </Link>
     </>
   );
 }
