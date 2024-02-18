@@ -32,14 +32,14 @@ export const PokemonAside = () => {
     parseAsString
   );
 
-  const getPokemon = async () => {
-    if (selectedPokemon) {
-      const data = await getAllPokemonData(selectedPokemon);
-      return data;
-    }
-  };
-
   useEffect(() => {
+    const getPokemon = async () => {
+      if (selectedPokemon) {
+        const data = await getAllPokemonData(selectedPokemon);
+        return data;
+      }
+    };
+
     const fetchPokemon = async () => {
       const data = await getPokemon();
 

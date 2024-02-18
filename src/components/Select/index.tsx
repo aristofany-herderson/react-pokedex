@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 import Image from "next/image";
 import { POKEMONSLEVELS, POKEMONTYPECOLORS } from "@/utils/pokemons";
 
-export type SelectProps = React.ComponentProps<typeof SelectPrimitive.Root> & {
+type SelectProps = React.ComponentProps<typeof SelectPrimitive.Root> & {
   placeholder?: ReactNode;
   ariaLabel: string;
 };
@@ -57,7 +57,7 @@ export const Select = ({
   );
 };
 
-export type SelectItemPokemonTypeProps = React.ComponentProps<
+type SelectItemPokemonTypeProps = React.ComponentProps<
   typeof SelectPrimitive.Item
 > & {
   type: string;
@@ -94,7 +94,7 @@ export const SelectItemPokemonType = ({
   );
 };
 
-export type SelectItemPokemonNumberProps = React.ComponentProps<
+type SelectItemPokemonNumberProps = React.ComponentProps<
   typeof SelectPrimitive.Item
 > & {
   level: 1 | 2 | 3 | 4 | 5;
@@ -132,7 +132,7 @@ export const SelectItemPokemonNumber = ({
   );
 };
 
-export type SelectItemPokemonAbilityProps = React.ComponentProps<
+type SelectItemPokemonAbilityProps = React.ComponentProps<
   typeof SelectPrimitive.Item
 >;
 

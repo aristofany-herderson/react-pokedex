@@ -28,7 +28,7 @@ export const PokemonsLoad = () => {
         setPagination(pagination + 1);
       });
     }
-  }, [pokemons, inView]);
+  }, [pokemons, inView, pagination]);
 
   return (
     <>
