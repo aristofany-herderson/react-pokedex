@@ -5,6 +5,7 @@
   padding: var(--space-1) var(--space-2);
   display: flex;
   align-items: center;
+  justify-content: center;
   outline: none;
 
   background-color: var(--colors-white);
@@ -114,6 +115,19 @@
     color: var(--colors-gray-600);
     &::first-letter {
       text-transform: uppercase;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .trigger {
+    flex: 1;
+    width: 100%;
+    max-width: none;
+    justify-content: space-between;
+
+    span > div > span ~ p {
+      max-width: none;
     }
   }
 }

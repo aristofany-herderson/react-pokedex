@@ -75,7 +75,7 @@ export const PokemonAside = () => {
     pokemon?.name == selectedPokemon;
 
   return (
-    <>
+    <aside className={styles.aside}>
       {isNoSelect && <NoSelected />}
       {isSelectAndLoading && <PokemonAsideSkeleton />}
       {isSelectAndLoaded && (
@@ -289,7 +289,7 @@ export const PokemonAside = () => {
           </div>
         </>
       )}
-    </>
+    </aside>
   );
 };
 

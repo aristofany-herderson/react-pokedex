@@ -34,30 +34,10 @@
   }
 }
 
-@keyframes bounce {
-  from,
-  to {
-    transform: translateY(0) scale(1, 1);
-    animation-timing-function: ease-in;
-  }
-  45% {
-    transform: translateY(var(--space-6)) scale(1, 1);
-    animation-timing-function: linear;
-  }
-  50% {
-    transform: translateY(var(--space-6)) scale(1.5, 0.5);
-    animation-timing-function: linear;
-  }
-  55% {
-    transform: translateY(var(--space-6)) scale(1, 1);
-    animation-timing-function: ease-out;
-  }
-}
-
 .pokemons {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   column-gap: var(--space-5);
   row-gap: var(--space-12);
 }

@@ -34,15 +34,3 @@
   flex: 2.5;
 }
 
-.aside {
-  position: sticky;
-  top: var(--space-16);
-  flex: 1;
-  transition: 0.3s;
-  height: min-content;
-  padding: var(--space-4);
-  background: var(--colors-white);
-  border-radius: var(--radii-lg);
-  text-align: center;
-  box-shadow: 0 0 8px 4px rgba(200, 200, 200, 0.1);
-}

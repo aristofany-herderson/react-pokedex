@@ -64,7 +64,7 @@ export const PokemonFilters = () => {
           placeholder="Search your pokemon!"
           max={50}
         />
-        <button>
+        <button aria-label="clear" onClick={() => setSearch(null)}>
           <Image
             width={20}
             height={20}

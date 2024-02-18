@@ -13,9 +13,7 @@ export default function Home() {
           <PokemonFilters />
           <PokemonsLoad />
         </main>
-        <aside className={styles.aside}>
-          <PokemonAside />
-        </aside>
+        <PokemonAside />
       </div>
       <Link
         className={styles.githubLink}

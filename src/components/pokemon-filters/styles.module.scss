@@ -82,3 +82,13 @@
   border-radius: var(--radii-md);
   padding: var(--space-2);
 }
+
+@media screen and (max-width: 640px) {
+  .pokemonAttributes {
+    flex-direction: column;
+  }
+
+  .clear {
+    width: 100%;
+  }
+}
