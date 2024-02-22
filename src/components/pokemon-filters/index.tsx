@@ -2,26 +2,18 @@
 import Image from "next/image";
 import styles from "./styles.module.scss";
 import { MAXPOKEMONSRENDERED } from "@/services/api";
-import {
-  Select,
-  SelectItemPokemonAbility,
-  SelectItemPokemonNumber,
-  SelectItemPokemonType,
-} from "../select";
 import { getAllPokemonAbilities } from "@/services/client-requests";
 import { useEffect, useState } from "react";
-import { Ability } from "@/@types/pokemons-abilities";
 import {
-  SELECTPOKEMONTYPES,
   SELECTPOKEMONHEIGHTS,
   SELECTPOKEMONWEIGHTS,
+  SELECTPOKEMONTYPESMULTI,
 } from "@/utils/pokemons";
 import { usePokemonQueryParams } from "@/hooks/usePokemonQueryParams";
-import { PokemonPosibleTypes } from "@/@types/pokemon";
-import Link from "next/link";
+import { SelectPlaceholder, Select, SelectValueData } from "../select";
 
 export const PokemonFilters = () => {
-  const [abilities, setAbilities] = useState<Ability[]>();
+  const [abilities, setAbilities] = useState<SelectValueData[]>();
   const {
     ability,
     from,
@@ -41,16 +33,26 @@ export const PokemonFilters = () => {
     weight,
   } = usePokemonQueryParams();
 
-  const fetchPokemonAbilities = async () => {
-    const abilities = await getAllPokemonAbilities();
-
-    return abilities;
-  };
-
   useEffect(() => {
-    fetchPokemonAbilities().then((data) => {
-      setAbilities(data);
-    });
+    const getPokemonAbilities = async () => {
+      const abilities = await getAllPokemonAbilities();
+
+      return abilities;
+    };
+
+    const fetchPokemonAbilities = async () => {
+      const data = await getPokemonAbilities();
+      const response = data.map((ability) => {
+        return {
+          value: ability.name,
+          label: ability.name,
+        };
+      });
+
+      setAbilities(response);
+    };
+
+    fetchPokemonAbilities();
   }, []);
 
   return (
@@ -99,157 +101,140 @@ export const PokemonFilters = () => {
       </div>
       <div className={styles.pokemonAttributes}>
         <Select
-          ariaLabel={"type"}
-          value={type || ""}
-          onValueChange={(event: PokemonPosibleTypes) => {
-            setType(event);
-          }}
-          placeholder={
-            <div className={styles.placeholder}>
-              <Image
-                width={15}
-                height={15}
-                src="/icons/target.svg"
-                alt="Pokemon type icon"
-              />
-              <p>Type</p>
-            </div>
+          isMulti
+          value={
+            type
+              ? type?.split(",").map((current) => {
+                  return {
+                    value: current,
+                    label: current,
+                  };
+                })
+              : ""
           }
-        >
-          {SELECTPOKEMONTYPES.map((type, key) => {
-            return (
-              <SelectItemPokemonType
-                key={key}
-                type={type.value}
-                value={type.value}
-              >
-                {type.value}
-              </SelectItemPokemonType>
+          onChange={(state) => {
+            const currentState = state as SelectValueData[];
+            setType(
+              currentState.length > 0
+                ? currentState.map((type) => type.value).join(",")
+                : null
             );
-          })}
-        </Select>
-        <Select
-          ariaLabel={"weakness"}
-          value={weakness || ""}
-          onValueChange={(event: PokemonPosibleTypes) => {
-            setWeakness(event);
           }}
+          name="type"
+          options={SELECTPOKEMONTYPESMULTI}
           placeholder={
-            <div className={styles.placeholder}>
-              <Image
-                width={15}
-                height={15}
-                src="/icons/weakness.svg"
-                alt="Pokemon weakness icon"
-              />
-              <p>Weakness</p>
-            </div>
+            <SelectPlaceholder
+              icon={{
+                width: 15,
+                height: 15,
+                src: "/icons/target.svg",
+                alt: "Pokemon type icon",
+              }}
+              label="Type"
+            />
           }
-        >
-          {SELECTPOKEMONTYPES.map((type, key) => {
-            return (
-              <SelectItemPokemonType
-                key={key}
-                type={type.value}
-                value={type.value}
-              >
-                {type.value}
-              </SelectItemPokemonType>
+        />
+        <Select
+          isMulti
+          value={
+            weakness
+              ? weakness?.split(",").map((current) => {
+                  return {
+                    value: current,
+                    label: current,
+                  };
+                })
+              : ""
+          }
+          onChange={(state) => {
+            const currentState = state as SelectValueData[];
+            setWeakness(
+              currentState.length > 0
+                ? currentState.map((type) => type.value).join(",")
+                : null
             );
-          })}
-        </Select>
-        <Select
-          ariaLabel={"ability"}
-          value={ability || ""}
-          onValueChange={(event) => {
-            setAbility(event);
           }}
+          name="weakness"
+          options={SELECTPOKEMONTYPESMULTI}
           placeholder={
-            <div className={styles.placeholder}>
-              <Image
-                width={15}
-                height={15}
-                src="/icons/pokeball-gray.svg"
-                alt="Pokemon ability icon"
-              />
-              <p>Ability</p>
-            </div>
+            <SelectPlaceholder
+              icon={{
+                width: 15,
+                height: 15,
+                src: "/icons/weakness.svg",
+                alt: "Pokemon weakness icon",
+              }}
+              label="Weakness"
+            />
           }
-        >
-          {abilities
-            ?.sort((current, next) => {
-              return current.name
-                .toLowerCase()
-                .localeCompare(next.name.toLowerCase());
-            })
-            ?.map((ability, key) => {
-              return (
-                <SelectItemPokemonAbility key={key} value={ability.name}>
-                  {ability.name}
-                </SelectItemPokemonAbility>
-              );
-            })}
-        </Select>
+        />
         <Select
-          ariaLabel={"height"}
-          value={height?.toString() || ""}
-          onValueChange={(event) => {
-            setHeight(Number(event));
+          optionType="ability"
+          value={ability ? { value: ability, label: ability } : ""}
+          onChange={(state) => {
+            const currentState = state as SelectValueData;
+            setAbility(currentState?.value || null);
           }}
-          placeholder={
-            <div className={styles.placeholder}>
-              <Image
-                width={15}
-                height={15}
-                src="/icons/egg.svg"
-                alt="Pokemon height icon"
-              />
-              <p>Height</p>
-            </div>
-          }
-        >
-          {SELECTPOKEMONHEIGHTS.map((height, key) => {
-            return (
-              <SelectItemPokemonNumber
-                level={height.level}
-                key={key}
-                value={key.toString()}
-              >
-                {height.label}
-              </SelectItemPokemonNumber>
-            );
+          name="ability"
+          options={abilities?.sort((current, next) => {
+            return current.value
+              .toLowerCase()
+              .localeCompare(next.value.toLowerCase());
           })}
-        </Select>
+          placeholder={
+            <SelectPlaceholder
+              icon={{
+                width: 15,
+                height: 15,
+                src: "/icons/pokeball-gray.svg",
+                alt: "Pokemon weakness icon",
+              }}
+              label="Ability"
+            />
+          }
+        />
         <Select
-          ariaLabel={"weight"}
-          value={weight?.toString() || ""}
-          onValueChange={(event) => {
-            setWeight(Number(event));
+          optionType="number"
+          value={height ? SELECTPOKEMONHEIGHTS[height - 1] : ""}
+          onChange={(state) => {
+            const currentState = state as SelectValueData;
+            setHeight(Number(currentState?.value));
           }}
+          name="height"
+          options={SELECTPOKEMONHEIGHTS}
           placeholder={
-            <div className={styles.placeholder}>
-              <Image
-                width={15}
-                height={15}
-                src="/icons/weight.svg"
-                alt="Pokemon weight icon"
-              />
-              <p>Weight</p>
-            </div>
+            <SelectPlaceholder
+              icon={{
+                width: 15,
+                height: 15,
+                src: "/icons/egg.svg",
+                alt: "Pokemon height icon",
+              }}
+              label="Height"
+            />
           }
-        >
-          {SELECTPOKEMONWEIGHTS.map((weight, key) => {
-            return (
-              <SelectItemPokemonNumber
-                level={weight.level}
-                key={key}
-                value={key.toString()}
-              >
-                {weight.label}
-              </SelectItemPokemonNumber>
-            );
-          })}
-        </Select>
+        />
+        <Select
+          optionType="number"
+          value={weight ?  SELECTPOKEMONWEIGHTS[weight - 1] : ""}
+          onChange={(state) => {
+            const currentState = state as SelectValueData;
+            setWeight(Number(currentState?.value));
+          }}
+          name="weight"
+          options={SELECTPOKEMONWEIGHTS}
+          placeholder={
+            <SelectPlaceholder
+              icon={{
+                width: 15,
+                height: 15,
+                src: "/icons/weight.svg",
+                alt: "Pokemon weight icon",
+              }}
+              label="Weight"
+            />
+          }
+        />
         <button
           aria-label="clear"
           onClick={() => {

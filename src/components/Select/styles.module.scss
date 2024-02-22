@@ -1,133 +1,167 @@
-.trigger {
-  max-width: 8rem;
-  flex: 1;
-  flex-wrap: nowrap;
-  padding: var(--space-1) var(--space-2);
+.placeholder {
+  padding: var(--space-1) 0;
+
   display: flex;
   align-items: center;
-  justify-content: center;
-  outline: none;
+  justify-content: flex-start;
+
+  p {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  img {
+    margin-right: var(--space-1);
+  }
+}
+
+.trigger,
+.triggerFocus {
+  flex: 1;
+  height: var(--space-10);
+  padding: var(--space-1) var(--space-3);
 
   background-color: var(--colors-white);
   border-radius: var(--radii-md);
   box-shadow: 0 0 8px 4px rgba(200, 200, 200, 0.1);
 
-  span > div > img {
-    margin-right: var(--space-2);
-  }
+  color: var(--colors-gray-600);
+  font-size: var(--font-size-xs);
+  font-weight: bold;
 
-  .span img {
-    margin: 0;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.valueContainer {
+  overflow: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.value {
+  display: flex;
+  align-items: center;
 
   p {
     flex: 1;
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    color: var(--colors-gray-600);
-  }
-
-  span > div > span ~ p {
     max-width: 2rem;
     white-space: nowrap;
-    text-overflow: ellipsis;
     overflow: hidden;
-  }
-}
-
-.triggerIcon {
-  margin: 0;
-  margin-left: var(--space-4);
-}
-
-.content {
-  width: 100%;
-  background: var(--colors-white);
-  border-radius: var(--radii-md);
-  padding: var(--space-3);
-}
-
-.scrollTopButton,
-.scrollDownButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.scrollTopButton {
-  padding: var(--space-2) var(--space-2) 0;
-}
-
-.scrollDownButton {
-  padding: 0 var(--space-2) var(--space-2);
-}
-
-.item {
-  border-radius: var(--radii-sm);
-  outline: none;
-
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
-  &[data-state="checked"] {
-    background: var(--colors-pokedex-medium);
+    text-overflow: ellipsis;
+    display: none !important;
   }
 
-  &:not([data-state="checked"]):hover {
-    background: var(--colors-pokedex-ligth);
+  &:not(:first-child) span {
+    margin-left: calc(-1 * var(--space-2));
   }
-}
 
-.itemWrapper {
-  padding: var(--space-1) var(--space-3);
-  cursor: pointer;
-  outline: none;
-  width: 100%;
-
-  outline: none;
-
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
-  .span {
+  span {
+    width: var(--space-5);
     height: var(--space-5);
-    margin-right: var(--space-2);
-    aspect-ratio: 1 /1;
+    padding: var(--space-2);
     border-radius: var(--radii-full);
 
     display: flex;
     align-items: center;
     justify-content: center;
-
-    font-weight: var(--font-weight-bold);
-    font-size: var(--font-size-xxs);
-    color: var(--colors-pokedex-ligth);
-  }
-  p {
-    flex: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    color: var(--colors-gray-600);
-    &::first-letter {
-      text-transform: uppercase;
-    }
   }
 }
 
-@media screen and (max-width: 640px) {
-  .trigger {
-    flex: 1;
-    width: 100%;
-    max-width: none;
-    justify-content: space-between;
+.option,
+.optionFocus {
+  padding: var(--space-2) var(--space-3);
+  display: flex;
+  align-items: center;
+  transition: 0.15s;
+  cursor: pointer;
+  font-size: var(--font-size-xs);
+  background: var(--colors-pokedex-ligth);
+  border-radius: var(--radii-sm);
 
-    span > div > span ~ p {
-      max-width: none;
-    }
+  p {
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+
+  span {
+    width: var(--space-5);
+    height: var(--space-5);
+    padding: var(--space-2);
+    margin-right: var(--space-2);
+    border-radius: var(--radii-full);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.optionAbility,
+.optionFocusAbility {
+  width: 100%;
+}
+
+.menu {
+  position: absolute;
+  top: var(--space-14);
+  left: 0;
+  z-index: var(--z-index-overlay);
+  width: 100%;
+  padding: var(--space-4);
+  background: var(--colors-white);
+  border-radius: var(--radii-md);
+  border: none;
+  box-shadow: 0 0 8px 4px rgba(200, 200, 200, 0.1);
+}
+
+.menuWrapper {
+  width: 100%;
+  max-height: 20rem;
+  overflow: auto;
+
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  align-items: center;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.noOptions {
+  width: 100%;
+  font-size: var(--font-size-xs);
+  font-weight: bold;
+  color: var(--colors-gray-600);
+  text-align: center;
+}
+
+.selectSkeleton {
+  flex: 1;
+  height: var(--space-10);
+  border-radius: var(--radii-md);
+
+  animation: loading 1.5s ease infinite;
+  background-position: -150% 0;
+  background-size: 100% 100%;
+  background: linear-gradient(
+      90deg,
+      var(--colors-pokedex-medium) 35%,
+      #ffffffaa,
+      var(--colors-pokedex-medium) 55%
+    )
+    right / 300% 100%;
+}
+
+@keyframes loading {
+  to {
+    background-position: left;
   }
 }

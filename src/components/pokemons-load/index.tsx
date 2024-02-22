@@ -60,28 +60,34 @@ export const PokemonsLoad = () => {
             }
           })
           .filter((pokemon) => {
-            const types = pokemon.types.map((type) =>
-              type.type.name.toLowerCase()
+            const types = pokemon.types.map((type) => type.type.name);
+            const currentType = type?.split(",") as PokemonPosibleTypes[];
+            const typeExists = currentType?.every((type) =>
+              types?.includes(type)
             );
-            const currentType = type as PokemonPosibleTypes;
 
-            if (type != null && types.includes(currentType.toLowerCase())) {
+            if (currentType?.length > 0 && typeExists) {
               return pokemon;
             }
 
-            if (type == null) {
+            if (currentType == null) {
               return pokemon;
             }
           })
           .filter((pokemon) => {
             const weaknesses = pokemon.weakness;
-            const currentWeakness = weakness as PokemonPosibleTypes;
+            const currentWeakness = weakness?.split(
+              ","
+            ) as PokemonPosibleTypes[];
+            const weaknessExists = currentWeakness?.every((type) =>
+              weaknesses?.includes(type)
+            );
 
-            if (weakness != null && weaknesses.includes(currentWeakness)) {
+            if (currentWeakness?.length > 0 && weaknessExists) {
               return pokemon;
             }
 
-            if (weakness == null) {
+            if (currentWeakness == null) {
               return pokemon;
             }
           })
@@ -103,16 +109,17 @@ export const PokemonsLoad = () => {
             }
           })
           .filter((pokemon) => {
-            const currentWeight = weight as unknown as number;
-            const pokemonWeight = pokemon.weight / 10;
+            const currentWeight = weight;
+            const pokemonHeight = pokemon.weight / 10;
 
             const minVerification =
               currentWeight != null &&
-              SELECTPOKEMONWEIGHTS[currentWeight]?.values?.min < pokemonWeight;
+              pokemonHeight > SELECTPOKEMONWEIGHTS[currentWeight - 1]?.range?.min;
 
             const maxVerification =
               currentWeight != null &&
-              SELECTPOKEMONWEIGHTS[currentWeight]?.values?.max >= pokemonWeight;
+              pokemonHeight <= SELECTPOKEMONWEIGHTS[currentWeight - 1]?.range?.max;
+
             if (minVerification && maxVerification) {
               return pokemon;
             }
@@ -122,16 +129,17 @@ export const PokemonsLoad = () => {
             }
           })
           .filter((pokemon) => {
-            const currentHeight = height as unknown as number;
+            const currentHeight = height;
             const pokemonHeight = pokemon.height / 10;
 
             const minVerification =
               currentHeight != null &&
-              SELECTPOKEMONHEIGHTS[currentHeight]?.values?.min < pokemonHeight;
+              pokemonHeight > SELECTPOKEMONHEIGHTS[currentHeight - 1]?.range?.min;
 
             const maxVerification =
               currentHeight != null &&
-              SELECTPOKEMONHEIGHTS[currentHeight]?.values?.max >= pokemonHeight;
+              pokemonHeight <= SELECTPOKEMONHEIGHTS[currentHeight - 1]?.range?.max;
+
             if (minVerification && maxVerification) {
               return pokemon;
             }

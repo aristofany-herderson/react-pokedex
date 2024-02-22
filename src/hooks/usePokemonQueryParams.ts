@@ -8,7 +8,7 @@ import { PokemonPosibleTypes } from "@/@types/pokemon";
 
 const parseAsPosiblePokemonTypes = createParser({
   parse(queryValue) {
-    const value = queryValue as PokemonPosibleTypes | null;
+    const value = queryValue as string | null;
     const isValid = value || null;
     return isValid;
   },

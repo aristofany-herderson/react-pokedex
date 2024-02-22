@@ -102,7 +102,7 @@ export const POKEMONSTATS = {
   },
 };
 
-export const POKEMONSLEVELS = {
+export const POKEMONSSELECTLEVELS = {
   1: {
     color: "#5CA463",
   },
@@ -188,52 +188,73 @@ export const SELECTPOKEMONTYPES = [
   { value: "fairy" },
 ];
 
-type SelectePokemonNumber = {
-  level: 1 | 2 | 3 | 4 | 5,
+export const SELECTPOKEMONTYPESMULTI = [
+  { value: "normal", label: "normal" },
+  { value: "fire", label: "fire" },
+  { value: "fighting", label: "fighting" },
+  { value: "water", label: "water" },
+  { value: "flying", label: "flying" },
+  { value: "grass", label: "grass" },
+  { value: "poison", label: "poison" },
+  { value: "electric", label: "electric" },
+  { value: "ground", label: "ground" },
+  { value: "psychic", label: "psychic" },
+  { value: "rock", label: "rock" },
+  { value: "ice", label: "ice" },
+  { value: "bug", label: "bug" },
+  { value: "dragon", label: "dragon" },
+  { value: "ghost", label: "ghost" },
+  { value: "dark", label: "dark" },
+  { value: "steel", label: "steel" },
+  { value: "fairy", label: "fairy" },
+];
+
+export type SelectePokemonNumber = {
+  value: "1" | "2" | "3" | "4" | "5";
   label: string;
-  values: {
+  range: {
     min: number;
     max: number;
-  }
-}
+  };
+};
 
 export const SELECTPOKEMONHEIGHTS: SelectePokemonNumber[] = [
   {
-    level: 1,
+    value: "1",
     label: "0.1m - 3m",
-    values: {
+    range: {
       min: 0,
       max: 3,
     },
   },
   {
-    level: 2,
+    value: "2",
     label: "3.1m - 6m",
-    values: {
+    range: {
       min: 3,
       max: 6,
     },
   },
   {
-    level: 3,
+    value: "3",
     label: "6.1m - 9m",
-    values: {
+    range: {
       min: 6,
       max: 9,
     },
   },
   {
-    level: 4,
+    value: "4",
     label: "9.1m - 12m",
-    values: {
+    range: {
       min: 9,
       max: 12,
     },
   },
   {
-    level: 5,
+    value: "5",
     label: "12.1m - 14.5m",
-    values: {
+    range: {
       min: 12,
       max: 14.5,
     },
@@ -242,41 +263,41 @@ export const SELECTPOKEMONHEIGHTS: SelectePokemonNumber[] = [
 
 export const SELECTPOKEMONWEIGHTS: SelectePokemonNumber[] = [
   {
-    level: 1,
+    value: "1",
     label: "0.1kg - 200.0kg",
-    values: {
+    range: {
       min: 0,
       max: 200,
     },
   },
   {
-    level: 2,
+    value: "2",
     label: "200.1kg - 400.0kg",
-    values: {
+    range: {
       min: 200,
       max: 400,
     },
   },
   {
-    level: 3,
+    value: "3",
     label: "400.1kg - 600.0kg",
-    values: {
+    range: {
       min: 400,
       max: 600,
     },
   },
   {
-    level: 4,
+    value: "4",
     label: "600.1kg - 800.0kg",
-    values: {
+    range: {
       min: 600,
       max: 800,
     },
   },
   {
-    level: 5,
+    value: "5",
     label: "800.1kg - 999.9kg",
-    values: {
+    range: {
       min: 800,
       max: 1000,
     },

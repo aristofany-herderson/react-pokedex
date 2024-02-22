@@ -1,163 +1,310 @@
-import { ReactNode } from "react";
-import * as SelectPrimitive from "@radix-ui/react-select";
+"use client";
+import { PokemonPosibleTypes } from "@/@types/pokemon";
+import Image, { ImageProps } from "next/image";
+import SelectComponent, {
+  ContainerProps,
+  GroupBase,
+  NoticeProps,
+  SingleValueProps,
+} from "react-select";
+import {
+  Props as SelectComponentProps,
+  ControlProps,
+  MultiValueProps,
+  ValueContainerProps,
+  MenuListProps,
+  MenuProps,
+  OptionProps,
+} from "react-select";
 import styles from "./styles.module.scss";
-import Image from "next/image";
-import { POKEMONSLEVELS, POKEMONTYPECOLORS } from "@/utils/pokemons";
+import { POKEMONSSELECTLEVELS, POKEMONTYPECOLORS } from "@/utils/pokemons";
+import { useEffect, useState } from "react";
+import { SelectePokemonNumber } from "@/utils/pokemons";
 
-type SelectProps = React.ComponentProps<typeof SelectPrimitive.Root> & {
-  placeholder?: ReactNode;
-  ariaLabel: string;
+export type SelectValueData = {
+  value: string;
+  label: string;
+};
+
+type SelectPlaceholderProps = {
+  label: string;
+  icon: ImageProps;
+};
+
+type SelectProps = SelectComponentProps & {
+  optionType?: "type" | "number" | "ability";
 };
 
 export const Select = ({
-  ariaLabel,
-  children,
-  placeholder,
+  isClearable = true,
+  classNames,
+  components,
+  optionType = "type",
   ...props
 }: SelectProps) => {
-  return (
-    <SelectPrimitive.Root {...props}>
-      <SelectPrimitive.Trigger
-        aria-label={ariaLabel}
-        className={styles.trigger}
-      >
-        <SelectPrimitive.Value placeholder={placeholder} />
-        <SelectPrimitive.Icon asChild>
-          <Image
-            className={styles.triggerIcon}
-            width={12}
-            height={12}
-            src={"/icons/chevron-down.svg"}
-            alt="Open select icon"
-          />
-        </SelectPrimitive.Icon>
-      </SelectPrimitive.Trigger>
-      <SelectPrimitive.Portal>
-        <SelectPrimitive.Content className={styles.content}>
-          <SelectPrimitive.ScrollUpButton className={styles.scrollTopButton}>
-            <Image
-              width={12}
-              height={12}
-              src={"/icons/chevron-up.svg"}
-              alt="Scroll top select icon (chevron)"
-            />
-          </SelectPrimitive.ScrollUpButton>
-          <SelectPrimitive.Viewport>{children}</SelectPrimitive.Viewport>
-          <SelectPrimitive.ScrollDownButton className={styles.scrollDownButton}>
-            <Image
-              width={12}
-              height={12}
-              src={"/icons/chevron-down.svg"}
-              alt="Scroll down select icon (chevron)"
-            />
-          </SelectPrimitive.ScrollDownButton>
-        </SelectPrimitive.Content>
-      </SelectPrimitive.Portal>
-    </SelectPrimitive.Root>
-  );
-};
+  const POSIBLEOPTIONTYPE = {
+    type: TypeOption,
+    number: NumberOption,
+    ability: AbilityOption,
+  };
+  const POSIBLESINGLEVALUE = {
+    type: undefined,
+    number: NumberSingleValue,
+    ability: AbilitySingleValue,
+  };
 
-type SelectItemPokemonTypeProps = React.ComponentProps<
-  typeof SelectPrimitive.Item
-> & {
-  type: string;
-};
+  const id = Date.now().toString();
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true), []);
 
-export const SelectItemPokemonType = ({
-  children,
-  type,
-  ...props
-}: SelectItemPokemonTypeProps) => {
-  const colors = (POKEMONTYPECOLORS as any)[type];
-
-  return (
-    <SelectPrimitive.Item
-      className={styles.item}
-      style={{ width: "100%" }}
+  return isMounted ? (
+    <SelectComponent
+      id={id}
+      isClearable={isClearable}
+      components={{
+        SelectContainer,
+        Control,
+        IndicatorSeparator: null,
+        ValueContainer,
+        Menu,
+        MenuList,
+        MultiValue,
+        Option: POSIBLEOPTIONTYPE[optionType],
+        NoOptionsMessage,
+        SingleValue: POSIBLESINGLEVALUE[optionType],
+      }}
       {...props}
-    >
-      <SelectPrimitive.ItemText asChild>
-        <div className={styles.itemWrapper}>
-          <span className={styles.span} style={{ background: colors.medium }}>
-            <Image
-              width={12}
-              height={12}
-              src={`/icons/pokemon/${type}.svg`}
-              alt={`Pokemon ${type} type icon`}
-            />
-          </span>
-          <p style={{ color: colors.medium }}>{children}</p>
-        </div>
-      </SelectPrimitive.ItemText>
-      <SelectPrimitive.ItemIndicator></SelectPrimitive.ItemIndicator>
-    </SelectPrimitive.Item>
+    />
+  ) : (
+    <SelectSkeleton />
   );
 };
 
-type SelectItemPokemonNumberProps = React.ComponentProps<
-  typeof SelectPrimitive.Item
-> & {
-  level: 1 | 2 | 3 | 4 | 5;
-};
-
-export const SelectItemPokemonNumber = ({
-  children,
-  level,
-  ...props
-}: SelectItemPokemonNumberProps) => {
+export const SelectPlaceholder = ({
+  label,
+  icon: { alt = "placeholder image", ...props },
+}: SelectPlaceholderProps) => {
   return (
-    <SelectPrimitive.Item
-      className={styles.item}
-      style={{ width: "100%" }}
-      {...props}
-    >
-      <SelectPrimitive.ItemText asChild>
-        <div className={styles.itemWrapper}>
-          <span
-            className={styles.span}
-            style={{ background: POKEMONSLEVELS[level].color }}
-          >
-            <Image
-              width={12}
-              height={12}
-              src={`/icons/sort-descending.svg`}
-              alt="icon"
-            />
-          </span>
-          <p style={{ color: "var(--colors-gray-600)" }}>{children}</p>
-        </div>
-      </SelectPrimitive.ItemText>
-      <SelectPrimitive.ItemIndicator></SelectPrimitive.ItemIndicator>
-    </SelectPrimitive.Item>
+    <div className={styles.placeholder}>
+      <Image {...props} alt={alt} />
+      <p>{label}</p>
+    </div>
   );
 };
 
-type SelectItemPokemonAbilityProps = React.ComponentProps<
-  typeof SelectPrimitive.Item
->;
-
-export const SelectItemPokemonAbility = ({
+const SelectContainer = ({
   children,
-  ...props
-}: SelectItemPokemonAbilityProps) => {
+  isFocused,
+  innerProps,
+}: ContainerProps) => {
   return (
-    <SelectPrimitive.Item
-      className={styles.item}
-      style={{ width: "100%" }}
-      {...props}
+    <div
+      className={!isFocused ? styles.container : styles.containerFocus}
+      {...innerProps}
     >
-      <SelectPrimitive.ItemText asChild>
-        <div className={styles.itemWrapper}>
-          <span
-            className={styles.span}
-            style={{ background: "var(--colors-yellow)" }}
-          >
-            <Image width={12} height={12} src={`/icons/star.svg`} alt="icon" />
-          </span>
-          <p style={{ color: "var(--colors-gray-600)" }}>{children}</p>
-        </div>
-      </SelectPrimitive.ItemText>
-      <SelectPrimitive.ItemIndicator></SelectPrimitive.ItemIndicator>
-    </SelectPrimitive.Item>
+      {children}
+    </div>
   );
+};
+
+const Control = ({
+  children,
+  isFocused,
+  innerProps,
+  innerRef,
+}: ControlProps) => {
+  return (
+    <div
+      ref={innerRef}
+      className={!isFocused ? styles.trigger : styles.triggerFocus}
+      {...innerProps}
+    >
+      {children}
+    </div>
+  );
+};
+
+const ValueContainer = ({ children, innerProps }: ValueContainerProps) => {
+  return <div className={styles.valueContainer} {...innerProps}>{children}</div>;
+};
+
+const Menu = ({ children, innerProps, innerRef }: MenuProps) => {
+  return (
+    <div className={styles.menu} ref={innerRef} {...innerProps}>
+      {children}
+    </div>
+  );
+};
+
+const MenuList = ({ children, innerProps, innerRef }: MenuListProps) => {
+  return (
+    <div className={styles.menuWrapper} ref={innerRef} {...innerProps}>
+      {children}
+    </div>
+  );
+};
+
+const MultiValue = ({ data, innerProps, children }: MultiValueProps) => {
+  const currentData = data as SelectValueData;
+  const currentDataValue = currentData.value as PokemonPosibleTypes;
+  const colors = POKEMONTYPECOLORS[currentDataValue];
+
+  return (
+    <div className={styles.value} {...innerProps}>
+      <span style={{ background: colors.medium }}>
+        <Image
+          width={10}
+          height={10}
+          src={`/icons/pokemon/${currentData.value}.svg`}
+          alt={currentData.value}
+        />
+      </span>
+      <p style={{ color: colors.medium }}>{currentData.label}</p>
+    </div>
+  );
+};
+
+const AbilitySingleValue = ({
+  data,
+  innerProps,
+  children,
+}: SingleValueProps) => {
+  const currentData = data as SelectValueData;
+
+  return (
+    <div className={styles.value} {...innerProps}>
+      <span style={{ background: "var(--colors-yellow)" }}>
+        <Image
+          width={10}
+          height={10}
+          src={`/icons/star.svg`}
+          alt={currentData.value}
+        />
+      </span>
+      <p>{currentData.label}</p>
+    </div>
+  );
+};
+
+const NumberSingleValue = ({
+  data,
+  innerProps,
+  children,
+}: SingleValueProps) => {
+  const currentData = data as SelectePokemonNumber;
+  const color = POKEMONSSELECTLEVELS[currentData.value].color;
+
+  return (
+    <div className={styles.value} {...innerProps}>
+      <span style={{ background: color }}>
+        <Image
+          width={10}
+          height={10}
+          src={`/icons/sort-descending.svg`}
+          alt={currentData.value}
+        />
+      </span>
+      <p>{currentData.label}</p>
+    </div>
+  );
+};
+
+const TypeOption = ({ data, isFocused, innerRef, innerProps }: OptionProps) => {
+  const currentData = data as SelectValueData;
+  const currentDataValue = currentData.value as PokemonPosibleTypes;
+  const colors = POKEMONTYPECOLORS[currentDataValue];
+
+  return (
+    <div
+      className={!isFocused ? styles.option : styles.optionFocus}
+      style={{ "--outline-color": colors.medium } as React.CSSProperties}
+      ref={innerRef}
+      {...innerProps}
+    >
+      <span style={{ background: colors.medium }}>
+        <Image
+          width={10}
+          height={10}
+          src={`/icons/pokemon/${currentData.value}.svg`}
+          alt={currentData.value}
+        />
+      </span>
+      <p style={{ color: colors.medium }}>{currentData.label}</p>
+    </div>
+  );
+};
+
+const AbilityOption = ({
+  data,
+  isFocused,
+  innerRef,
+  innerProps,
+}: OptionProps) => {
+  const currentData = data as SelectValueData;
+
+  return (
+    <div
+      className={
+        !isFocused
+          ? `${styles.option} ${styles.optionAbility}`
+          : `${styles.optionFocus} ${styles.optionFocusAbility}`
+      }
+      ref={innerRef}
+      {...innerProps}
+    >
+      <span style={{ background: "var(--colors-yellow)" }}>
+        <Image
+          width={10}
+          height={10}
+          src={`/icons/star.svg`}
+          alt={currentData.value}
+        />
+      </span>
+      <p>{currentData.label}</p>
+    </div>
+  );
+};
+
+const NumberOption = ({
+  data,
+  isFocused,
+  innerRef,
+  innerProps,
+}: OptionProps) => {
+  const currentData = data as SelectePokemonNumber;
+  const color = POKEMONSSELECTLEVELS[currentData.value].color;
+
+  return (
+    <div
+      className={
+        !isFocused
+          ? `${styles.option} ${styles.optionAbility}`
+          : `${styles.optionFocus} ${styles.optionFocusAbility}`
+      }
+      ref={innerRef}
+      {...innerProps}
+    >
+      <span style={{ background: color }}>
+        <Image
+          width={10}
+          height={10}
+          src={`/icons/sort-descending.svg`}
+          alt={currentData.label}
+        />
+      </span>
+      <p>{currentData.label}</p>
+    </div>
+  );
+};
+
+const NoOptionsMessage = ({ innerProps }: NoticeProps) => {
+  return (
+    <div className={styles.noOptions} {...innerProps}>
+      No options
+    </div>
+  );
+};
+
+const SelectSkeleton = () => {
+  return <div className={styles.selectSkeleton} />;
 };
