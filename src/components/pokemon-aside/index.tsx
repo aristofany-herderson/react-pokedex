@@ -2,7 +2,7 @@
 import Image from "next/image";
 import styles from "./styles.module.scss";
 import { getAllPokemonData } from "@/services/client-requests";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { baseImageUrl } from "@/services/api";
 import { POKEMONTYPECOLORS, POKEMONSTATS } from "@/utils/pokemons";
 import { parseAsString, useQueryState } from "nuqs";
@@ -233,6 +233,29 @@ export const PokemonAside = () => {
                 <span>tot</span>
                 {totalStats}
               </p>
+            </div>
+          </div>
+          <div className={styles.evolutions}>
+            <h2 className={styles.title}>Evolution</h2>
+            <div>
+              {pokemon.evolution.map((evolution, key) => {
+                const evolutionPaddedID = evolution.id.padStart(3, "0");
+                return (
+                  <Fragment key={key}>
+                    <Image
+                      className={styles.pokemonImage}
+                      width={40}
+                      height={40}
+                      src={`${baseImageUrl}${evolutionPaddedID}.png`}
+                      placeholder={`data:image/svg+xml;base64,${toBase64(
+                        pokemonImageLoader(50, 50)
+                      )}`}
+                      alt={`${evolution.name} image`}
+                    />
+                    {evolution.level >= 0 && <p>Lvl {evolution.level}</p>}
+                  </Fragment>
+                );
+              })}
             </div>
           </div>
           <div className={styles.nextPrevPokemons}>

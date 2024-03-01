@@ -24,12 +24,16 @@ type PokemonGeneration = {
   url: string;
 };
 
+type EvolutionChain = {
+  url: string;
+}
+
 export type PokemonSpecies = {
   base_happiness: number;
   capture_rate: number;
   color: any[];
   egg_groups: any[];
-  evolution_chain: any[];
+  evolution_chain: EvolutionChain;
   evolves_from_species: any[];
   flavor_text_entries: FlavorTexEntrie[] | null;
   form_description: any[];

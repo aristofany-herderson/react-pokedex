@@ -98,7 +98,8 @@
 .entry,
 .abilities,
 .characteristics,
-.stats {
+.stats,
+.evolutions {
   margin-top: var(--space-5);
 }
 
@@ -210,7 +211,6 @@
   p {
     flex: 1;
     padding: var(--space-1);
-    padding-bottom: var(--space-1);
     font-size: var(--font-size-xs);
     font-weight: bold;
     background: var(--colors-pokedex-ligth);
@@ -220,6 +220,33 @@
       background: #98baff;
       span {
         background: #7195dc;
+      }
+    }
+  }
+}
+
+.evolutions {
+  h2 {
+    margin-bottom: var(--space-4);
+  }
+
+  &> div {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+    justify-content: center;
+
+    p {
+      white-space: nowrap;
+      padding: 0 var(--space-2);
+      font-size: var(--font-size-xxs);
+      font-weight: bold;
+      color: var(--colors-pokedex-dark);
+      background: var(--colors-pokedex-ligth);
+      border-radius: var(--radii-full);
+
+      &:last-child {
+        display: none;
       }
     }
   }
@@ -235,7 +262,7 @@
 .nextPrevPokemons {
   position: relative;
   width: 100%;
-  margin-top: var(--space-8);
+  margin-top: var(--space-4);
   background: var(--colors-pokedex-ligth);
   border-radius: var(--radii-md);
 

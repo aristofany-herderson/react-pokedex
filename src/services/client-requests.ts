@@ -1,5 +1,6 @@
 import { MAXPOKEMONSRENDERED, api } from "./api";
 import { Pokemon, PokemonPosibleTypes } from "@/@types/pokemon";
+import { Chain, PokemonChain } from "@/@types/pokemon-chain";
 import { PokemonSpecies } from "@/@types/pokemon-species";
 import { PokemonsAbilities } from "@/@types/pokemons-abilities";
 import { PokemonsGender } from "@/@types/pokemons-gender";
@@ -29,6 +30,7 @@ export const getPokemonSpecie = async (id: number) => {
   );
 
   const response = {
+    evolution_chain: data.evolution_chain,
     flavor_text_entries: data.flavor_text_entries,
     generation: data.generation,
   };
@@ -134,6 +136,37 @@ export const getPokemonWeakness = async (slug: string | number) => {
   return weakness;
 };
 
+export const getEvolutions = async (slug: number) => {
+  const { evolution_chain } = await getPokemonSpecie(slug);
+  const {
+    data: { chain },
+  } = await api.get<PokemonChain>(evolution_chain.url);
+
+  const formatResult = (evolution: Chain) => {
+    const name = evolution.species.name;
+    const id = evolution.species.url
+      .split("https://pokeapi.co/api/v2/pokemon-species/")[1]
+      .slice(0, -1);
+    const level = evolution.evolves_to[0]?.evolution_details[0]?.min_level || 0;
+
+    return {
+      name,
+      id,
+      level,
+    };
+  };
+  const evolutions = [];
+  let currentEvolution = chain.evolves_to[0];
+  evolutions.push(formatResult(chain));
+
+  while (currentEvolution) {
+    evolutions.push(formatResult(currentEvolution));
+    currentEvolution = currentEvolution.evolves_to[0];
+  }
+
+  return evolutions;
+};
+
 export const getNextAndPrevPokemonData = async (name: string) => {
   const currentPokemon = await getBasePokemonData(name);
   const prevID =
@@ -165,7 +198,10 @@ export const getAllPokemonData = async (name: string) => {
       getPokemonGenders(name),
       getNextAndPrevPokemonData(name),
     ]);
-  const pokemonSpecie = await getPokemonSpecie(pokemonBaseData.id);
+  const [pokemonSpecie, pokemonEvolutions] = await Promise.all([
+    getPokemonSpecie(pokemonBaseData.id),
+    getEvolutions(pokemonBaseData.id),
+  ]);
 
   const entry =
     pokemonSpecie?.flavor_text_entries?.filter((entry) => {
@@ -185,6 +221,7 @@ export const getAllPokemonData = async (name: string) => {
     entry,
     gender: pokemonGender,
     adjacent_pokemons: pokemonPrevAndNext,
+    evolution: pokemonEvolutions,
   };
 };
 
