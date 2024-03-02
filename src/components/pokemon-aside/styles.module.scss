@@ -333,7 +333,8 @@
 }
 
 .skeletonFigure,
-.skeletonId {
+.skeletonId,
+.skeletonEvolutions {
   margin: 0 auto;
   margin-top: var(--space-4);
 }
@@ -482,9 +483,29 @@
   }
 }
 
+.skeletonEvolutionsWrapper {
+  display: flex;
+  margin-top: var(--space-4);
+  gap: var(--space-2);
+  align-items: center;
+  justify-content: center;
+
+  div {
+    width: var(--space-12);
+    aspect-ratio: 1 /1;
+    border-radius: var(--radii-sm);
+  }
+
+  p {
+    width: var(--space-10);
+    height: var(--space-5);
+    border-radius: var(--radii-full);
+  }
+}
+
 .skeletonNextPrevPokemons {
   width: 100%;
-  margin-top: var(--space-10);
+  margin-top: var(--space-4);
   height: var(--space-14);
   border-radius: var(--radii-md);
 }
@@ -499,7 +520,9 @@
 .skeletonTypes p,
 .skeletonName,
 .skeletonId,
-.skeletonFigure {
+.skeletonFigure,
+.skeletonEvolutionsWrapper div,
+.skeletonEvolutionsWrapper p {
   animation: loading 1.5s ease infinite;
   background-position: -150% 0;
   background-size: 100% 100%;

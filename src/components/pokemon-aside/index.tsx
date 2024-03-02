@@ -385,6 +385,16 @@ export const PokemonAsideSkeleton = () => {
           <p></p>
         </div>
       </div>
+      <div className={styles.skeletonEvolutions}>
+        <h2 className={styles.skeletonTitle}></h2>
+        <div className={styles.skeletonEvolutionsWrapper}>
+          <div></div>
+          <p></p>
+          <div></div>
+          <p></p>
+          <div></div>
+        </div>
+      </div>
       <div className={styles.skeletonNextPrevPokemons}></div>
     </>
   );

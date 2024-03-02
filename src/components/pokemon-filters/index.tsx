@@ -10,7 +10,7 @@ import {
   SELECTPOKEMONTYPESMULTI,
 } from "@/utils/pokemons";
 import { usePokemonQueryParams } from "@/hooks/usePokemonQueryParams";
-import { SelectPlaceholder, Select, SelectValueData } from "../select";
+import { Select, SelectPlaceholder, SelectValueData } from "@/components/select";
 
 export const PokemonFilters = () => {
   const [abilities, setAbilities] = useState<SelectValueData[]>();
