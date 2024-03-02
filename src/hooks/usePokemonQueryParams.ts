@@ -4,7 +4,6 @@ import {
   parseAsInteger,
   parseAsString,
 } from "nuqs";
-import { PokemonPosibleTypes } from "@/@types/pokemon";
 
 const parseAsPosiblePokemonTypes = createParser({
   parse(queryValue) {
@@ -18,6 +17,7 @@ const parseAsPosiblePokemonTypes = createParser({
 });
 
 export const usePokemonQueryParams = () => {
+  const [pokemon, setPokemon] = useQueryState("pokemon", parseAsString);
   const [search, setSearch] = useQueryState("search", parseAsString);
   const [from, setFrom] = useQueryState("from", parseAsInteger);
   const [to, setTo] = useQueryState("to", parseAsInteger);
@@ -31,6 +31,8 @@ export const usePokemonQueryParams = () => {
   const [height, setHeight] = useQueryState("height", parseAsInteger);
 
   return {
+    pokemon,
+    setPokemon,
     search,
     setSearch,
     from,

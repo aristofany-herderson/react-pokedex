@@ -47,15 +47,14 @@
     }
 
     input {
-      width: 100%;
       max-width: var(--space-24);
+      width: 100%;
+      padding: var(--space-2) var(--space-4);
       font-size: var(--font-size-xs);
-      outline: none;
       text-align: right;
+      outline: none;
       background: none;
       border: var(--border-width-thin) solid var(--colors-gray-600);
-      padding: var(--space-2) var(--space-4);
-
       border-radius: var(--radii-md);
     }
   }
@@ -78,9 +77,9 @@
 .clear {
   height: var(--space-10);
   aspect-ratio: 1 / 1;
+  padding: var(--space-2);
   background: var(--colors-gray-600);
   border-radius: var(--radii-md);
-  padding: var(--space-2);
 }
 
 @media screen and (max-width: 640px) {

@@ -7,9 +7,6 @@
 
   p {
     flex: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   img {
@@ -23,13 +20,13 @@
   height: var(--space-10);
   padding: var(--space-1) var(--space-3);
 
+  font-size: var(--font-size-xs);
+  font-weight: bold;
+  color: var(--colors-gray-600);
+
   background-color: var(--colors-white);
   border-radius: var(--radii-md);
   box-shadow: 0 0 8px 4px rgba(200, 200, 200, 0.1);
-
-  color: var(--colors-gray-600);
-  font-size: var(--font-size-xs);
-  font-weight: bold;
 
   display: flex;
   align-items: center;
@@ -49,11 +46,6 @@
   align-items: center;
 
   p {
-    flex: 1;
-    max-width: 2rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     display: none !important;
   }
 
@@ -76,13 +68,15 @@
 .option,
 .optionFocus {
   padding: var(--space-2) var(--space-3);
-  display: flex;
-  align-items: center;
-  transition: 0.15s;
-  cursor: pointer;
+
   font-size: var(--font-size-xs);
+  cursor: pointer;
+  transition: 0.15s;
   background: var(--colors-pokedex-ligth);
   border-radius: var(--radii-sm);
+
+  display: flex;
+  align-items: center;
 
   p {
     font-weight: bold;
@@ -111,9 +105,9 @@
   position: absolute;
   top: var(--space-14);
   left: 0;
-  z-index: var(--z-index-overlay);
   width: 100%;
   padding: var(--space-4);
+  z-index: var(--z-index-overlay);
   background: var(--colors-white);
   border-radius: var(--radii-md);
   border: none;
@@ -121,8 +115,8 @@
 }
 
 .menuWrapper {
-  width: 100%;
   max-height: 20rem;
+  width: 100%;
   overflow: auto;
 
   display: flex;
@@ -139,14 +133,13 @@
   width: 100%;
   font-size: var(--font-size-xs);
   font-weight: bold;
-  color: var(--colors-gray-600);
   text-align: center;
+  color: var(--colors-gray-600);
 }
 
 .selectSkeleton {
   flex: 1;
   height: var(--space-10);
-  border-radius: var(--radii-md);
 
   animation: loading 1.5s ease infinite;
   background-position: -150% 0;
@@ -158,6 +151,7 @@
       var(--colors-pokedex-medium) 55%
     )
     right / 300% 100%;
+  border-radius: var(--radii-md);
 }
 
 @keyframes loading {

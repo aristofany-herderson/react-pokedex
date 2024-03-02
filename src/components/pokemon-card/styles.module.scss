@@ -11,10 +11,10 @@
   .cardWrapper {
     width: 100%;
     padding: var(--space-5);
+    transition: 0.15s;
     background: var(--colors-white);
     border-radius: var(--radii-lg);
     box-shadow: 0 0 8px 4px rgba(200, 200, 200, 0.1);
-    transition: 0.15s;
 
     display: flex;
     flex-direction: column;
@@ -47,9 +47,9 @@
 
 .figure {
   width: 30%;
+  min-width: 6rem;
   height: 0;
   margin: 0 auto;
-  min-width: 6rem;
 
   img {
     aspect-ratio: 1 / 1;
@@ -61,10 +61,10 @@
 
 .id {
   margin-top: var(--space-4);
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--colors-gray-600);
   font-size: var(--font-size-xxs);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--colors-gray-600);
 }
 
 .name {
@@ -76,16 +76,17 @@
 .types {
   width: 100%;
   margin-top: var(--space-1);
+
   display: flex;
-  align-items: center;
   gap: var(--space-3);
+  align-items: center;
   justify-content: center;
 
   p {
     padding: var(--space-px) var(--space-2);
-    text-transform: uppercase;
     font-size: var(--font-size-xxs);
     font-weight: bold;
+    text-transform: uppercase;
     border-radius: var(--radii-sm);
   }
 }

@@ -3,7 +3,6 @@ import { PokemonPosibleTypes } from "@/@types/pokemon";
 import Image, { ImageProps } from "next/image";
 import SelectComponent, {
   ContainerProps,
-  GroupBase,
   NoticeProps,
   SingleValueProps,
 } from "react-select";
@@ -19,7 +18,7 @@ import {
 import styles from "./styles.module.scss";
 import { POKEMONSSELECTLEVELS, POKEMONTYPECOLORS } from "@/utils/pokemons";
 import { useEffect, useState } from "react";
-import { SelectePokemonNumber } from "@/utils/pokemons";
+import { SelectPokemonNumber } from "@/utils/pokemons";
 
 export type SelectValueData = {
   value: string;
@@ -125,7 +124,11 @@ const Control = ({
 };
 
 const ValueContainer = ({ children, innerProps }: ValueContainerProps) => {
-  return <div className={styles.valueContainer} {...innerProps}>{children}</div>;
+  return (
+    <div className={styles.valueContainer} {...innerProps}>
+      {children}
+    </div>
+  );
 };
 
 const Menu = ({ children, innerProps, innerRef }: MenuProps) => {
@@ -191,7 +194,7 @@ const NumberSingleValue = ({
   innerProps,
   children,
 }: SingleValueProps) => {
-  const currentData = data as SelectePokemonNumber;
+  const currentData = data as SelectPokemonNumber;
   const color = POKEMONSSELECTLEVELS[currentData.value].color;
 
   return (
@@ -271,7 +274,7 @@ const NumberOption = ({
   innerRef,
   innerProps,
 }: OptionProps) => {
-  const currentData = data as SelectePokemonNumber;
+  const currentData = data as SelectPokemonNumber;
   const color = POKEMONSSELECTLEVELS[currentData.value].color;
 
   return (

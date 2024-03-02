@@ -2,7 +2,7 @@
 import Image from "next/image";
 import styles from "./styles.module.scss";
 import { MAXPOKEMONSRENDERED } from "@/services/api";
-import { getAllPokemonAbilities } from "@/services/client-requests";
+import { getAllPokemonAbilities } from "@/services/requests";
 import { useEffect, useState } from "react";
 import {
   SELECTPOKEMONHEIGHTS,
@@ -36,7 +36,6 @@ export const PokemonFilters = () => {
   useEffect(() => {
     const getPokemonAbilities = async () => {
       const abilities = await getAllPokemonAbilities();
-
       return abilities;
     };
 
@@ -45,7 +44,7 @@ export const PokemonFilters = () => {
       const response = data.map((ability) => {
         return {
           value: ability.name,
-          label: ability.name,
+          label: `${ability.name.charAt(0).toUpperCase()}${ability.name.slice(1)}`,
         };
       });
 

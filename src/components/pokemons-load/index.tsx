@@ -2,11 +2,11 @@
 import { useInView } from "react-intersection-observer";
 import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
-import { fetchPokemons } from "@/services/server-requests";
+import { fetchPokemons } from "@/services/requests";
 import { PokemonCard } from "../pokemon-card";
 import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE } from "@/services/api";
 import { AsyncReturnType } from "@/@types/async-return-type";
-import { getLoadPokemonData } from "@/services/client-requests";
+import { getLoadPokemonData } from "@/services/requests";
 import { PokemonPosibleTypes } from "@/@types/pokemon";
 import { SELECTPOKEMONHEIGHTS, SELECTPOKEMONWEIGHTS } from "@/utils/pokemons";
 import { usePokemonQueryParams } from "@/hooks/usePokemonQueryParams";

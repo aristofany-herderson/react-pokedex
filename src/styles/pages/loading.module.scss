@@ -2,10 +2,11 @@
   position: fixed;
   top: 0;
   left: 0;
+
   width: 100vw;
   height: 100vh;
-  background: var(--colors-red);
   z-index: var(--z-index-overlay);
+  background: var(--colors-red);
 
   display: flex;
   flex-direction: column;

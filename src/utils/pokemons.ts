@@ -1,5 +1,14 @@
 import { PokemonPosibleTypes } from "@/@types/pokemon";
 
+export type SelectPokemonNumber = {
+  value: "1" | "2" | "3" | "4" | "5";
+  label: string;
+  range: {
+    min: number;
+    max: number;
+  };
+};
+
 export const POKEMONTYPECOLORS = {
   normal: {
     light: "#CDCDB9",
@@ -209,16 +218,7 @@ export const SELECTPOKEMONTYPESMULTI = [
   { value: "fairy", label: "fairy" },
 ];
 
-export type SelectePokemonNumber = {
-  value: "1" | "2" | "3" | "4" | "5";
-  label: string;
-  range: {
-    min: number;
-    max: number;
-  };
-};
-
-export const SELECTPOKEMONHEIGHTS: SelectePokemonNumber[] = [
+export const SELECTPOKEMONHEIGHTS: SelectPokemonNumber[] = [
   {
     value: "1",
     label: "0.1m - 3m",
@@ -261,7 +261,7 @@ export const SELECTPOKEMONHEIGHTS: SelectePokemonNumber[] = [
   },
 ];
 
-export const SELECTPOKEMONWEIGHTS: SelectePokemonNumber[] = [
+export const SELECTPOKEMONWEIGHTS: SelectPokemonNumber[] = [
   {
     value: "1",
     label: "0.1kg - 200.0kg",
