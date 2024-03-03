@@ -9,8 +9,12 @@ import {
   SELECTPOKEMONWEIGHTS,
   SELECTPOKEMONTYPESMULTI,
 } from "@/utils/pokemons";
-import { usePokemonQueryParams } from "@/hooks/usePokemonQueryParams";
-import { Select, SelectPlaceholder, SelectValueData } from "@/components/pokemon-select";
+import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
+import {
+  Select,
+  SelectPlaceholder,
+  SelectValueData,
+} from "@/components/select";
 
 export const PokemonFilters = () => {
   const [abilities, setAbilities] = useState<SelectValueData[]>();
@@ -215,7 +219,7 @@ export const PokemonFilters = () => {
         />
         <Select
           optionType="number"
-          value={weight ?  SELECTPOKEMONWEIGHTS[weight - 1] : ""}
+          value={weight ? SELECTPOKEMONWEIGHTS[weight - 1] : ""}
           onChange={(state) => {
             const currentState = state as SelectValueData;
             setWeight(Number(currentState?.value));

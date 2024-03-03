@@ -6,7 +6,7 @@ import { baseImageUrl } from "@/services/api";
 import { PokemonType } from "@/@types/pokemon";
 import { toBase64 } from "@/utils/to-base-64";
 import { pokemonImageLoader } from "@/utils/pokemon-image-loader";
-import { usePokemonQueryParams } from "@/hooks/usePokemonQueryParams";
+import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 
 type PokemonCardProps = {
   id: number;

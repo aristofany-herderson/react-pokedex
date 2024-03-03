@@ -19,6 +19,7 @@ import styles from "./styles.module.scss";
 import { POKEMONSSELECTLEVELS, POKEMONTYPECOLORS } from "@/utils/pokemons";
 import { useEffect, useState } from "react";
 import { SelectPokemonNumber } from "@/utils/pokemons";
+import classnames from "classnames";
 
 export type SelectValueData = {
   value: string;
@@ -219,7 +220,7 @@ const TypeOption = ({ data, isFocused, innerRef, innerProps }: OptionProps) => {
 
   return (
     <div
-      className={!isFocused ? styles.option : styles.optionFocus}
+      className={classnames(styles.option, isFocused && styles.optionFocus)}
       style={{ "--outline-color": colors.medium } as React.CSSProperties}
       ref={innerRef}
       {...innerProps}
@@ -247,11 +248,7 @@ const AbilityOption = ({
 
   return (
     <div
-      className={
-        !isFocused
-          ? `${styles.option} ${styles.optionAbility}`
-          : `${styles.optionFocus} ${styles.optionFocusAbility}`
-      }
+      className={classnames(styles.optionFull, isFocused && styles.optionFocus)}
       ref={innerRef}
       {...innerProps}
     >
@@ -279,11 +276,7 @@ const NumberOption = ({
 
   return (
     <div
-      className={
-        !isFocused
-          ? `${styles.option} ${styles.optionAbility}`
-          : `${styles.optionFocus} ${styles.optionFocusAbility}`
-      }
+      className={classnames(styles.optionFull, isFocused && styles.optionFocus)}
       ref={innerRef}
       {...innerProps}
     >

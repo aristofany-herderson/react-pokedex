@@ -9,7 +9,7 @@ import { AsyncReturnType } from "@/@types/async-return-type";
 import { getLoadPokemonData } from "@/services/requests";
 import { PokemonPosibleTypes } from "@/@types/pokemon";
 import { SELECTPOKEMONHEIGHTS, SELECTPOKEMONWEIGHTS } from "@/utils/pokemons";
-import { usePokemonQueryParams } from "@/hooks/usePokemonQueryParams";
+import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 
 export const PokemonsLoad = () => {
   const { ref: loadingRef, inView } = useInView();
@@ -114,11 +114,13 @@ export const PokemonsLoad = () => {
 
             const minVerification =
               currentWeight != null &&
-              pokemonHeight > SELECTPOKEMONWEIGHTS[currentWeight - 1]?.range?.min;
+              pokemonHeight >
+                SELECTPOKEMONWEIGHTS[currentWeight - 1]?.range?.min;
 
             const maxVerification =
               currentWeight != null &&
-              pokemonHeight <= SELECTPOKEMONWEIGHTS[currentWeight - 1]?.range?.max;
+              pokemonHeight <=
+                SELECTPOKEMONWEIGHTS[currentWeight - 1]?.range?.max;
 
             if (minVerification && maxVerification) {
               return pokemon;
@@ -134,11 +136,13 @@ export const PokemonsLoad = () => {
 
             const minVerification =
               currentHeight != null &&
-              pokemonHeight > SELECTPOKEMONHEIGHTS[currentHeight - 1]?.range?.min;
+              pokemonHeight >
+                SELECTPOKEMONHEIGHTS[currentHeight - 1]?.range?.min;
 
             const maxVerification =
               currentHeight != null &&
-              pokemonHeight <= SELECTPOKEMONHEIGHTS[currentHeight - 1]?.range?.max;
+              pokemonHeight <=
+                SELECTPOKEMONHEIGHTS[currentHeight - 1]?.range?.max;
 
             if (minVerification && maxVerification) {
               return pokemon;

@@ -1,4 +1,4 @@
-import { PokemonAside } from "@/components/pokemon-aside";
+import { Aside } from "@/components/aside";
 import { PokemonFilters } from "@/components/pokemon-filters";
 import { PokemonsLoad } from "@/components/pokemons-load";
 import styles from "@/styles/pages/home.module.scss";
@@ -13,7 +13,7 @@ export default function Home() {
           <PokemonFilters />
           <PokemonsLoad />
         </main>
-        <PokemonAside />
+        <Aside />
       </div>
       <Link
         className={styles.githubLink}

@@ -65,8 +65,7 @@
   }
 }
 
-.option,
-.optionFocus {
+.option {
   padding: var(--space-2) var(--space-3);
 
   font-size: var(--font-size-xs);
@@ -96,9 +95,14 @@
   }
 }
 
-.optionAbility,
-.optionFocusAbility {
+.optionFocus {
+  box-shadow: 0 0 0 3px var(--colors-pokedex-medium);
+  filter: brightness(0.95);
+}
+
+.optionFull {
   width: 100%;
+  @extend .option;
 }
 
 .menu {
@@ -106,7 +110,6 @@
   top: var(--space-14);
   left: 0;
   width: 100%;
-  padding: var(--space-4);
   z-index: var(--z-index-overlay);
   background: var(--colors-white);
   border-radius: var(--radii-md);
@@ -117,6 +120,7 @@
 .menuWrapper {
   max-height: 20rem;
   width: 100%;
+  padding: var(--space-4);
   overflow: auto;
 
   display: flex;

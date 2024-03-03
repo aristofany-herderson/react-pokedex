@@ -7,10 +7,10 @@ import { baseImageUrl } from "@/services/api";
 import { POKEMONTYPECOLORS, POKEMONSTATS } from "@/utils/pokemons";
 import { AsyncReturnType } from "@/@types/async-return-type";
 import { toBase64 } from "@/utils/to-base-64";
-import { usePokemonQueryParams } from "@/hooks/usePokemonQueryParams";
+import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import { pokemonImageLoader } from "@/utils/pokemon-image-loader";
 
-export const PokemonAside = () => {
+export const Aside = () => {
   const [pokemon, setPokemon] = useState<AsyncReturnType<
     typeof getAllPokemonData
   > | null>();
@@ -102,6 +102,7 @@ export const PokemonAside = () => {
               width={120}
               height={120}
               src={`${baseImageUrl}${id}.png`}
+              priority
               placeholder={`data:image/svg+xml;base64,${toBase64(
                 pokemonImageLoader(40, 40)
               )}`}
@@ -227,16 +228,23 @@ export const PokemonAside = () => {
                 const evolutionPaddedID = evolution.id.padStart(3, "0");
                 return (
                   <Fragment key={key}>
-                    <Image
-                      className={styles.pokemonImage}
-                      width={40}
-                      height={40}
-                      src={`${baseImageUrl}${evolutionPaddedID}.png`}
-                      placeholder={`data:image/svg+xml;base64,${toBase64(
-                        pokemonImageLoader(50, 50)
-                      )}`}
-                      alt={`${evolution.name} image`}
-                    />
+                    <button
+                      onClick={() => {
+                        setSelectedPokemon(evolution.name);
+                      }}
+                      aria-label={`select ${evolution.name}`}
+                    >
+                      <Image
+                        className={styles.pokemonImage}
+                        width={40}
+                        height={40}
+                        src={`${baseImageUrl}${evolutionPaddedID}.png`}
+                        placeholder={`data:image/svg+xml;base64,${toBase64(
+                          pokemonImageLoader(50, 50)
+                        )}`}
+                        alt={`${evolution.name} image`}
+                      />
+                    </button>
                     {evolution.level >= 0 && <p>Lvl {evolution.level}</p>}
                   </Fragment>
                 );
@@ -301,7 +309,7 @@ export const PokemonAside = () => {
   );
 };
 
-export const NoPokemonSelected = () => {
+const NoPokemonSelected = () => {
   return (
     <div className={styles.noSelected}>
       <Image
@@ -315,7 +323,7 @@ export const NoPokemonSelected = () => {
   );
 };
 
-export const AsideSkeleton = () => {
+const AsideSkeleton = () => {
   return (
     <>
       <div className={styles.skeletonGender}>
