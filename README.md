@@ -38,6 +38,7 @@ Project Dependencies:
 - [axios](https://axios-http.com/)
 - [nuqs](https://nuqs.47ng.com/)
 - [react-intersection-observer](https://react-intersection-observer.vercel.app/)
+- [classnames](https://github.com/JedWatson/classnames#readme)
 - [sharp](https://www.npmjs.com/package/sharp)
 - [next](https://www.npmjs.com/package/next)
 - [react](https://www.npmjs.com/package/react)
@@ -78,7 +79,7 @@ Open http://localhost:3000 with your browser to see the result.
 
 ## 💻&nbsp; Project
 
-🐉 A complete pokemon data for you. Including image, name, types, stats, characteristhics and more!
+🐉 A complete pokemon data for you. Including pokemon image, name, types, stats, characteristhics, evolutions and more!
 
 <br>
 
