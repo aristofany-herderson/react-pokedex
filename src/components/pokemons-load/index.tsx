@@ -45,17 +45,15 @@ export const PokemonsLoad = () => {
           })
           .filter((pokemon) => {
             const fromVerification =
-              from != null ? pokemon.id >= Number(from) : pokemon.id >= 0;
+              from != null ? pokemon.id >= from : pokemon.id >= 0;
             const toVerification =
-              to != null
-                ? pokemon.id <= Number(to)
-                : pokemon.id <= MAXPOKEMONSRENDERED;
+              to != null ? pokemon.id <= to : pokemon.id <= MAXPOKEMONSRENDERED;
 
             if (fromVerification && toVerification) {
               return pokemon;
             }
 
-            if (from == null || to == null) {
+            if (from == null && to == null) {
               return pokemon;
             }
           })

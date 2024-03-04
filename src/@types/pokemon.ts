@@ -49,6 +49,10 @@ export type PokemonPosibleTypes =
   | "steel"
   | "fairy";
 
+type PokemonSprites = {
+  front_default: string;
+};
+
 export type Pokemon = {
   abilities: PokemonAbility[];
   base_experience: number;
@@ -66,7 +70,7 @@ export type Pokemon = {
   past_abilities: any[];
   past_types: any[];
   species: PokemonSpecies;
-  sprites: any[];
+  sprites: PokemonSprites;
   stats: PokemonStat[];
   types: PokemonType[];
   weight: number;

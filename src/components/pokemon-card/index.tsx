@@ -2,7 +2,7 @@
 import Image from "next/image";
 import styles from "./styles.module.scss";
 import { POKEMONTYPECOLORS } from "@/utils/pokemons";
-import { baseImageUrl } from "@/services/api";
+import { BASEHYBRIDSHIVAMIMAGEURL, BASEPOKEAPIIMAGEURL } from "@/services/api";
 import { PokemonType } from "@/@types/pokemon";
 import { toBase64 } from "@/utils/to-base-64";
 import { pokemonImageLoader } from "@/utils/pokemon-image-loader";
@@ -36,7 +36,7 @@ export const PokemonCard = ({
             placeholder={`data:image/svg+xml;base64,${toBase64(
               pokemonImageLoader(50, 50)
             )}`}
-            src={`${baseImageUrl}${id}.png`}
+            src={pokemonId <= 905 ? `${BASEHYBRIDSHIVAMIMAGEURL}${id}.png` : `${BASEPOKEAPIIMAGEURL}${pokemonId}.png`}
             alt={`${name} pokemon image`}
           />
         </div>

@@ -3,7 +3,7 @@ import Image from "next/image";
 import styles from "./styles.module.scss";
 import { getAllPokemonData } from "@/services/requests";
 import { Fragment, useEffect, useState } from "react";
-import { baseImageUrl } from "@/services/api";
+import { BASEHYBRIDSHIVAMIMAGEURL, BASEPOKEAPIIMAGEURL } from "@/services/api";
 import { POKEMONTYPECOLORS, POKEMONSTATS } from "@/utils/pokemons";
 import { AsyncReturnType } from "@/@types/async-return-type";
 import { toBase64 } from "@/utils/to-base-64";
@@ -101,7 +101,11 @@ export const Aside = () => {
             <Image
               width={120}
               height={120}
-              src={`${baseImageUrl}${id}.png`}
+              src={
+                pokemon.id <= 905
+                  ? `${BASEHYBRIDSHIVAMIMAGEURL}${id}.png`
+                  : `${BASEPOKEAPIIMAGEURL}${pokemon.id}.png`
+              }
               priority
               placeholder={`data:image/svg+xml;base64,${toBase64(
                 pokemonImageLoader(40, 40)
@@ -225,7 +229,8 @@ export const Aside = () => {
             <h2 className={styles.title}>Evolution</h2>
             <div>
               {pokemon.evolution.map((evolution, key) => {
-                const evolutionPaddedID = evolution.id.padStart(3, "0");
+                const evolutionPaddedID = String(evolution.id).padStart(3, "0");
+
                 return (
                   <Fragment key={key}>
                     <button
@@ -238,7 +243,11 @@ export const Aside = () => {
                         className={styles.pokemonImage}
                         width={40}
                         height={40}
-                        src={`${baseImageUrl}${evolutionPaddedID}.png`}
+                        src={
+                          evolution.id <= 905
+                            ? `${BASEHYBRIDSHIVAMIMAGEURL}${evolutionPaddedID}.png`
+                            : `${BASEPOKEAPIIMAGEURL}${evolution.id}.png`
+                        }
                         placeholder={`data:image/svg+xml;base64,${toBase64(
                           pokemonImageLoader(50, 50)
                         )}`}
@@ -268,7 +277,11 @@ export const Aside = () => {
                 className={styles.pokemonImage}
                 width={18}
                 height={18}
-                src={`${baseImageUrl}${prevPokemonID}.png`}
+                src={
+                  pokemon.adjacent_pokemons.previous.id <= 905
+                    ? `${BASEHYBRIDSHIVAMIMAGEURL}${prevPokemonID}.png`
+                    : `${BASEPOKEAPIIMAGEURL}${pokemon.adjacent_pokemons.previous.id}.png`
+                }
                 placeholder={`data:image/svg+xml;base64,${toBase64(
                   pokemonImageLoader(50, 50)
                 )}`}
@@ -289,7 +302,11 @@ export const Aside = () => {
                 className={styles.pokemonImage}
                 width={18}
                 height={18}
-                src={`${baseImageUrl}${nextPokemonID}.png`}
+                src={
+                  pokemon.adjacent_pokemons.next.id <= 905
+                    ? `${BASEHYBRIDSHIVAMIMAGEURL}${nextPokemonID}.png`
+                    : `${BASEPOKEAPIIMAGEURL}${pokemon.adjacent_pokemons.next.id}.png`
+                }
                 placeholder={`data:image/svg+xml;base64,${toBase64(
                   pokemonImageLoader(50, 50)
                 )}`}

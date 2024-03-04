@@ -48,7 +48,9 @@ export const PokemonFilters = () => {
       const response = data.map((ability) => {
         return {
           value: ability.name,
-          label: `${ability.name.charAt(0).toUpperCase()}${ability.name.slice(1)}`,
+          label: `${ability.name.charAt(0).toUpperCase()}${ability.name.slice(
+            1
+          )}`,
         };
       });
 
@@ -60,10 +62,11 @@ export const PokemonFilters = () => {
 
   return (
     <>
-      <div className={styles.search}>
+      <label htmlFor="search" className={styles.search}>
         <input
           spellCheck={false}
           value={search || ""}
+          id="search"
           onChange={(event) => setSearch(event.target.value || null)}
           type="text"
           placeholder="Search your pokemon!"
@@ -77,7 +80,7 @@ export const PokemonFilters = () => {
             alt="Pokeball icon"
           />
         </button>
-      </div>
+      </label>
       <div className={styles.listAttributes}>
         <div className={styles.idLimit}>
           <label htmlFor="from">from</label>

@@ -165,9 +165,9 @@ export const getEvolutions = async (slug: number) => {
 
   const formatResult = (evolution: Chain) => {
     const name = evolution.species.name;
-    const id = evolution.species.url
+    const id = Number(evolution.species.url
       .split("https://pokeapi.co/api/v2/pokemon-species/")[1]
-      .slice(0, -1);
+      .slice(0, -1));
     const level = evolution.evolves_to[0]?.evolution_details[0]?.min_level || 0;
 
     return {
