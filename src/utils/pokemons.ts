@@ -1,4 +1,4 @@
-import { PokemonPosibleTypes } from "@/@types/pokemon";
+import { PosibleTypes as PokemonPosibleTypes } from "@/@types/pokemon";
 
 export type SelectPokemonNumber = {
   value: "1" | "2" | "3" | "4" | "5";

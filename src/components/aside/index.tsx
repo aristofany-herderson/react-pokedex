@@ -6,9 +6,9 @@ import { Fragment, useEffect, useState } from "react";
 import { BASEHYBRIDSHIVAMIMAGEURL, BASEPOKEAPIIMAGEURL } from "@/services/api";
 import { POKEMONTYPECOLORS, POKEMONSTATS } from "@/utils/pokemons";
 import { AsyncReturnType } from "@/@types/async-return-type";
-import { toBase64 } from "@/utils/to-base-64";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
-import { pokemonImageLoader } from "@/utils/pokemon-image-loader";
+import { pokemonSVGLoader } from "@/utils/pokemon-image-loader";
+import { pokemonImageURL } from "@/utils/pokemon-image-url";
 
 export const Aside = () => {
   const [pokemon, setPokemon] = useState<AsyncReturnType<
@@ -34,7 +34,7 @@ export const Aside = () => {
     fetchPokemon();
   }, [selectedPokemon]);
 
-  const id = String(pokemon?.id).padStart(3, "0");
+  const paddedID = String(pokemon?.id).padStart(3, "0");
   const sumStats = pokemon?.stats.reduce((accum, item) => {
     return accum + item.base_stat;
   }, 0);
@@ -42,10 +42,10 @@ export const Aside = () => {
   const weight = (pokemon?.weight || 0) / 10;
   const isGenderLess = !pokemon?.gender.isFemale && !pokemon?.gender.isMale;
 
-  const prevPokemonID = pokemon?.adjacent_pokemons.previous.id
+  const prevPokemonPaddedID = pokemon?.adjacent_pokemons.previous.id
     .toString()
     .padStart(3, "0");
-  const nextPokemonID = pokemon?.adjacent_pokemons.next.id
+  const nextPokemonPaddedID = pokemon?.adjacent_pokemons.next.id
     .toString()
     .padStart(3, "0");
 
@@ -101,19 +101,13 @@ export const Aside = () => {
             <Image
               width={120}
               height={120}
-              src={
-                pokemon.id <= 905
-                  ? `${BASEHYBRIDSHIVAMIMAGEURL}${id}.png`
-                  : `${BASEPOKEAPIIMAGEURL}${pokemon.id}.png`
-              }
+              src={pokemonImageURL(pokemon.id)}
               priority
-              placeholder={`data:image/svg+xml;base64,${toBase64(
-                pokemonImageLoader(40, 40)
-              )}`}
+              placeholder={pokemonSVGLoader(40, 40)}
               alt={`${pokemon.name} pokemon image`}
             />
           </div>
-          <span className={styles.id}>#{id}</span>
+          <span className={styles.id}>#{paddedID}</span>
           <h2 className={styles.name}>{pokemon?.name}</h2>
           <div className={styles.types}>
             {pokemon?.types.map((type, key) => {
@@ -243,14 +237,8 @@ export const Aside = () => {
                         className={styles.pokemonImage}
                         width={40}
                         height={40}
-                        src={
-                          evolution.id <= 905
-                            ? `${BASEHYBRIDSHIVAMIMAGEURL}${evolutionPaddedID}.png`
-                            : `${BASEPOKEAPIIMAGEURL}${evolution.id}.png`
-                        }
-                        placeholder={`data:image/svg+xml;base64,${toBase64(
-                          pokemonImageLoader(50, 50)
-                        )}`}
+                        src={pokemonImageURL(evolution.id)}
+                        placeholder={pokemonSVGLoader(40, 40)}
                         alt={`${evolution.name} image`}
                       />
                     </button>
@@ -277,18 +265,12 @@ export const Aside = () => {
                 className={styles.pokemonImage}
                 width={18}
                 height={18}
-                src={
-                  pokemon.adjacent_pokemons.previous.id <= 905
-                    ? `${BASEHYBRIDSHIVAMIMAGEURL}${prevPokemonID}.png`
-                    : `${BASEPOKEAPIIMAGEURL}${pokemon.adjacent_pokemons.previous.id}.png`
-                }
-                placeholder={`data:image/svg+xml;base64,${toBase64(
-                  pokemonImageLoader(50, 50)
-                )}`}
+                src={pokemonImageURL(pokemon.adjacent_pokemons.previous.id)}
+                placeholder={pokemonSVGLoader(40, 40)}
                 alt="Previous pokemon image"
               />
               <p>{pokemon.adjacent_pokemons.previous.name}</p>
-              <span>#{prevPokemonID}</span>
+              <span>#{prevPokemonPaddedID}</span>
             </button>
             <button
               title={pokemon.adjacent_pokemons.next.name}
@@ -296,20 +278,14 @@ export const Aside = () => {
                 setSelectedPokemon(pokemon.adjacent_pokemons.next.name);
               }}
             >
-              <span>#{nextPokemonID}</span>
+              <span>#{nextPokemonPaddedID}</span>
               <p>{pokemon.adjacent_pokemons.next.name}</p>
               <Image
                 className={styles.pokemonImage}
                 width={18}
                 height={18}
-                src={
-                  pokemon.adjacent_pokemons.next.id <= 905
-                    ? `${BASEHYBRIDSHIVAMIMAGEURL}${nextPokemonID}.png`
-                    : `${BASEPOKEAPIIMAGEURL}${pokemon.adjacent_pokemons.next.id}.png`
-                }
-                placeholder={`data:image/svg+xml;base64,${toBase64(
-                  pokemonImageLoader(50, 50)
-                )}`}
+                src={pokemonImageURL(pokemon.adjacent_pokemons.next.id)}
+                placeholder={pokemonSVGLoader(40, 40)}
                 alt="Next pokemon chevron icon"
               />
               <Image

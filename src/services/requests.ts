@@ -1,5 +1,5 @@
 import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE, api } from "./api";
-import { Pokemon, PokemonPosibleTypes } from "@/@types/pokemon";
+import { Pokemon, PosibleTypes as PokemonPosibleTypes } from "@/@types/pokemon";
 import { Chain, PokemonChain } from "@/@types/pokemon-chain";
 import { PokemonSpecies } from "@/@types/pokemon-species";
 import { PokemonsAbilities } from "@/@types/pokemons-abilities";

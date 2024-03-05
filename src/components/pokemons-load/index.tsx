@@ -7,7 +7,7 @@ import { PokemonCard } from "../pokemon-card";
 import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE } from "@/services/api";
 import { AsyncReturnType } from "@/@types/async-return-type";
 import { getLoadPokemonData } from "@/services/requests";
-import { PokemonPosibleTypes } from "@/@types/pokemon";
+import { PosibleTypes as PokemonPosibleTypes } from "@/@types/pokemon";
 import { SELECTPOKEMONHEIGHTS, SELECTPOKEMONWEIGHTS } from "@/utils/pokemons";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 

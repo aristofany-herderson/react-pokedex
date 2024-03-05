@@ -2,11 +2,10 @@
 import Image from "next/image";
 import styles from "./styles.module.scss";
 import { POKEMONTYPECOLORS } from "@/utils/pokemons";
-import { BASEHYBRIDSHIVAMIMAGEURL, BASEPOKEAPIIMAGEURL } from "@/services/api";
-import { PokemonType } from "@/@types/pokemon";
-import { toBase64 } from "@/utils/to-base-64";
-import { pokemonImageLoader } from "@/utils/pokemon-image-loader";
+import { Type as PokemonType } from "@/@types/pokemon";
+import { pokemonSVGLoader } from "@/utils/pokemon-image-loader";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
+import { pokemonImageURL } from "@/utils/pokemon-image-url";
 
 type PokemonCardProps = {
   id: number;
@@ -15,11 +14,11 @@ type PokemonCardProps = {
 };
 
 export const PokemonCard = ({
-  id: pokemonId,
+  id,
   name,
   types,
 }: PokemonCardProps) => {
-  const id = String(pokemonId).padStart(3, "0");
+  const paddedID = id.toString().padStart(3, "0");
   const { setPokemon } = usePokemonQueryParams();
 
   return (
@@ -33,14 +32,12 @@ export const PokemonCard = ({
           <Image
             width={50}
             height={50}
-            placeholder={`data:image/svg+xml;base64,${toBase64(
-              pokemonImageLoader(50, 50)
-            )}`}
-            src={pokemonId <= 905 ? `${BASEHYBRIDSHIVAMIMAGEURL}${id}.png` : `${BASEPOKEAPIIMAGEURL}${pokemonId}.png`}
+            placeholder={pokemonSVGLoader(40, 40)}
+            src={pokemonImageURL(id)}
             alt={`${name} pokemon image`}
           />
         </div>
-        <span className={styles.id}>nº {id}</span>
+        <span className={styles.id}>nº {paddedID}</span>
         <h2 className={styles.name}>{name}</h2>
         <div className={styles.types}>
           {types.map((type, key) => {

@@ -1,4 +1,4 @@
-export type Ability = {
+type Ability = {
   name: string;
   url: string;
 };

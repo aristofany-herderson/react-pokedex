@@ -10,7 +10,7 @@ type FlavorTexEntrie = {
   };
 };
 
-type PokemonGeneration = {
+type Generation = {
   name:
     | "generation-i"
     | "generation-ii"
@@ -40,7 +40,7 @@ export type PokemonSpecies = {
   forms_switchable: boolean;
   gender_rate: number;
   genera: any[];
-  generation: PokemonGeneration;
+  generation: Generation;
   growth_rate: any[];
   name: string;
   url: string;

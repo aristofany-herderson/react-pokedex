@@ -1,4 +1,4 @@
-type PokemonAbility = {
+type Ability = {
   ability: {
     name: string;
     url: string;
@@ -7,12 +7,12 @@ type PokemonAbility = {
   slot: number;
 };
 
-type PokemonSpecies = {
+type Species = {
   name: string;
   url: string;
 };
 
-type PokemonStat = {
+type Stat = {
   base_stat: number;
   effort: number;
   stat: {
@@ -21,15 +21,15 @@ type PokemonStat = {
   };
 };
 
-export type PokemonType = {
+export type Type = {
   slot: number;
   type: {
-    name: PokemonPosibleTypes;
+    name: PosibleTypes;
     url: string;
   };
 };
 
-export type PokemonPosibleTypes =
+export type PosibleTypes =
   | "normal"
   | "fire"
   | "fighting"
@@ -49,12 +49,12 @@ export type PokemonPosibleTypes =
   | "steel"
   | "fairy";
 
-type PokemonSprites = {
+type Sprites = {
   front_default: string;
 };
 
 export type Pokemon = {
-  abilities: PokemonAbility[];
+  abilities: Ability[];
   base_experience: number;
   cries: any[];
   forms: any[];
@@ -69,9 +69,9 @@ export type Pokemon = {
   order: number;
   past_abilities: any[];
   past_types: any[];
-  species: PokemonSpecies;
-  sprites: PokemonSprites;
-  stats: PokemonStat[];
-  types: PokemonType[];
+  species: Species;
+  sprites: Sprites;
+  stats: Stat[];
+  types: Type[];
   weight: number;
 };

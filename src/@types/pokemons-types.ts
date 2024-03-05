@@ -1,19 +1,19 @@
-type DamageRelationType = {
+type DamageRelation = {
   name: string;
   url: string;
 };
 
-type DamageRelation = {
-  double_damage_from: DamageRelationType[];
-  double_damage_to: DamageRelationType[];
-  half_damage_from: DamageRelationType[];
-  half_damage_to: DamageRelationType[];
-  no_damage_from: DamageRelationType[];
-  no_damage_to: DamageRelationType[];
+type DamageRelations = {
+  double_damage_from: DamageRelation[];
+  double_damage_to: DamageRelation[];
+  half_damage_from: DamageRelation[];
+  half_damage_to: DamageRelation[];
+  no_damage_from: DamageRelation[];
+  no_damage_to: DamageRelation[];
 };
 
 export type PokemonsTypes = {
-  damage_relations: DamageRelation;
+  damage_relations: DamageRelations;
   game_indices: any[];
   generation: any[];
   id: number;

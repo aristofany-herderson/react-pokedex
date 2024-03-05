@@ -1,4 +1,4 @@
-type PokemonSpecieDetails = {
+type PokemonSpeciesDetails = {
   pokemon_species: {
     name: string;
     url: string;
@@ -9,6 +9,6 @@ type PokemonSpecieDetails = {
 export type PokemonsGender = {
   id: number;
   name: string;
-  pokemon_species_details: PokemonSpecieDetails[];
+  pokemon_species_details: PokemonSpeciesDetails[];
   required_for_evolution: any[];
 };
