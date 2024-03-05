@@ -1,11 +1,11 @@
 "use client";
+import { Type as PokemonType } from "@/@types/pokemon";
+import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
+import { pokemonSVGLoader } from "@/utils/pokemon-image-loader";
+import { pokemonImageURL } from "@/utils/pokemon-image-url";
+import { POKEMONTYPECOLORS } from "@/utils/pokemons";
 import Image from "next/image";
 import styles from "./styles.module.scss";
-import { POKEMONTYPECOLORS } from "@/utils/pokemons";
-import { Type as PokemonType } from "@/@types/pokemon";
-import { pokemonSVGLoader } from "@/utils/pokemon-image-loader";
-import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
-import { pokemonImageURL } from "@/utils/pokemon-image-url";
 
 type PokemonCardProps = {
   id: number;
@@ -13,12 +13,8 @@ type PokemonCardProps = {
   types: PokemonType[];
 };
 
-export const PokemonCard = ({
-  id,
-  name,
-  types,
-}: PokemonCardProps) => {
-  const paddedID = id.toString().padStart(3, "0");
+export const PokemonCard = ({ id, name, types }: PokemonCardProps) => {
+  const paddedID = String(id).padStart(3, "0");
   const { setPokemon } = usePokemonQueryParams();
 
   return (

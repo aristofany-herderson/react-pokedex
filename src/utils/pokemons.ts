@@ -84,7 +84,7 @@ export const POKEMONTYPECOLORS = {
   },
 };
 
-export const POKEMONSTATS = {
+export const POKEMONSTATCOLORS = {
   hp: {
     name: "hp",
     color: "#df2140",
@@ -111,7 +111,7 @@ export const POKEMONSTATS = {
   },
 };
 
-export const POKEMONSSELECTLEVELS = {
+export const POKEMONFILTERLEVELCOLORS = {
   1: {
     color: "#5CA463",
   },
@@ -126,36 +126,6 @@ export const POKEMONSSELECTLEVELS = {
   },
   5: {
     color: "#DC143C",
-  },
-};
-
-export const POKEMONGENERATIONS = {
-  "generation-i": {
-    value: 1,
-  },
-  "generation-ii": {
-    value: 2,
-  },
-  "generation-iii": {
-    value: 3,
-  },
-  "generation-iv": {
-    value: 4,
-  },
-  "generation-v": {
-    value: 5,
-  },
-  "generation-vi": {
-    value: 6,
-  },
-  "generation-vii": {
-    value: 7,
-  },
-  "generation-viii": {
-    value: 8,
-  },
-  "generation-ix": {
-    value: 9,
   },
 };
 
@@ -177,27 +147,6 @@ export const POKEMONSTRENGTHBYABILITY: {
 };
 
 export const SELECTPOKEMONTYPES = [
-  { value: "normal" },
-  { value: "fire" },
-  { value: "fighting" },
-  { value: "water" },
-  { value: "flying" },
-  { value: "grass" },
-  { value: "poison" },
-  { value: "electric" },
-  { value: "ground" },
-  { value: "psychic" },
-  { value: "rock" },
-  { value: "ice" },
-  { value: "bug" },
-  { value: "dragon" },
-  { value: "ghost" },
-  { value: "dark" },
-  { value: "steel" },
-  { value: "fairy" },
-];
-
-export const SELECTPOKEMONTYPESMULTI = [
   { value: "normal", label: "normal" },
   { value: "fire", label: "fire" },
   { value: "fighting", label: "fighting" },

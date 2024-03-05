@@ -1,25 +1,26 @@
 "use client";
-import { PokemonPosibleTypes } from "@/@types/pokemon";
+import { PosibleTypes as PokemonPosibleTypes } from "@/@types/pokemon";
+import {
+  POKEMONFILTERLEVELCOLORS,
+  POKEMONTYPECOLORS,
+  SelectPokemonNumber,
+} from "@/utils/pokemons";
+import classnames from "classnames";
 import Image, { ImageProps } from "next/image";
+import { useEffect, useState } from "react";
 import SelectComponent, {
   ContainerProps,
-  NoticeProps,
-  SingleValueProps,
-} from "react-select";
-import {
-  Props as SelectComponentProps,
   ControlProps,
-  MultiValueProps,
-  ValueContainerProps,
   MenuListProps,
   MenuProps,
+  MultiValueProps,
+  NoticeProps,
   OptionProps,
+  Props as SelectComponentProps,
+  SingleValueProps,
+  ValueContainerProps,
 } from "react-select";
 import styles from "./styles.module.scss";
-import { POKEMONSSELECTLEVELS, POKEMONTYPECOLORS } from "@/utils/pokemons";
-import { useEffect, useState } from "react";
-import { SelectPokemonNumber } from "@/utils/pokemons";
-import classnames from "classnames";
 
 export type SelectValueData = {
   value: string;
@@ -53,7 +54,7 @@ export const Select = ({
     ability: AbilitySingleValue,
   };
 
-  const id = Date.now().toString();
+  const id = String(Date.now());
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => setIsMounted(true), []);
 
@@ -159,7 +160,7 @@ const MultiValue = ({ data, innerProps, children }: MultiValueProps) => {
         <Image
           width={10}
           height={10}
-          src={`/icons/pokemon/${currentData.value}.svg`}
+          src={`/icons/pokemon-types/${currentData.value}.svg`}
           alt={currentData.value}
         />
       </span>
@@ -196,7 +197,7 @@ const NumberSingleValue = ({
   children,
 }: SingleValueProps) => {
   const currentData = data as SelectPokemonNumber;
-  const color = POKEMONSSELECTLEVELS[currentData.value].color;
+  const color = POKEMONFILTERLEVELCOLORS[currentData.value].color;
 
   return (
     <div className={styles.value} {...innerProps}>
@@ -229,7 +230,7 @@ const TypeOption = ({ data, isFocused, innerRef, innerProps }: OptionProps) => {
         <Image
           width={10}
           height={10}
-          src={`/icons/pokemon/${currentData.value}.svg`}
+          src={`/icons/pokemon-types/${currentData.value}.svg`}
           alt={currentData.value}
         />
       </span>
@@ -272,7 +273,7 @@ const NumberOption = ({
   innerProps,
 }: OptionProps) => {
   const currentData = data as SelectPokemonNumber;
-  const color = POKEMONSSELECTLEVELS[currentData.value].color;
+  const color = POKEMONFILTERLEVELCOLORS[currentData.value].color;
 
   return (
     <div

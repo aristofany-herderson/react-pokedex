@@ -1,20 +1,20 @@
 "use client";
-import Image from "next/image";
-import styles from "./styles.module.scss";
-import { MAXPOKEMONSRENDERED } from "@/services/api";
-import { getAllPokemonAbilities } from "@/services/requests";
-import { useEffect, useState } from "react";
-import {
-  SELECTPOKEMONHEIGHTS,
-  SELECTPOKEMONWEIGHTS,
-  SELECTPOKEMONTYPESMULTI,
-} from "@/utils/pokemons";
-import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import {
   Select,
   SelectPlaceholder,
   SelectValueData,
 } from "@/components/select";
+import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
+import { MAXPOKEMONSRENDERED } from "@/services/api";
+import { getAllPokemonAbilities } from "@/services/requests";
+import {
+  SELECTPOKEMONHEIGHTS,
+  SELECTPOKEMONTYPES,
+  SELECTPOKEMONWEIGHTS,
+} from "@/utils/pokemons";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import styles from "./styles.module.scss";
 
 export const PokemonFilters = () => {
   const [abilities, setAbilities] = useState<SelectValueData[]>();
@@ -127,7 +127,7 @@ export const PokemonFilters = () => {
             );
           }}
           name="type"
-          options={SELECTPOKEMONTYPESMULTI}
+          options={SELECTPOKEMONTYPES}
           placeholder={
             <SelectPlaceholder
               icon={{
@@ -161,7 +161,7 @@ export const PokemonFilters = () => {
             );
           }}
           name="weakness"
-          options={SELECTPOKEMONTYPESMULTI}
+          options={SELECTPOKEMONTYPES}
           placeholder={
             <SelectPlaceholder
               icon={{

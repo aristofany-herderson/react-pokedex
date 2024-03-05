@@ -1,15 +1,14 @@
 "use client";
-import { useInView } from "react-intersection-observer";
-import styles from "./styles.module.scss";
-import { useEffect, useState } from "react";
-import { fetchPokemons } from "@/services/requests";
-import { PokemonCard } from "../pokemon-card";
-import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE } from "@/services/api";
 import { AsyncReturnType } from "@/@types/async-return-type";
-import { getLoadPokemonData } from "@/services/requests";
 import { PosibleTypes as PokemonPosibleTypes } from "@/@types/pokemon";
-import { SELECTPOKEMONHEIGHTS, SELECTPOKEMONWEIGHTS } from "@/utils/pokemons";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
+import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE } from "@/services/api";
+import { fetchPokemons, getLoadPokemonData } from "@/services/requests";
+import { SELECTPOKEMONHEIGHTS, SELECTPOKEMONWEIGHTS } from "@/utils/pokemons";
+import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
+import { PokemonCard } from "../pokemon-card";
+import styles from "./styles.module.scss";
 
 export const PokemonsLoad = () => {
   const { ref: loadingRef, inView } = useInView();

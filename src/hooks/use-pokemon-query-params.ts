@@ -1,8 +1,8 @@
 import {
-  useQueryState,
   createParser,
   parseAsInteger,
   parseAsString,
+  useQueryState,
 } from "nuqs";
 
 const parseAsPosiblePokemonTypes = createParser({

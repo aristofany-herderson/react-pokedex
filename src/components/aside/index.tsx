@@ -1,14 +1,13 @@
 "use client";
-import Image from "next/image";
-import styles from "./styles.module.scss";
-import { getAllPokemonData } from "@/services/requests";
-import { Fragment, useEffect, useState } from "react";
-import { BASEHYBRIDSHIVAMIMAGEURL, BASEPOKEAPIIMAGEURL } from "@/services/api";
-import { POKEMONTYPECOLORS, POKEMONSTATS } from "@/utils/pokemons";
 import { AsyncReturnType } from "@/@types/async-return-type";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
+import { getAllPokemonData } from "@/services/requests";
 import { pokemonSVGLoader } from "@/utils/pokemon-image-loader";
 import { pokemonImageURL } from "@/utils/pokemon-image-url";
+import { POKEMONSTATCOLORS, POKEMONTYPECOLORS } from "@/utils/pokemons";
+import Image from "next/image";
+import { Fragment, useEffect, useState } from "react";
+import styles from "./styles.module.scss";
 
 export const Aside = () => {
   const [pokemon, setPokemon] = useState<AsyncReturnType<
@@ -42,12 +41,12 @@ export const Aside = () => {
   const weight = (pokemon?.weight || 0) / 10;
   const isGenderLess = !pokemon?.gender.isFemale && !pokemon?.gender.isMale;
 
-  const prevPokemonPaddedID = pokemon?.adjacent_pokemons.previous.id
-    .toString()
-    .padStart(3, "0");
-  const nextPokemonPaddedID = pokemon?.adjacent_pokemons.next.id
-    .toString()
-    .padStart(3, "0");
+  const prevPokemonPaddedID = String(
+    pokemon?.adjacent_pokemons.previous.id
+  ).padStart(3, "0");
+  const nextPokemonPaddedID = String(
+    pokemon?.adjacent_pokemons.next.id
+  ).padStart(3, "0");
 
   const isNoSelect = !selectedPokemon;
   const isSelectAndLoading =
@@ -177,7 +176,7 @@ export const Aside = () => {
                         <Image
                           width={10}
                           height={10}
-                          src={`/icons/pokemon/${weak}.svg`}
+                          src={`/icons/pokemon-types/${weak}.svg`}
                           alt={`Pokemon ${weak} weakness icon`}
                         />
                       </span>
@@ -202,7 +201,7 @@ export const Aside = () => {
             <div>
               {pokemon?.stats.map((stat, key) => {
                 const [[, statAtributtes]] = Object.entries(
-                  POKEMONSTATS
+                  POKEMONSTATCOLORS
                 ).filter(([key, _]) => key === stat.stat.name);
                 return (
                   <p key={key}>

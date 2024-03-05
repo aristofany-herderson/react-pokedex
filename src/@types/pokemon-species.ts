@@ -10,23 +10,9 @@ type FlavorTexEntrie = {
   };
 };
 
-type Generation = {
-  name:
-    | "generation-i"
-    | "generation-ii"
-    | "generation-iii"
-    | "generation-iv"
-    | "generation-v"
-    | "generation-vi"
-    | "generation-vii"
-    | "generation-viii"
-    | "generation-ix";
-  url: string;
-};
-
 type EvolutionChain = {
   url: string;
-}
+};
 
 export type PokemonSpecies = {
   base_happiness: number;
@@ -40,7 +26,7 @@ export type PokemonSpecies = {
   forms_switchable: boolean;
   gender_rate: number;
   genera: any[];
-  generation: Generation;
+  generation: any[];
   growth_rate: any[];
   name: string;
   url: string;

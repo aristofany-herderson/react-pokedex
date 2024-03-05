@@ -1,11 +1,11 @@
-import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE, api } from "./api";
 import { Pokemon, PosibleTypes as PokemonPosibleTypes } from "@/@types/pokemon";
 import { Chain, PokemonChain } from "@/@types/pokemon-chain";
 import { PokemonSpecies } from "@/@types/pokemon-species";
 import { PokemonsAbilities } from "@/@types/pokemons-abilities";
 import { PokemonsGender } from "@/@types/pokemons-gender";
 import { PokemonsTypes } from "@/@types/pokemons-types";
-import { POKEMONGENERATIONS, POKEMONSTRENGTHBYABILITY } from "@/utils/pokemons";
+import { POKEMONSTRENGTHBYABILITY } from "@/utils/pokemons";
+import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE, api } from "./api";
 
 const POKEMONIDS = Array.from({ length: MAXPOKEMONSRENDERED }, (_, i) => i + 1);
 
@@ -53,7 +53,6 @@ export const getPokemonSpecie = async (id: number) => {
   const response = {
     evolution_chain: data.evolution_chain,
     flavor_text_entries: data.flavor_text_entries,
-    generation: data.generation,
   };
 
   return response;
@@ -165,9 +164,11 @@ export const getEvolutions = async (slug: number) => {
 
   const formatResult = (evolution: Chain) => {
     const name = evolution.species.name;
-    const id = Number(evolution.species.url
-      .split("https://pokeapi.co/api/v2/pokemon-species/")[1]
-      .slice(0, -1));
+    const id = Number(
+      evolution.species.url
+        .split("https://pokeapi.co/api/v2/pokemon-species/")[1]
+        .slice(0, -1)
+    );
     const level = evolution.evolves_to[0]?.evolution_details[0]?.min_level || 0;
 
     return {
@@ -260,7 +261,6 @@ export const getLoadPokemonData = async (id: number) => {
     abilities: pokemonBaseData.abilities,
     weight: pokemonBaseData.weight,
     height: pokemonBaseData.height,
-    generation: POKEMONGENERATIONS[pokemonSpecie.generation.name].value,
     weakness: pokemonWeakness,
   };
 };
