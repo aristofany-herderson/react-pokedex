@@ -19,6 +19,7 @@ const parseAsPosiblePokemonTypes = createParser({
 export const usePokemonQueryParams = () => {
   const [pokemon, setPokemon] = useQueryState("pokemon", parseAsString);
   const [search, setSearch] = useQueryState("search", parseAsString);
+  const [order, setOrder] = useQueryState("order", parseAsString);
   const [from, setFrom] = useQueryState("from", parseAsInteger);
   const [to, setTo] = useQueryState("to", parseAsInteger);
   const [type, setType] = useQueryState("type", parseAsPosiblePokemonTypes);
@@ -33,6 +34,8 @@ export const usePokemonQueryParams = () => {
   return {
     pokemon,
     setPokemon,
+    order,
+    setOrder,
     search,
     setSearch,
     from,

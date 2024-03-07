@@ -26,13 +26,14 @@
 }
 
 .listAttributes {
+  position: relative;
   margin-bottom: var(--space-4);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 
-  div {
-    flex: 1;
+  > div:nth-child(1) {
+    max-width: var(--space-28);
   }
 
   .idLimit {

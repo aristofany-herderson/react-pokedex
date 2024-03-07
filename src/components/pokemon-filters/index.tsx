@@ -9,6 +9,7 @@ import { MAXPOKEMONSRENDERED } from "@/services/api";
 import { getAllPokemonAbilities } from "@/services/requests";
 import {
   SELECTPOKEMONHEIGHTS,
+  SELECTPOKEMONORDER,
   SELECTPOKEMONTYPES,
   SELECTPOKEMONWEIGHTS,
 } from "@/utils/pokemons";
@@ -19,10 +20,12 @@ import styles from "./styles.module.scss";
 export const PokemonFilters = () => {
   const [abilities, setAbilities] = useState<SelectValueData[]>();
   const {
+    order,
     ability,
     from,
     height,
     search,
+    setOrder,
     setAbility,
     setFrom,
     setHeight,
@@ -82,6 +85,23 @@ export const PokemonFilters = () => {
         </button>
       </label>
       <div className={styles.listAttributes}>
+        <Select
+          defaultValue={
+            order
+              ? SELECTPOKEMONORDER.filter(
+                  (orderType) => orderType.value == order
+                )[0]
+              : SELECTPOKEMONORDER[0]
+          }
+          optionType="order"
+          onChange={(state) => {
+            const currentState = state as SelectValueData;
+            setOrder(currentState?.value);
+          }}
+          isClearable={false}
+          name="order"
+          options={SELECTPOKEMONORDER}
+        />
         <div className={styles.idLimit}>
           <label htmlFor="from">from</label>
           <input
@@ -116,7 +136,7 @@ export const PokemonFilters = () => {
                     label: current,
                   };
                 })
-              : ""
+              : null
           }
           onChange={(state) => {
             const currentState = state as SelectValueData[];
@@ -150,7 +170,7 @@ export const PokemonFilters = () => {
                     label: current,
                   };
                 })
-              : ""
+              : null
           }
           onChange={(state) => {
             const currentState = state as SelectValueData[];
@@ -204,7 +224,7 @@ export const PokemonFilters = () => {
           value={height ? SELECTPOKEMONHEIGHTS[height - 1] : ""}
           onChange={(state) => {
             const currentState = state as SelectValueData;
-            setHeight(Number(currentState?.value));
+            setHeight(currentState && Number(currentState?.value));
           }}
           name="height"
           options={SELECTPOKEMONHEIGHTS}
@@ -225,7 +245,7 @@ export const PokemonFilters = () => {
           value={weight ? SELECTPOKEMONWEIGHTS[weight - 1] : ""}
           onChange={(state) => {
             const currentState = state as SelectValueData;
-            setWeight(Number(currentState?.value));
+            setWeight(currentState && Number(currentState?.value));
           }}
           name="weight"
           options={SELECTPOKEMONWEIGHTS}

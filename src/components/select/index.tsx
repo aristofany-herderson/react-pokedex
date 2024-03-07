@@ -5,7 +5,7 @@ import {
   POKEMONTYPECOLORS,
   SelectPokemonNumber,
 } from "@/utils/pokemons";
-import classnames from "classnames";
+import classNames from "classnames";
 import Image, { ImageProps } from "next/image";
 import { useEffect, useState } from "react";
 import SelectComponent, {
@@ -33,7 +33,7 @@ type SelectPlaceholderProps = {
 };
 
 type SelectProps = SelectComponentProps & {
-  optionType?: "type" | "number" | "ability";
+  optionType?: "type" | "number" | "ability" | "order";
 };
 
 export const Select = ({
@@ -47,11 +47,20 @@ export const Select = ({
     type: TypeOption,
     number: NumberOption,
     ability: AbilityOption,
+    order: OrderOption,
   };
   const POSIBLESINGLEVALUE = {
     type: undefined,
     number: NumberSingleValue,
     ability: AbilitySingleValue,
+    order: OrderSingleValue,
+  };
+
+  const POSIBLECONTROLS = {
+    type: BaseControl,
+    number: BaseControl,
+    ability: BaseControl,
+    order: OrderControl,
   };
 
   const id = String(Date.now());
@@ -64,7 +73,7 @@ export const Select = ({
       isClearable={isClearable}
       components={{
         SelectContainer,
-        Control,
+        Control: POSIBLECONTROLS[optionType],
         IndicatorSeparator: null,
         ValueContainer,
         Menu,
@@ -108,7 +117,28 @@ const SelectContainer = ({
   );
 };
 
-const Control = ({
+const OrderControl = ({
+  children,
+  isFocused,
+  innerProps,
+  innerRef,
+}: ControlProps) => {
+  return (
+    <div
+      ref={innerRef}
+      className={
+        !isFocused
+          ? classNames(styles.trigger, styles.orderTrigger)
+          : classNames(styles.triggerFocus, styles.orderTriggerFocus)
+      }
+      {...innerProps}
+    >
+      {children}
+    </div>
+  );
+};
+
+const BaseControl = ({
   children,
   isFocused,
   innerProps,
@@ -191,6 +221,15 @@ const AbilitySingleValue = ({
   );
 };
 
+const OrderSingleValue = ({ data, innerProps, children }: SingleValueProps) => {
+  const currentData = data as SelectValueData;
+  return (
+    <div className={styles.value} {...innerProps}>
+      <p className={styles.order}>{currentData.label}</p>
+    </div>
+  );
+};
+
 const NumberSingleValue = ({
   data,
   innerProps,
@@ -221,7 +260,7 @@ const TypeOption = ({ data, isFocused, innerRef, innerProps }: OptionProps) => {
 
   return (
     <div
-      className={classnames(styles.option, isFocused && styles.optionFocus)}
+      className={classNames(styles.option, isFocused && styles.optionFocus)}
       style={{ "--outline-color": colors.medium } as React.CSSProperties}
       ref={innerRef}
       {...innerProps}
@@ -249,7 +288,7 @@ const AbilityOption = ({
 
   return (
     <div
-      className={classnames(styles.optionFull, isFocused && styles.optionFocus)}
+      className={classNames(styles.optionFull, isFocused && styles.optionFocus)}
       ref={innerRef}
       {...innerProps}
     >
@@ -266,6 +305,25 @@ const AbilityOption = ({
   );
 };
 
+const OrderOption = ({
+  data,
+  isFocused,
+  innerRef,
+  innerProps,
+}: OptionProps) => {
+  const currentData = data as SelectValueData;
+
+  return (
+    <div
+      className={classNames(styles.optionFull, isFocused && styles.optionFocus)}
+      ref={innerRef}
+      {...innerProps}
+    >
+      <p>{currentData.label}</p>
+    </div>
+  );
+};
+
 const NumberOption = ({
   data,
   isFocused,
@@ -277,7 +335,7 @@ const NumberOption = ({
 
   return (
     <div
-      className={classnames(styles.optionFull, isFocused && styles.optionFocus)}
+      className={classNames(styles.optionFull, isFocused && styles.optionFocus)}
       ref={innerRef}
       {...innerProps}
     >

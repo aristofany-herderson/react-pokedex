@@ -5,6 +5,7 @@ import { getAllPokemonData } from "@/services/requests";
 import { pokemonSVGLoader } from "@/utils/pokemon-image-loader";
 import { pokemonImageURL } from "@/utils/pokemon-image-url";
 import { POKEMONSTATCOLORS, POKEMONTYPECOLORS } from "@/utils/pokemons";
+import classNames from "classnames";
 import Image from "next/image";
 import { Fragment, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
@@ -107,7 +108,14 @@ export const Aside = () => {
             />
           </div>
           <span className={styles.id}>#{paddedID}</span>
-          <h2 className={styles.name}>{pokemon?.name}</h2>
+          <h2
+            className={classNames(
+              styles.name,
+              pokemon.is_legendary && styles.legendary
+            )}
+          >
+            {pokemon?.name}
+          </h2>
           <div className={styles.types}>
             {pokemon?.types.map((type, key) => {
               const colors = (POKEMONTYPECOLORS as any)[type.type.name];
@@ -125,7 +133,7 @@ export const Aside = () => {
               );
             })}
           </div>
-          {pokemon.entry != "" && (
+          {pokemon.entry && (
             <div className={styles.entry}>
               <h2 className={styles.title}>POKÉDEX ENTRY</h2>
               <p>{pokemon?.entry.replace("\f", " ")}</p>

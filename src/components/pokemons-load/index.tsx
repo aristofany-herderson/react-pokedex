@@ -12,18 +12,41 @@ import styles from "./styles.module.scss";
 
 export const PokemonsLoad = () => {
   const { ref: loadingRef, inView } = useInView();
-  const [pokemons, setPokemonsData] = useState<
+  const [pokemons, setPokemons] = useState<
     AsyncReturnType<typeof getLoadPokemonData>[]
   >([]);
   const [pagination, setPagination] = useState(1);
 
-  const { search, from, to, type, weakness, ability, weight, height } =
+  const { search, from, to, type, weakness, ability, weight, height, order } =
     usePokemonQueryParams();
+
+  useEffect(() => {
+    const DESCPokemons = () => {
+      if (pokemons.length > 0) {
+        const result = pokemons.sort((a, b) => {
+          return b.id - a.id;
+        });
+        setPokemons(result);
+      }
+    };
+
+    const ASCPokemons = () => {
+      if (pokemons.length > 0) {
+        const result = pokemons.sort((a, b) => {
+          return a.id - b.id;
+        });
+        setPokemons(result);
+      }
+    };
+    order?.toLowerCase() == "asc" && ASCPokemons();
+    order?.toLocaleLowerCase() == "desc" && DESCPokemons();
+    // eslint-disable-next-line
+  }, [order]);
 
   useEffect(() => {
     if (inView) {
       fetchPokemons(pagination).then((response) => {
-        setPokemonsData([...pokemons, ...response]);
+        setPokemons([...pokemons, ...response]);
         setPagination(pagination + 1);
       });
     }

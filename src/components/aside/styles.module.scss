@@ -68,7 +68,18 @@
   margin-top: var(--space-1);
   font-size: var(--font-size-2xl);
   text-transform: capitalize;
+
+  &.legendary {
+    background: linear-gradient(45deg, #4158d0 20%, #c850c0 50%, #ffcc70 100%);
+    background-size: 200% 100%;
+
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    animation: textGradient 5s infinite linear;
+  }
 }
+
 .types {
   margin-top: var(--space-1);
   display: flex;
@@ -252,6 +263,7 @@
   }
 }
 
+.name,
 .types p,
 .abilities p,
 .characteristics p,
@@ -537,6 +549,25 @@
 @keyframes loading {
   to {
     background-position: left;
+  }
+}
+
+@keyframes textGradient {
+  0% {
+    background-position: 0 0;
+  }
+  25% {
+    background-position: 100% 0;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0 100%;
+  }
+
+  100% {
+    background-position: 0;
   }
 }
 

@@ -24,6 +24,7 @@
   font-weight: bold;
   color: var(--colors-gray-600);
 
+  cursor: pointer;
   background-color: var(--colors-white);
   border-radius: var(--radii-md);
   box-shadow: 0 0 8px 4px rgba(200, 200, 200, 0.1);
@@ -31,6 +32,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.orderTrigger,
+.orderTriggerFocus {
+  width: min-content;
+  background: transparent;
+  box-shadow: none;
+  color: var(--colors-pokedex-dark);
 }
 
 .valueContainer {
@@ -47,6 +56,11 @@
 
   p {
     display: none !important;
+
+    &.order {
+      max-width: none;
+      display: block !important;
+    }
   }
 
   &:not(:first-child) span {

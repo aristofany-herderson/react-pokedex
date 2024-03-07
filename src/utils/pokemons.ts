@@ -146,6 +146,11 @@ export const POKEMONSTRENGTHBYABILITY: {
   },
 };
 
+export const SELECTPOKEMONORDER = [
+  { value: "asc", label: "Ascending" },
+  { value: "desc", label: "Descending" },
+];
+
 export const SELECTPOKEMONTYPES = [
   { value: "normal", label: "normal" },
   { value: "fire", label: "fire" },
