@@ -1,9 +1,10 @@
 import { BASEHYBRIDSHIVAMIMAGEURL, BASEPOKEAPIIMAGEURL } from "@/services/api";
+import { padID } from "./pokemon-pad-id";
 
 const POKEMONIMAGESBYHYBRIDSHIVAM = 905;
 
 export const pokemonImageURL = (id: number) => {
-  const paddedID = String(id).padStart(3, "0");
+  const paddedID = padID(id);
   const url =
     id <= POKEMONIMAGESBYHYBRIDSHIVAM
       ? `${BASEHYBRIDSHIVAMIMAGEURL}${paddedID}.png`

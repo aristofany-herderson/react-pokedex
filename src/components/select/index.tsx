@@ -38,7 +38,6 @@ type SelectProps = SelectComponentProps & {
 
 export const Select = ({
   isClearable = true,
-  classNames,
   components,
   type = "type",
   ...props
@@ -245,7 +244,7 @@ const NumberSingleValue = ({
           width={10}
           height={10}
           src={`/icons/sort-descending.svg`}
-          alt={currentData.value}
+          alt={currentData.label}
         />
       </span>
       <p>{currentData.label}</p>

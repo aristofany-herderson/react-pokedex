@@ -23,47 +23,45 @@ export const PokemonsLoad = () => {
   useEffect(() => {
     const DESCPokemons = () => {
       if (pokemons.length > 0) {
-        const result = pokemons.sort((a, b) => {
-          return b.id - a.id;
-        });
+        const result = [...pokemons].sort((a, b) => b.id - a.id);
         setPokemons(result);
       }
     };
 
     const ASCPokemons = () => {
       if (pokemons.length > 0) {
-        const result = pokemons.sort((a, b) => {
-          return a.id - b.id;
-        });
+        const result = [...pokemons].sort((a, b) => a.id - b.id);
         setPokemons(result);
       }
     };
-    order?.toLowerCase() == "asc" && ASCPokemons();
-    order?.toLocaleLowerCase() == "desc" && DESCPokemons();
+    order?.toLowerCase() === "asc" && ASCPokemons();
+    order?.toLowerCase() === "desc" && DESCPokemons();
     // eslint-disable-next-line
   }, [order]);
 
   useEffect(() => {
     if (inView) {
       fetchPokemons(pagination).then((response) => {
-        setPokemons([...pokemons, ...response]);
+        setPokemons((prevPokemons) => [...prevPokemons, ...response]);
         setPagination(pagination + 1);
       });
     }
-  }, [pokemons, inView, pagination]);
+  }, [inView, pagination]);
 
   return (
     <>
       <section className={styles.pokemons}>
         {pokemons
           .filter((pokemon) => {
-            if (search?.trim() == "" || search == null) {
-              return pokemon;
+            if (!search?.trim() || search == null) {
+              return true;
             } else if (
-              pokemon.name.toLowerCase().includes(search?.toLowerCase())
+              pokemon.name.toLowerCase().includes(search.toLowerCase())
             ) {
-              return pokemon;
+              return true;
             }
+
+            return false;
           })
           .filter((pokemon) => {
             const fromVerification =
@@ -72,12 +70,14 @@ export const PokemonsLoad = () => {
               to != null ? pokemon.id <= to : pokemon.id <= MAXPOKEMONSRENDERED;
 
             if (fromVerification && toVerification) {
-              return pokemon;
+              return true;
             }
 
             if (from == null && to == null) {
-              return pokemon;
+              return true;
             }
+
+            return false;
           })
           .filter((pokemon) => {
             const types = pokemon.types.map((type) => type.type.name);
@@ -87,12 +87,14 @@ export const PokemonsLoad = () => {
             );
 
             if (currentType?.length > 0 && typeExists) {
-              return pokemon;
+              return true;
             }
 
             if (currentType == null) {
-              return pokemon;
+              return true;
             }
+
+            return false;
           })
           .filter((pokemon) => {
             const weaknesses = pokemon.weakness;
@@ -104,12 +106,14 @@ export const PokemonsLoad = () => {
             );
 
             if (currentWeakness?.length > 0 && weaknessExists) {
-              return pokemon;
+              return true;
             }
 
             if (currentWeakness == null) {
-              return pokemon;
+              return true;
             }
+
+            return false;
           })
           .filter((pokemon) => {
             const abilityList = pokemon.abilities.map((ability) =>
@@ -121,12 +125,14 @@ export const PokemonsLoad = () => {
               ability != null &&
               abilityList.includes(currentAbility.toLowerCase())
             ) {
-              return pokemon;
+              return true;
             }
 
             if (ability == null || ability == undefined) {
-              return pokemon;
+              return true;
             }
+
+            return false;
           })
           .filter((pokemon) => {
             const currentWeight = weight;
@@ -136,19 +142,20 @@ export const PokemonsLoad = () => {
               currentWeight != null &&
               pokemonHeight >
                 SELECTPOKEMONWEIGHTS[currentWeight - 1]?.range?.min;
-
             const maxVerification =
               currentWeight != null &&
               pokemonHeight <=
                 SELECTPOKEMONWEIGHTS[currentWeight - 1]?.range?.max;
 
             if (minVerification && maxVerification) {
-              return pokemon;
+              return true;
             }
 
             if (currentWeight == null) {
-              return pokemon;
+              return true;
             }
+
+            return false;
           })
           .filter((pokemon) => {
             const currentHeight = height;
@@ -158,19 +165,20 @@ export const PokemonsLoad = () => {
               currentHeight != null &&
               pokemonHeight >
                 SELECTPOKEMONHEIGHTS[currentHeight - 1]?.range?.min;
-
             const maxVerification =
               currentHeight != null &&
               pokemonHeight <=
                 SELECTPOKEMONHEIGHTS[currentHeight - 1]?.range?.max;
 
             if (minVerification && maxVerification) {
-              return pokemon;
+              return true;
             }
 
             if (currentHeight == null) {
-              return pokemon;
+              return true;
             }
+
+            return false;
           })
           .map((pokemon, key) => {
             return <PokemonCard key={key} {...pokemon} />;

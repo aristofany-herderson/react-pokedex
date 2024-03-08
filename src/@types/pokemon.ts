@@ -16,7 +16,13 @@ type Stat = {
   base_stat: number;
   effort: number;
   stat: {
-    name: string;
+    name:
+      | "hp"
+      | "attack"
+      | "defense"
+      | "special-attack"
+      | "special-defense"
+      | "speed";
     url: string;
   };
 };

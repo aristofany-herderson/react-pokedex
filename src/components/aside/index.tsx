@@ -4,6 +4,7 @@ import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import { getAllPokemonData } from "@/services/requests";
 import { pokemonSVGLoader } from "@/utils/pokemon-image-loader";
 import { pokemonImageURL } from "@/utils/pokemon-image-url";
+import { padID } from "@/utils/pokemon-pad-id";
 import { POKEMONSTATCOLORS, POKEMONTYPECOLORS } from "@/utils/pokemons";
 import classNames from "classnames";
 import Image from "next/image";
@@ -16,48 +17,39 @@ export const Aside = () => {
   > | null>();
   const { pokemon: selectedPokemon, setPokemon: setSelectedPokemon } =
     usePokemonQueryParams();
-
   useEffect(() => {
     const getPokemon = async () => {
-      if (selectedPokemon) {
-        const data = await getAllPokemonData(selectedPokemon);
-        return data;
-      }
+      if (!selectedPokemon) return null;
+      return await getAllPokemonData(selectedPokemon);
     };
 
     const fetchPokemon = async () => {
-      const data = await getPokemon();
-
-      setPokemon(data);
+      setPokemon(await getPokemon());
     };
 
     fetchPokemon();
   }, [selectedPokemon]);
 
-  const paddedID = String(pokemon?.id).padStart(3, "0");
-  const sumStats = pokemon?.stats.reduce((accum, item) => {
-    return accum + item.base_stat;
-  }, 0);
+  const paddedID = padID(pokemon?.id);
+  const sumStats = pokemon?.stats.reduce(
+    (accum, item) => accum + item.base_stat,
+    0
+  );
   const height = (pokemon?.height || 0) / 10;
   const weight = (pokemon?.weight || 0) / 10;
   const isGenderLess = !pokemon?.gender.isFemale && !pokemon?.gender.isMale;
-
-  const prevPokemonPaddedID = String(
-    pokemon?.adjacent_pokemons.previous.id
-  ).padStart(3, "0");
-  const nextPokemonPaddedID = String(
-    pokemon?.adjacent_pokemons.next.id
-  ).padStart(3, "0");
+  const prevPokemonPaddedID = padID(pokemon?.adjacent_pokemons.previous.id);
+  const nextPokemonPaddedID = padID(pokemon?.adjacent_pokemons.next.id);
 
   const isNoSelect = !selectedPokemon;
   const isSelectAndLoading =
-    selectedPokemon != undefined &&
-    String(selectedPokemon)?.trim() != "" &&
-    pokemon?.name != selectedPokemon;
+    selectedPokemon &&
+    selectedPokemon.trim() !== "" &&
+    pokemon?.name !== selectedPokemon;
   const isSelectAndLoaded =
-    selectedPokemon != undefined &&
-    String(selectedPokemon)?.trim() != "" &&
-    pokemon?.name == selectedPokemon;
+    selectedPokemon &&
+    selectedPokemon.trim() !== "" &&
+    pokemon?.name === selectedPokemon;
 
   return (
     <aside className={styles.aside}>
@@ -107,7 +99,7 @@ export const Aside = () => {
               alt={`${pokemon.name} pokemon image`}
             />
           </div>
-          <span className={styles.id}>#{paddedID}</span>
+          <p className={styles.id}>#{paddedID}</p>
           <h2
             className={classNames(
               styles.name,
@@ -118,14 +110,10 @@ export const Aside = () => {
           </h2>
           <div className={styles.types}>
             {pokemon?.types.map((type, key) => {
-              const colors = (POKEMONTYPECOLORS as any)[type.type.name];
-
+              const colors = POKEMONTYPECOLORS[type.type.name];
               return (
                 <p
-                  style={{
-                    color: colors.medium,
-                    background: colors.light,
-                  }}
+                  style={{ color: colors.medium, background: colors.light }}
                   key={key}
                 >
                   {type.type.name}
@@ -133,30 +121,28 @@ export const Aside = () => {
               );
             })}
           </div>
-          {pokemon.entry && (
+          {pokemon?.entry && (
             <div className={styles.entry}>
               <h2 className={styles.title}>POKÉDEX ENTRY</h2>
-              <p>{pokemon?.entry.replace("\f", " ")}</p>
+              <p>{pokemon.entry.replace("\f", " ")}</p>
             </div>
           )}
           <div className={styles.abilities}>
             <h2 className={styles.title}>Abilities</h2>
             <div>
-              {pokemon?.abilities.map((ability, key) => {
-                return (
-                  <p data-hidden={ability.is_hidden} key={key}>
-                    {ability.ability.name}
-                    {ability.is_hidden && (
-                      <Image
-                        width={14}
-                        height={14}
-                        src="/icons/eye-slash.svg"
-                        alt="Icon for hidden ability"
-                      />
-                    )}
-                  </p>
-                );
-              })}
+              {pokemon?.abilities.map((ability, key) => (
+                <p data-hidden={ability.is_hidden} key={key}>
+                  {ability.ability.name}
+                  {ability.is_hidden && (
+                    <Image
+                      width={14}
+                      height={14}
+                      src="/icons/eye-slash.svg"
+                      alt="Icon for hidden ability"
+                    />
+                  )}
+                </p>
+              ))}
             </div>
           </div>
           <div className={styles.characteristics}>
@@ -170,11 +156,10 @@ export const Aside = () => {
             </div>
             <div>
               <h2 className={styles.title}>Weakness</h2>
-              {pokemon.weakness.length != 0 ? (
+              {pokemon.weakness.length !== 0 ? (
                 <p>
                   {pokemon?.weakness.map((weak, key) => {
-                    const colors = (POKEMONTYPECOLORS as any)[weak];
-
+                    const colors = POKEMONTYPECOLORS[weak];
                     return (
                       <span
                         title={weak}
@@ -198,7 +183,7 @@ export const Aside = () => {
             <div>
               <h2 className={styles.title}>Base EXP</h2>
               {pokemon.base_experience ? (
-                <p>{pokemon?.base_experience}</p>
+                <p>{pokemon.base_experience}</p>
               ) : (
                 <p className={styles.noData}>no data</p>
               )}
@@ -208,14 +193,10 @@ export const Aside = () => {
             <h2 className={styles.title}>Stats</h2>
             <div>
               {pokemon?.stats.map((stat, key) => {
-                const [[, statAtributtes]] = Object.entries(
-                  POKEMONSTATCOLORS
-                ).filter(([key, _]) => key === stat.stat.name);
+                const { color, name } = POKEMONSTATCOLORS[stat.stat.name];
                 return (
                   <p key={key}>
-                    <span style={{ background: statAtributtes.color }}>
-                      {statAtributtes.name}
-                    </span>
+                    <span style={{ background: color }}>{name}</span>
                     {stat.base_stat}
                   </p>
                 );
@@ -229,38 +210,32 @@ export const Aside = () => {
           <div className={styles.evolutions}>
             <h2 className={styles.title}>Evolution</h2>
             <div>
-              {pokemon.evolution.map((evolution, key) => {
-                const evolutionPaddedID = String(evolution.id).padStart(3, "0");
-
-                return (
-                  <Fragment key={key}>
-                    <button
-                      onClick={() => {
-                        setSelectedPokemon(evolution.name);
-                      }}
-                      aria-label={`select ${evolution.name}`}
-                    >
-                      <Image
-                        className={styles.pokemonImage}
-                        width={40}
-                        height={40}
-                        src={pokemonImageURL(evolution.id)}
-                        placeholder={pokemonSVGLoader(40, 40)}
-                        alt={`${evolution.name} image`}
-                      />
-                    </button>
-                    {evolution.level >= 0 && <p>Lvl {evolution.level}</p>}
-                  </Fragment>
-                );
-              })}
+              {pokemon.evolution.map((evolution, key) => (
+                <Fragment key={key}>
+                  <button
+                    onClick={() => setSelectedPokemon(evolution.name)}
+                    aria-label={`select ${evolution.name}`}
+                  >
+                    <Image
+                      className={styles.pokemonImage}
+                      width={40}
+                      height={40}
+                      src={pokemonImageURL(evolution.id)}
+                      placeholder={pokemonSVGLoader(40, 40)}
+                      alt={`${evolution.name} image`}
+                    />
+                  </button>
+                  {evolution.level >= 0 && <p>Lvl {evolution.level}</p>}
+                </Fragment>
+              ))}
             </div>
           </div>
           <div className={styles.nextPrevPokemons}>
             <button
               title={pokemon.adjacent_pokemons.previous.name}
-              onClick={() => {
-                setSelectedPokemon(pokemon.adjacent_pokemons.previous.name);
-              }}
+              onClick={() =>
+                setSelectedPokemon(pokemon.adjacent_pokemons.previous.name)
+              }
             >
               <Image
                 width={10}
@@ -281,9 +256,9 @@ export const Aside = () => {
             </button>
             <button
               title={pokemon.adjacent_pokemons.next.name}
-              onClick={() => {
-                setSelectedPokemon(pokemon.adjacent_pokemons.next.name);
-              }}
+              onClick={() =>
+                setSelectedPokemon(pokemon.adjacent_pokemons.next.name)
+              }
             >
               <span>#{nextPokemonPaddedID}</span>
               <p>{pokemon.adjacent_pokemons.next.name}</p>
@@ -322,73 +297,70 @@ const NoPokemonSelected = () => {
     </div>
   );
 };
-
-const AsideSkeleton = () => {
-  return (
-    <>
-      <div className={styles.skeletonGender}>
+const AsideSkeleton = () => (
+  <>
+    <div className={styles.skeletonGender}>
+      <p></p>
+      <p></p>
+    </div>
+    <div className={styles.skeletonFigure}></div>
+    <div className={styles.skeletonId}></div>
+    <h2 className={styles.skeletonName}></h2>
+    <div className={styles.skeletonTypes}>
+      <p></p>
+      <p></p>
+    </div>
+    <div className={styles.skeletonEntry}>
+      <h2 className={styles.skeletonTitle}></h2>
+      <p></p>
+    </div>
+    <div className={styles.skeletonAbilities}>
+      <h2 className={styles.skeletonTitle}></h2>
+      <div>
         <p></p>
         <p></p>
       </div>
-      <div className={styles.skeletonFigure}></div>
-      <div className={styles.skeletonId}></div>
-      <h2 className={styles.skeletonName}></h2>
-      <div className={styles.skeletonTypes}>
-        <p></p>
-        <p></p>
-      </div>
-      <div className={styles.skeletonEntry}>
+    </div>
+    <div className={styles.skeletonCharacteristics}>
+      <div>
         <h2 className={styles.skeletonTitle}></h2>
         <p></p>
       </div>
-      <div className={styles.skeletonAbilities}>
+      <div>
         <h2 className={styles.skeletonTitle}></h2>
-        <div>
-          <p></p>
-          <p></p>
-        </div>
+        <p></p>
       </div>
-      <div className={styles.skeletonCharacteristics}>
-        <div>
-          <h2 className={styles.skeletonTitle}></h2>
-          <p></p>
-        </div>
-        <div>
-          <h2 className={styles.skeletonTitle}></h2>
-          <p></p>
-        </div>
-        <div>
-          <h2 className={styles.skeletonTitle}></h2>
-          <p></p>
-        </div>
-        <div>
-          <h2 className={styles.skeletonTitle}></h2>
-          <p></p>
-        </div>
-      </div>
-      <div className={styles.skeletonStats}>
+      <div>
         <h2 className={styles.skeletonTitle}></h2>
-        <div>
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
-        </div>
+        <p></p>
       </div>
-      <div className={styles.skeletonEvolutions}>
+      <div>
         <h2 className={styles.skeletonTitle}></h2>
-        <div className={styles.skeletonEvolutionsWrapper}>
-          <div></div>
-          <p></p>
-          <div></div>
-          <p></p>
-          <div></div>
-        </div>
+        <p></p>
       </div>
-      <div className={styles.skeletonNextPrevPokemons}></div>
-    </>
-  );
-};
+    </div>
+    <div className={styles.skeletonStats}>
+      <h2 className={styles.skeletonTitle}></h2>
+      <div>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+      </div>
+    </div>
+    <div className={styles.skeletonEvolutions}>
+      <h2 className={styles.skeletonTitle}></h2>
+      <div className={styles.skeletonEvolutionsWrapper}>
+        <div></div>
+        <p></p>
+        <div></div>
+        <p></p>
+        <div></div>
+      </div>
+    </div>
+    <div className={styles.skeletonNextPrevPokemons}></div>
+  </>
+);

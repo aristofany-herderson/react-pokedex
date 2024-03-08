@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 
 export const PokemonFilters = () => {
-  const [abilities, setAbilities] = useState<SelectValueData[]>();
+  const [abilities, setAbilities] = useState<SelectValueData[]>([]);
   const {
     order,
     ability,
@@ -48,14 +48,12 @@ export const PokemonFilters = () => {
 
     const fetchPokemonAbilities = async () => {
       const data = await getPokemonAbilities();
-      const response = data.map((ability) => {
-        return {
-          value: ability.name,
-          label: `${ability.name.charAt(0).toUpperCase()}${ability.name.slice(
-            1
-          )}`,
-        };
-      });
+      const response = data.map((ability) => ({
+        value: ability.name,
+        label: `${ability.name.charAt(0).toUpperCase()}${ability.name.slice(
+          1
+        )}`,
+      }));
 
       setAbilities(response);
     };
@@ -95,9 +93,9 @@ export const PokemonFilters = () => {
           }
           type="order"
           onChange={
-            (({ value }: SelectValueData) => {
-              setOrder(value);
-            }) as (state: unknown) => void
+            (({ value }: SelectValueData) => setOrder(value)) as (
+              state: unknown
+            ) => void
           }
           isClearable={false}
           name="order"
@@ -137,13 +135,12 @@ export const PokemonFilters = () => {
               : null
           }
           onChange={
-            ((value: SelectValueData[]) => {
+            ((value: SelectValueData[]) =>
               setType(
                 value.length > 0
                   ? value.map((type) => type.value).join(",")
                   : null
-              );
-            }) as (state: unknown) => void
+              )) as (state: unknown) => void
           }
           name="type"
           options={SELECTPOKEMONTYPES}
@@ -169,13 +166,12 @@ export const PokemonFilters = () => {
               : null
           }
           onChange={
-            ((value: SelectValueData[]) => {
+            ((value: SelectValueData[]) =>
               setWeakness(
                 value.length > 0
                   ? value.map((type) => type.value).join(",")
                   : null
-              );
-            }) as (state: unknown) => void
+              )) as (state: unknown) => void
           }
           name="weakness"
           options={SELECTPOKEMONTYPES}
@@ -195,22 +191,20 @@ export const PokemonFilters = () => {
           type="ability"
           value={
             ability
-              ? abilities?.find(
+              ? abilities.find(
                   (currentAbility) => currentAbility.value === ability
                 )
               : null
           }
           onChange={
-            (({ value }: SelectValueData) => {
-              setAbility(value);
-            }) as (state: unknown) => void
+            ((value: SelectValueData) => setAbility(value?.value || null)) as (
+              state: unknown
+            ) => void
           }
           name="ability"
-          options={abilities?.sort((current, next) => {
-            return current.value
-              .toLowerCase()
-              .localeCompare(next.value.toLowerCase());
-          })}
+          options={abilities.sort((current, next) =>
+            current.value.toLowerCase().localeCompare(next.value.toLowerCase())
+          )}
           placeholder={
             <SelectPlaceholder
               icon={{
@@ -227,9 +221,10 @@ export const PokemonFilters = () => {
           type="number"
           value={height ? SELECTPOKEMONHEIGHTS[height - 1] : null}
           onChange={
-            ((value: SelectValueData) => {
-              setHeight(value && Number(value?.value));
-            }) as (state: unknown) => void
+            ((value: SelectValueData) =>
+              setHeight(value && Number(value?.value))) as (
+              state: unknown
+            ) => void
           }
           name="height"
           options={SELECTPOKEMONHEIGHTS}
@@ -249,9 +244,10 @@ export const PokemonFilters = () => {
           type="number"
           value={weight ? SELECTPOKEMONWEIGHTS[weight - 1] : null}
           onChange={
-            ((value: SelectValueData) => {
-              setWeight(value && Number(value?.value));
-            }) as (state: unknown) => void
+            ((value: SelectValueData) =>
+              setWeight(value && Number(value?.value))) as (
+              state: unknown
+            ) => void
           }
           name="weight"
           options={SELECTPOKEMONWEIGHTS}
