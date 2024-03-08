@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   keywords: "Pokemon, Pokedex, Pokeapi",
   openGraph: {
     type: "website",
-    images: "/images/open-graph.jpeg",
+    images: "/images/open-graph.jpg",
     title: "React Pokedex",
     description: "For advanced pokeinfo",
   },

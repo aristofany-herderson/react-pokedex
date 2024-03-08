@@ -13,20 +13,20 @@
     "axios": "^1.6.7",
     "classnames": "^2.5.1",
     "next": "14.1.0",
-    "nuqs": "^1.16.1",
-    "react": "^18",
-    "react-dom": "^18",
-    "react-intersection-observer": "^9.7.0",
+    "nuqs": "^1.17.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-intersection-observer": "^9.8.1",
     "react-select": "^5.8.0",
     "sharp": "^0.33.2"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/node": "^20.11.25",
+    "@types/react": "^18.2.64",
+    "@types/react-dom": "^18.2.21",
     "eslint": "8.56.0",
     "eslint-config-next": "14.1.0",
-    "sass": "^1.70.0",
-    "typescript": "^5"
+    "sass": "^1.71.1",
+    "typescript": "^5.4.2"
   }
 }
