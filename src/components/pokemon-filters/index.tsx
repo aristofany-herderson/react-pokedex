@@ -88,16 +88,17 @@ export const PokemonFilters = () => {
         <Select
           defaultValue={
             order
-              ? SELECTPOKEMONORDER.filter(
-                  (orderType) => orderType.value == order
-                )[0]
+              ? SELECTPOKEMONORDER.find(
+                  (orderType) => orderType.value === order
+                )
               : SELECTPOKEMONORDER[0]
           }
-          optionType="order"
-          onChange={(state) => {
-            const currentState = state as SelectValueData;
-            setOrder(currentState?.value);
-          }}
+          type="order"
+          onChange={
+            (({ value }: SelectValueData) => {
+              setOrder(value);
+            }) as (state: unknown) => void
+          }
           isClearable={false}
           name="order"
           options={SELECTPOKEMONORDER}
@@ -130,22 +131,20 @@ export const PokemonFilters = () => {
           isMulti
           value={
             type
-              ? type?.split(",").map((current) => {
-                  return {
-                    value: current,
-                    label: current,
-                  };
-                })
+              ? SELECTPOKEMONTYPES.filter((selectType) =>
+                  type.split(",").includes(selectType.value)
+                )
               : null
           }
-          onChange={(state) => {
-            const currentState = state as SelectValueData[];
-            setType(
-              currentState.length > 0
-                ? currentState.map((type) => type.value).join(",")
-                : null
-            );
-          }}
+          onChange={
+            ((value: SelectValueData[]) => {
+              setType(
+                value.length > 0
+                  ? value.map((type) => type.value).join(",")
+                  : null
+              );
+            }) as (state: unknown) => void
+          }
           name="type"
           options={SELECTPOKEMONTYPES}
           placeholder={
@@ -164,22 +163,20 @@ export const PokemonFilters = () => {
           isMulti
           value={
             weakness
-              ? weakness?.split(",").map((current) => {
-                  return {
-                    value: current,
-                    label: current,
-                  };
-                })
+              ? SELECTPOKEMONTYPES.filter((selectType) =>
+                  weakness.split(",").includes(selectType.value)
+                )
               : null
           }
-          onChange={(state) => {
-            const currentState = state as SelectValueData[];
-            setWeakness(
-              currentState.length > 0
-                ? currentState.map((type) => type.value).join(",")
-                : null
-            );
-          }}
+          onChange={
+            ((value: SelectValueData[]) => {
+              setWeakness(
+                value.length > 0
+                  ? value.map((type) => type.value).join(",")
+                  : null
+              );
+            }) as (state: unknown) => void
+          }
           name="weakness"
           options={SELECTPOKEMONTYPES}
           placeholder={
@@ -195,12 +192,19 @@ export const PokemonFilters = () => {
           }
         />
         <Select
-          optionType="ability"
-          value={ability ? { value: ability, label: ability } : ""}
-          onChange={(state) => {
-            const currentState = state as SelectValueData;
-            setAbility(currentState?.value || null);
-          }}
+          type="ability"
+          value={
+            ability
+              ? abilities?.find(
+                  (currentAbility) => currentAbility.value === ability
+                )
+              : null
+          }
+          onChange={
+            (({ value }: SelectValueData) => {
+              setAbility(value);
+            }) as (state: unknown) => void
+          }
           name="ability"
           options={abilities?.sort((current, next) => {
             return current.value
@@ -220,12 +224,13 @@ export const PokemonFilters = () => {
           }
         />
         <Select
-          optionType="number"
-          value={height ? SELECTPOKEMONHEIGHTS[height - 1] : ""}
-          onChange={(state) => {
-            const currentState = state as SelectValueData;
-            setHeight(currentState && Number(currentState?.value));
-          }}
+          type="number"
+          value={height ? SELECTPOKEMONHEIGHTS[height - 1] : null}
+          onChange={
+            ((value: SelectValueData) => {
+              setHeight(value && Number(value?.value));
+            }) as (state: unknown) => void
+          }
           name="height"
           options={SELECTPOKEMONHEIGHTS}
           placeholder={
@@ -241,12 +246,13 @@ export const PokemonFilters = () => {
           }
         />
         <Select
-          optionType="number"
-          value={weight ? SELECTPOKEMONWEIGHTS[weight - 1] : ""}
-          onChange={(state) => {
-            const currentState = state as SelectValueData;
-            setWeight(currentState && Number(currentState?.value));
-          }}
+          type="number"
+          value={weight ? SELECTPOKEMONWEIGHTS[weight - 1] : null}
+          onChange={
+            ((value: SelectValueData) => {
+              setWeight(value && Number(value?.value));
+            }) as (state: unknown) => void
+          }
           name="weight"
           options={SELECTPOKEMONWEIGHTS}
           placeholder={
@@ -263,6 +269,7 @@ export const PokemonFilters = () => {
         />
         <button
           aria-label="clear"
+          className={styles.clear}
           onClick={() => {
             setType(null);
             setWeakness(null);
@@ -270,7 +277,6 @@ export const PokemonFilters = () => {
             setHeight(null);
             setWeight(null);
           }}
-          className={styles.clear}
         >
           <Image
             width={20}

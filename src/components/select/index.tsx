@@ -33,14 +33,14 @@ type SelectPlaceholderProps = {
 };
 
 type SelectProps = SelectComponentProps & {
-  optionType?: "type" | "number" | "ability" | "order";
+  type?: "type" | "number" | "ability" | "order";
 };
 
 export const Select = ({
   isClearable = true,
   classNames,
   components,
-  optionType = "type",
+  type = "type",
   ...props
 }: SelectProps) => {
   const POSIBLEOPTIONTYPE = {
@@ -73,15 +73,15 @@ export const Select = ({
       isClearable={isClearable}
       components={{
         SelectContainer,
-        Control: POSIBLECONTROLS[optionType],
+        Control: POSIBLECONTROLS[type],
         IndicatorSeparator: null,
         ValueContainer,
         Menu,
         MenuList,
         MultiValue,
-        Option: POSIBLEOPTIONTYPE[optionType],
+        Option: POSIBLEOPTIONTYPE[type],
         NoOptionsMessage,
-        SingleValue: POSIBLESINGLEVALUE[optionType],
+        SingleValue: POSIBLESINGLEVALUE[type],
       }}
       {...props}
     />

@@ -1,5 +1,7 @@
+import { PosibleTypes as PokemonPosibleTypes } from "./pokemon";
+
 type DamageRelation = {
-  name: string;
+  name: PokemonPosibleTypes;
   url: string;
 };
 

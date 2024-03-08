@@ -70,6 +70,7 @@
   text-transform: capitalize;
 
   &.legendary {
+    color: transparent;
     background: linear-gradient(45deg, #4158d0 20%, #c850c0 50%, #ffcc70 100%);
     background-size: 200% 100%;
 
