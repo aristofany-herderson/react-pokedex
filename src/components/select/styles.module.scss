@@ -156,7 +156,7 @@
 }
 
 .selectSkeleton {
-  flex: 1;
+  width: 100%;
   height: var(--space-10);
 
   animation: loading 1.5s ease infinite;
@@ -175,5 +175,12 @@
 @keyframes loading {
   to {
     background-position: left;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .trigger,
+  .triggerFocus {
+    width: 100%;
   }
 }

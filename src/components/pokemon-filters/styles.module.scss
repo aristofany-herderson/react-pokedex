@@ -71,7 +71,7 @@
   gap: var(--space-2);
 
   & > div {
-    flex: 1;
+    width: 100%;
   }
 }
 
@@ -90,5 +90,10 @@
 
   .clear {
     width: 100%;
+    margin-top: var(--space-2);
+  }
+
+  .pokemonAttributes > div {
+    position: relative;
   }
 }
