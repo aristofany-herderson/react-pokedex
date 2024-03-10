@@ -27,7 +27,7 @@
   cursor: pointer;
   background-color: var(--colors-white);
   border-radius: var(--radii-md);
-  box-shadow: 0 0 8px 4px rgba(200, 200, 200, 0.1);
+  box-shadow: var(--shadow-light);
 
   display: flex;
   align-items: center;
@@ -128,7 +128,7 @@
   background: var(--colors-white);
   border-radius: var(--radii-md);
   border: none;
-  box-shadow: 0 0 8px 4px rgba(200, 200, 200, 0.1);
+  box-shadow: var(--shadow-light);
 }
 
 .menuWrapper {

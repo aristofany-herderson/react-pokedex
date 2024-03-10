@@ -159,13 +159,15 @@ export const getEvolutions = async (slug: number) => {
     };
   };
 
-  const evolutions: ReturnType<typeof formatResult>[] = [];
-  let currentEvolution = chain.evolves_to[0];
-  evolutions.push(formatResult(chain));
+  const evolutions: ReturnType<typeof formatResult>[][] = [];
+  let currentEvolution = chain.evolves_to;
+  if (currentEvolution) {
+    evolutions.push([formatResult(chain)]);
+  }
 
   while (currentEvolution) {
-    evolutions.push(formatResult(currentEvolution));
-    currentEvolution = currentEvolution.evolves_to[0];
+    evolutions.push(currentEvolution.map(formatResult));
+    currentEvolution = currentEvolution[0]?.evolves_to || null;
   }
 
   return evolutions;

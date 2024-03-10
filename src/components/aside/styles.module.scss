@@ -8,7 +8,7 @@
   transition: 0.3s;
   background: var(--colors-white);
   border-radius: var(--radii-lg);
-  box-shadow: 0 0 8px 4px rgba(200, 200, 200, 0.1);
+  box-shadow: var(--shadow-light);
 }
 
 .gender {
@@ -238,29 +238,47 @@
 }
 
 .evolutions {
+  width: 100%;
+  overflow: auto;
+
   h2 {
     margin-bottom: var(--space-4);
   }
 
-  & > div {
+  button {
+    transition: 0.15s;
+    &:hover {
+      transform: translateY(calc(-1 * var(--space-2)));
+      z-index: 2;
+    }
+    img {
+      filter: drop-shadow(-5px 0 0 var(--colors-pokedex-ligth));
+    }
+  }
+
+  button + button {
+    margin-left: calc(-1 * var(--space-2));
+  }
+
+  p {
+    padding: 0 var(--space-2);
+    margin: 0 var(--space-2);
+    font-size: var(--font-size-xxs);
+    font-weight: bold;
+    white-space: nowrap;
+    color: var(--colors-pokedex-dark);
+    background: var(--colors-pokedex-ligth);
+    border-radius: var(--radii-full);
+
+    &:last-child {
+      display: none;
+    }
+  }
+
+  div {
     display: flex;
-    gap: var(--space-3);
     align-items: center;
     justify-content: center;
-
-    p {
-      padding: 0 var(--space-2);
-      font-size: var(--font-size-xxs);
-      font-weight: bold;
-      white-space: nowrap;
-      color: var(--colors-pokedex-dark);
-      background: var(--colors-pokedex-ligth);
-      border-radius: var(--radii-full);
-
-      &:last-child {
-        display: none;
-      }
-    }
   }
 }
 
@@ -300,6 +318,10 @@
   button {
     width: 50%;
     padding: var(--space-4) var(--space-3);
+  }
+
+  button:nth-child(1) {
+    justify-content: flex-start;
   }
 
   button:nth-child(2) {

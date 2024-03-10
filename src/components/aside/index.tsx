@@ -210,22 +210,28 @@ export const Aside = () => {
           <div className={styles.evolutions}>
             <h2 className={styles.title}>Evolution</h2>
             <div>
-              {pokemon.evolution.map((evolution, key) => (
-                <Fragment key={key}>
-                  <button
-                    onClick={() => setSelectedPokemon(evolution.name)}
-                    aria-label={`select ${evolution.name}`}
-                  >
-                    <Image
-                      className={styles.pokemonImage}
-                      width={40}
-                      height={40}
-                      src={pokemonImageURL(evolution.id)}
-                      placeholder={pokemonSVGLoader(40, 40)}
-                      alt={`${evolution.name} image`}
-                    />
-                  </button>
-                  {evolution.level >= 0 && <p>Lvl {evolution.level}</p>}
+              {pokemon.evolution.map((evolutions, index) => (
+                <Fragment key={index}>
+                  {evolutions.map(
+                    (evolution, key) =>
+                      evolution && (
+                        <button
+                          key={key}
+                          onClick={() => setSelectedPokemon(evolution.name)}
+                          aria-label={`select ${evolution.name}`}
+                        >
+                          <Image
+                            className={styles.pokemonImage}
+                            width={40}
+                            height={40}
+                            src={pokemonImageURL(evolution.id)}
+                            placeholder={pokemonSVGLoader(40, 40)}
+                            alt={`${evolution.name} image`}
+                          />
+                        </button>
+                      )
+                  )}
+                  {evolutions[0] && <p>Lvl {evolutions[0].level}</p>}
                 </Fragment>
               ))}
             </div>
