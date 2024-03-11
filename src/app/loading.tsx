@@ -8,7 +8,7 @@ export default function LoadingPage() {
         priority
         width={100}
         height={100}
-        src={"/icons/pokeball.svg"}
+        src="/icons/pokeball.svg"
         alt="Image of pokeball (loading image)"
       />
       <p>Loading...</p>

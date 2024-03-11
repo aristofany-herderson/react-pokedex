@@ -165,7 +165,7 @@ export const getEvolutions = async (slug: number) => {
     evolutions.push([formatResult(chain)]);
   }
 
-  while (currentEvolution) {
+  while (currentEvolution?.length > 0) {
     evolutions.push(currentEvolution.map(formatResult));
     currentEvolution = currentEvolution[0]?.evolves_to || null;
   }

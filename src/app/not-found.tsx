@@ -10,7 +10,7 @@ export default function NotFound() {
           <b>Not found,</b> <br /> Sorry, we were unable to find that page
           <span>Please, navigate to home</span>
         </p>
-        <Link href={"/"}>Navigate to home</Link>
+        <Link href="/">Navigate to home</Link>
       </div>
     </section>
   );

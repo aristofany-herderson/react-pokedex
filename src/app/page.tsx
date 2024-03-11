@@ -18,12 +18,13 @@ export default function Home() {
       <Link
         className={styles.githubLink}
         target="_blank"
-        href={"https://github.com/aristofany-herderson/react-pokedex/"}
+        rel="noreferrer noopener"
+        href="https://github.com/aristofany-herderson/react-pokedex/"
       >
         <Image
           width={26}
           height={26}
-          src={"/icons/github.svg"}
+          src="/icons/github.svg"
           alt="Github icon"
         />
       </Link>
