@@ -21,7 +21,7 @@ export const PokemonCard = ({ id, name, types }: PokemonCardProps) => {
   return (
     <button
       type="button"
-      onClick={() => setPokemon(name)}
+      onClick={() => setPokemon(id)}
       className={styles.card}
     >
       <div className={styles.cardWrapper}>

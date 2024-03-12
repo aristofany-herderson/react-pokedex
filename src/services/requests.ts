@@ -4,6 +4,7 @@ import { PokemonSpecies } from "@/@types/pokemon-species";
 import { PokemonsAbilities } from "@/@types/pokemons-abilities";
 import { PokemonsGender } from "@/@types/pokemons-gender";
 import { PokemonsTypes } from "@/@types/pokemons-types";
+import { getID } from "@/utils/pokemon-get-id-in-species";
 import { POKEMONSTRENGTHBYABILITY } from "@/utils/pokemons";
 import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE, api } from "./api";
 
@@ -53,17 +54,17 @@ export const getPokemonSpecie = async (slug: number) => {
   };
 };
 
-export const getPokemonGenders = async (name: string) => {
+export const getPokemonGenders = async (slug: number) => {
   const [female, male] = await Promise.all([
     api.get<PokemonsGender>(`https://pokeapi.co/api/v2/gender/1`),
     api.get<PokemonsGender>(`https://pokeapi.co/api/v2/gender/2`),
   ]);
 
   const isFemale = female.data.pokemon_species_details.some(
-    (pokemon) => pokemon.pokemon_species.name === name
+    (pokemon) => getID(pokemon.pokemon_species.url) === slug
   );
   const isMale = male.data.pokemon_species_details.some(
-    (pokemon) => pokemon.pokemon_species.name === name
+    (pokemon) => getID(pokemon.pokemon_species.url) === slug
   );
 
   return { isFemale, isMale };
@@ -145,11 +146,7 @@ export const getEvolutions = async (slug: number) => {
 
   const formatResult = (evolution: Chain) => {
     const name = evolution.species.name;
-    const id = Number(
-      evolution.species.url
-        .split("https://pokeapi.co/api/v2/pokemon-species/")[1]
-        .slice(0, -1)
-    );
+    const id = getID(evolution.species.url);
     const level = evolution.evolves_to[0]?.evolution_details[0]?.min_level || 0;
 
     return {
@@ -194,32 +191,26 @@ export const getNextAndPrevPokemonData = async (slug: number) => {
   };
 };
 
-export const getAllPokemonData = async (name: string) => {
-  const pokemonBaseData = await getBasePokemonData(name);
-
-  const [
-    weakness,
-    gender,
-    adjacent_pokemons,
-    { flavor_text_entries, is_legendary },
-    evolution,
-  ] = await Promise.all([
-    getPokemonWeakness(pokemonBaseData.id),
-    getPokemonGenders(pokemonBaseData.name),
-    getNextAndPrevPokemonData(pokemonBaseData.id),
-    getPokemonSpecie(pokemonBaseData.id),
-    getEvolutions(pokemonBaseData.id),
-  ]);
+export const getAllPokemonData = async (slug: number) => {
+  const [baseData, gender, weakness, adjacent_pokemons, specie, evolution] =
+    await Promise.all([
+      getBasePokemonData(slug),
+      getPokemonGenders(slug),
+      getPokemonWeakness(slug),
+      getNextAndPrevPokemonData(slug),
+      getPokemonSpecie(slug),
+      getEvolutions(slug),
+    ]);
 
   const entry =
-    flavor_text_entries?.find((entry) => entry.language.name === "en")
+    specie.flavor_text_entries?.find((entry) => entry.language.name === "en")
       ?.flavor_text || null;
 
   return {
-    ...pokemonBaseData,
+    ...baseData,
     weakness,
     entry,
-    is_legendary,
+    is_legendary: specie.is_legendary,
     gender,
     adjacent_pokemons,
     evolution,

@@ -42,14 +42,8 @@ export const Aside = () => {
   const nextPokemonPaddedID = padID(pokemon?.adjacent_pokemons.next.id);
 
   const isNoSelect = !selectedPokemon;
-  const isSelectAndLoading =
-    selectedPokemon &&
-    selectedPokemon.trim() !== "" &&
-    pokemon?.name !== selectedPokemon;
-  const isSelectAndLoaded =
-    selectedPokemon &&
-    selectedPokemon.trim() !== "" &&
-    pokemon?.name === selectedPokemon;
+  const isSelectAndLoading = selectedPokemon && pokemon?.id !== selectedPokemon;
+  const isSelectAndLoaded = selectedPokemon && pokemon?.id === selectedPokemon;
 
   return (
     <aside className={styles.aside}>
@@ -217,7 +211,7 @@ export const Aside = () => {
                       evolution && (
                         <button
                           key={key}
-                          onClick={() => setSelectedPokemon(evolution.name)}
+                          onClick={() => setSelectedPokemon(evolution.id)}
                           aria-label={`select ${evolution.name}`}
                         >
                           <Image
@@ -240,7 +234,7 @@ export const Aside = () => {
             <button
               title={pokemon.adjacent_pokemons.previous.name}
               onClick={() =>
-                setSelectedPokemon(pokemon.adjacent_pokemons.previous.name)
+                setSelectedPokemon(pokemon.adjacent_pokemons.previous.id)
               }
             >
               <Image
@@ -263,7 +257,7 @@ export const Aside = () => {
             <button
               title={pokemon.adjacent_pokemons.next.name}
               onClick={() =>
-                setSelectedPokemon(pokemon.adjacent_pokemons.next.name)
+                setSelectedPokemon(pokemon.adjacent_pokemons.next.id)
               }
             >
               <span>#{nextPokemonPaddedID}</span>
