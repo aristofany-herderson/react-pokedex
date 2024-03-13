@@ -1,13 +1,26 @@
 .aside {
   position: sticky;
-  top: var(--space-16);
+  top: var(--space-8);
+  max-height: calc(100vh - var(--space-24));
+  height: 100vh;
   flex: 1;
-  height: min-content;
+  overflow-y: auto;
+  border-radius: var(--radii-lg);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.asideWrapper {
+  position: relative;
+  top: var(--space-16);
+  height: max-content;
   padding: var(--space-4);
   text-align: center;
-  transition: 0.3s;
-  background: var(--colors-white);
+
   border-radius: var(--radii-lg);
+  background: var(--colors-white);
   box-shadow: var(--shadow-light);
 }
 
@@ -44,7 +57,7 @@
 
 .figure {
   position: relative;
-  margin-bottom: var(--space-16);
+  margin-bottom: var(--space-18);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -239,7 +252,12 @@
 
 .evolutions {
   width: 100%;
-  overflow: auto;
+  overflow-y: visible;
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   h2 {
     margin-bottom: var(--space-4);
@@ -278,7 +296,14 @@
   div {
     display: flex;
     align-items: center;
-    justify-content: center;
+
+    button:first-of-type {
+      margin-left: auto;
+    }
+
+    button:last-of-type {
+      margin-right: auto;
+    }
   }
 }
 
@@ -367,6 +392,23 @@
   }
 }
 
+.skeletonWrapper {
+  position: relative;
+  top: var(--space-16);
+  width: 100%;
+  height: max-content;
+  padding: var(--space-4);
+  text-align: center;
+
+  border-radius: var(--radii-lg);
+  background: var(--colors-white);
+  box-shadow: var(--shadow-light);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .skeletonFigure,
 .skeletonId,
 .skeletonEvolutions {
@@ -392,7 +434,7 @@
 }
 
 .skeletonFigure {
-  width: var(--space-28);
+  width: var(--space-32);
   aspect-ratio: 1 / 1;
   transform: translateY(calc(-50% - var(--space-3)));
   border-radius: var(--radii-md);
@@ -401,7 +443,7 @@
 .skeletonId {
   width: var(--space-8);
   height: var(--space-3);
-  margin-top: -3.4rem;
+  margin-top: -3.8rem;
   border-radius: var(--radii-sm);
 }
 

@@ -50,7 +50,7 @@ export const Aside = () => {
       {isNoSelect && <NoPokemonSelected />}
       {isSelectAndLoading && <AsideSkeleton />}
       {isSelectAndLoaded && (
-        <>
+        <div className={styles.asideWrapper}>
           <div className={styles.gender}>
             {pokemon?.gender.isFemale && (
               <div className={styles.male}>
@@ -85,8 +85,8 @@ export const Aside = () => {
           </div>
           <div className={styles.figure}>
             <Image
-              width={120}
-              height={120}
+              width={140}
+              height={140}
               src={pokemonImageURL(pokemon.id)}
               priority
               placeholder={pokemonSVGLoader(40, 40)}
@@ -225,7 +225,9 @@ export const Aside = () => {
                         </button>
                       )
                   )}
-                  {evolutions[0] && <p>Lvl {evolutions[0].level}</p>}
+                  {index != pokemon.evolution.length - 1 && evolutions[0] && (
+                    <p>Lvl {evolutions[0].level}</p>
+                  )}
                 </Fragment>
               ))}
             </div>
@@ -278,7 +280,7 @@ export const Aside = () => {
               />
             </button>
           </div>
-        </>
+        </div>
       )}
     </aside>
   );
@@ -298,7 +300,7 @@ const NoPokemonSelected = () => {
   );
 };
 const AsideSkeleton = () => (
-  <>
+  <div className={styles.skeletonWrapper}>
     <div className={styles.skeletonGender}>
       <p></p>
       <p></p>
@@ -362,5 +364,5 @@ const AsideSkeleton = () => (
       </div>
     </div>
     <div className={styles.skeletonNextPrevPokemons}></div>
-  </>
+  </div>
 );

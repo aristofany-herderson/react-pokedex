@@ -14,8 +14,7 @@
   }
 }
 
-.trigger,
-.triggerFocus {
+.trigger {
   flex: 1;
   height: var(--space-10);
   padding: var(--space-1) var(--space-3);
@@ -34,8 +33,8 @@
   justify-content: space-between;
 }
 
-.orderTrigger,
-.orderTriggerFocus {
+.orderTrigger {
+  @extend .trigger;
   width: min-content;
   background: transparent;
   box-shadow: none;
@@ -115,8 +114,8 @@
 }
 
 .optionFull {
-  width: 100%;
   @extend .option;
+  width: 100%;
 }
 
 .menu {
@@ -179,8 +178,7 @@
 }
 
 @media screen and (max-width: 640px) {
-  .trigger,
-  .triggerFocus {
+  .trigger {
     width: 100%;
   }
 }
