@@ -118,18 +118,13 @@ const SelectContainer = ({
 
 const OrderControl = ({
   children,
-  isFocused,
   innerProps,
   innerRef,
 }: ControlProps) => {
   return (
     <div
       ref={innerRef}
-      className={
-        !isFocused
-          ? classNames(styles.trigger, styles.orderTrigger)
-          : classNames(styles.triggerFocus, styles.orderTriggerFocus)
-      }
+      className={styles.orderTrigger}
       {...innerProps}
     >
       {children}
@@ -137,18 +132,9 @@ const OrderControl = ({
   );
 };
 
-const BaseControl = ({
-  children,
-  isFocused,
-  innerProps,
-  innerRef,
-}: ControlProps) => {
+const BaseControl = ({ children, innerProps, innerRef }: ControlProps) => {
   return (
-    <div
-      ref={innerRef}
-      className={!isFocused ? styles.trigger : styles.triggerFocus}
-      {...innerProps}
-    >
+    <div ref={innerRef} className={styles.trigger} {...innerProps}>
       {children}
     </div>
   );
