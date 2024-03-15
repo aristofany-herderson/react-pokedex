@@ -1,8 +1,9 @@
 .card {
   --animation-delay: 0.1s;
   transform: translateY(var(--space-4));
-  opacity: 0;
+  opacity: var(--opacity-transparent);
   animation: load 0.4s forwards;
+  border-radius: var(--radii-lg);
 
   &:hover .cardWrapper {
     transform: translateY(calc(-1 * var(--space-3)));
@@ -41,7 +42,7 @@
 @keyframes load {
   100% {
     transform: translateY(0);
-    opacity: 1;
+    opacity: var(--opacity-default);
   }
 }
 
@@ -62,7 +63,7 @@
 .id {
   margin-top: var(--space-4);
   font-size: var(--font-size-xxs);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   text-transform: uppercase;
   color: var(--colors-gray-600);
 }
@@ -85,7 +86,7 @@
   p {
     padding: var(--space-px) var(--space-2);
     font-size: var(--font-size-xxs);
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     text-transform: uppercase;
     border-radius: var(--radii-sm);
   }

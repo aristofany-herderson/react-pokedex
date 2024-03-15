@@ -40,6 +40,7 @@ export const Select = ({
   isClearable = true,
   components,
   type = "type",
+  hideSelectedOptions = false,
   ...props
 }: SelectProps) => {
   const POSIBLEOPTIONTYPE = {
@@ -70,6 +71,8 @@ export const Select = ({
     <SelectComponent
       id={id}
       isClearable={isClearable}
+      blurInputOnSelect={false}
+      hideSelectedOptions={hideSelectedOptions}
       components={{
         SelectContainer,
         Control: POSIBLECONTROLS[type],
@@ -116,17 +119,9 @@ const SelectContainer = ({
   );
 };
 
-const OrderControl = ({
-  children,
-  innerProps,
-  innerRef,
-}: ControlProps) => {
+const OrderControl = ({ children, innerProps, innerRef }: ControlProps) => {
   return (
-    <div
-      ref={innerRef}
-      className={styles.orderTrigger}
-      {...innerProps}
-    >
+    <div ref={innerRef} className={styles.orderTrigger} {...innerProps}>
       {children}
     </div>
   );
@@ -238,14 +233,24 @@ const NumberSingleValue = ({
   );
 };
 
-const TypeOption = ({ data, isFocused, innerRef, innerProps }: OptionProps) => {
+const TypeOption = ({
+  data,
+  isFocused,
+  isSelected,
+  innerRef,
+  innerProps,
+}: OptionProps) => {
   const currentData = data as SelectValueData;
   const currentDataValue = currentData.value as PokemonPosibleTypes;
   const colors = POKEMONTYPECOLORS[currentDataValue];
 
   return (
     <div
-      className={classNames(styles.option, isFocused && styles.optionFocus)}
+      className={classNames(
+        styles.option,
+        isFocused && styles.optionFocus,
+        isSelected && styles.optionSelected
+      )}
       style={{ "--outline-color": colors.medium } as React.CSSProperties}
       ref={innerRef}
       {...innerProps}
@@ -266,6 +271,7 @@ const TypeOption = ({ data, isFocused, innerRef, innerProps }: OptionProps) => {
 const AbilityOption = ({
   data,
   isFocused,
+  isSelected,
   innerRef,
   innerProps,
 }: OptionProps) => {
@@ -273,7 +279,11 @@ const AbilityOption = ({
 
   return (
     <div
-      className={classNames(styles.optionFull, isFocused && styles.optionFocus)}
+      className={classNames(
+        styles.optionFull,
+        isFocused && styles.optionFocus,
+        isSelected && styles.optionSelected
+      )}
       ref={innerRef}
       {...innerProps}
     >
@@ -312,6 +322,7 @@ const OrderOption = ({
 const NumberOption = ({
   data,
   isFocused,
+  isSelected,
   innerRef,
   innerProps,
 }: OptionProps) => {
@@ -320,7 +331,11 @@ const NumberOption = ({
 
   return (
     <div
-      className={classNames(styles.optionFull, isFocused && styles.optionFocus)}
+      className={classNames(
+        styles.optionFull,
+        isFocused && styles.optionFocus,
+        isSelected && styles.optionSelected
+      )}
       ref={innerRef}
       {...innerProps}
     >

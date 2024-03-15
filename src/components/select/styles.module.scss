@@ -20,7 +20,7 @@
   padding: var(--space-1) var(--space-3);
 
   font-size: var(--font-size-xs);
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   color: var(--colors-gray-600);
 
   cursor: pointer;
@@ -91,7 +91,7 @@
   align-items: center;
 
   p {
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     text-transform: capitalize;
   }
 
@@ -111,6 +111,11 @@
 .optionFocus {
   box-shadow: 0 0 0 3px var(--colors-pokedex-medium);
   filter: brightness(0.95);
+}
+
+.optionSelected {
+  box-shadow: 0 0 0 3px var(--colors-pokedex-medium);
+  // background: var(--colors-pokedex-medium);
 }
 
 .optionFull {
@@ -149,7 +154,7 @@
 .noOptions {
   width: 100%;
   font-size: var(--font-size-xs);
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   text-align: center;
   color: var(--colors-gray-600);
 }
