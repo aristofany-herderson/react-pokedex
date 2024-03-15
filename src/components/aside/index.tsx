@@ -295,7 +295,7 @@ const NoPokemonSelected = () => {
         src="/icons/info-circle.svg"
         alt="Icon for no selected pokemon"
       />
-      <p>No pokemon selected yet</p>
+      <p>Select Pokemon to view details</p>
     </div>
   );
 };

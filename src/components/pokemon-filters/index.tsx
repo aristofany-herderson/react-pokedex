@@ -143,6 +143,7 @@ export const PokemonFilters = () => {
               )) as (state: unknown) => void
           }
           name="type"
+          closeMenuOnSelect={false}
           options={SELECTPOKEMONTYPES}
           placeholder={
             <SelectPlaceholder
@@ -174,6 +175,7 @@ export const PokemonFilters = () => {
               )) as (state: unknown) => void
           }
           name="weakness"
+          closeMenuOnSelect={false}
           options={SELECTPOKEMONTYPES}
           placeholder={
             <SelectPlaceholder
