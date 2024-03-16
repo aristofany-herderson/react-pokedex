@@ -38,7 +38,7 @@ export const PokemonCard = ({ id, name, types }: PokemonCardProps) => {
         <h2 className={styles.name}>{name}</h2>
         <div className={styles.types}>
           {types.map((type, key) => {
-            const colors = (POKEMONTYPECOLORS as any)[type.type.name];
+            const colors = POKEMONTYPECOLORS[type.type.name];
 
             return (
               <p

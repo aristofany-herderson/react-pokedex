@@ -1,6 +1,6 @@
 "use client";
 import { AsyncReturnType } from "@/@types/async-return-type";
-import { PosibleTypes as PokemonPosibleTypes } from "@/@types/pokemon";
+import { PossibleTypes as PokemonPossibleTypes } from "@/@types/pokemon";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE } from "@/services/api";
 import { fetchPokemons, getLoadPokemonData } from "@/services/requests";
@@ -22,21 +22,14 @@ export const PokemonsLoad = () => {
 
   useEffect(() => {
     const DESCPokemons = () => {
-      if (pokemons.length > 0) {
-        const result = [...pokemons].sort((a, b) => b.id - a.id);
-        setPokemons(result);
-      }
+      setPokemons((prevState) => prevState?.sort((a, b) => b.id - a.id));
+    };
+    const ASCPokemons = () => {
+      setPokemons((prevState) => prevState?.sort((a, b) => a.id - b.id));
     };
 
-    const ASCPokemons = () => {
-      if (pokemons.length > 0) {
-        const result = [...pokemons].sort((a, b) => a.id - b.id);
-        setPokemons(result);
-      }
-    };
     order?.toLowerCase() === "asc" && ASCPokemons();
     order?.toLowerCase() === "desc" && DESCPokemons();
-    // eslint-disable-next-line
   }, [order]);
 
   useEffect(() => {
@@ -81,7 +74,7 @@ export const PokemonsLoad = () => {
           })
           .filter((pokemon) => {
             const types = pokemon.types.map((type) => type.type.name);
-            const currentType = type?.split(",") as PokemonPosibleTypes[];
+            const currentType = type?.split(",") as PokemonPossibleTypes[];
             const typeExists = currentType?.every((type) =>
               types?.includes(type)
             );
@@ -100,7 +93,7 @@ export const PokemonsLoad = () => {
             const weaknesses = pokemon.weakness;
             const currentWeakness = weakness?.split(
               ","
-            ) as PokemonPosibleTypes[];
+            ) as PokemonPossibleTypes[];
             const weaknessExists = currentWeakness?.every((type) =>
               weaknesses?.includes(type)
             );

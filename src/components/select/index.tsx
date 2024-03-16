@@ -1,13 +1,6 @@
-"use client";
-import { PosibleTypes as PokemonPosibleTypes } from "@/@types/pokemon";
-import {
-  POKEMONFILTERLEVELCOLORS,
-  POKEMONTYPECOLORS,
-  SelectPokemonNumber,
-} from "@/utils/pokemons";
 import classNames from "classnames";
 import Image, { ImageProps } from "next/image";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SelectComponent, {
   ContainerProps,
   ControlProps,
@@ -20,6 +13,14 @@ import SelectComponent, {
   SingleValueProps,
   ValueContainerProps,
 } from "react-select";
+
+import { PossibleTypes as PokemonPossibleTypes } from "@/@types/pokemon";
+import {
+  POKEMONFILTERLEVELCOLORS,
+  POKEMONTYPECOLORS,
+  SelectPokemonNumber,
+} from "@/utils/pokemons";
+
 import styles from "./styles.module.scss";
 
 export type SelectValueData = {
@@ -43,20 +44,21 @@ export const Select = ({
   hideSelectedOptions = false,
   ...props
 }: SelectProps) => {
-  const POSIBLEOPTIONTYPE = {
+  const POSSIBLEOPTIONTYPE = {
     type: TypeOption,
     number: NumberOption,
     ability: AbilityOption,
     order: OrderOption,
   };
-  const POSIBLESINGLEVALUE = {
+
+  const POSSIBLESINGLEVALUE = {
     type: undefined,
     number: NumberSingleValue,
     ability: AbilitySingleValue,
     order: OrderSingleValue,
   };
 
-  const POSIBLECONTROLS = {
+  const POSSIBLECONTROLS = {
     type: BaseControl,
     number: BaseControl,
     ability: BaseControl,
@@ -69,21 +71,23 @@ export const Select = ({
 
   return isMounted ? (
     <SelectComponent
+      unstyled
       id={id}
       isClearable={isClearable}
       blurInputOnSelect={false}
       hideSelectedOptions={hideSelectedOptions}
       components={{
         SelectContainer,
-        Control: POSIBLECONTROLS[type],
+        Control: POSSIBLECONTROLS[type],
         IndicatorSeparator: null,
         ValueContainer,
         Menu,
         MenuList,
         MultiValue,
-        Option: POSIBLEOPTIONTYPE[type],
+        Option: POSSIBLEOPTIONTYPE[type],
         NoOptionsMessage,
-        SingleValue: POSIBLESINGLEVALUE[type],
+        SingleValue: POSSIBLESINGLEVALUE[type],
+        ...components,
       }}
       {...props}
     />
@@ -119,17 +123,17 @@ const SelectContainer = ({
   );
 };
 
-const OrderControl = ({ children, innerProps, innerRef }: ControlProps) => {
+const BaseControl = ({ children, innerProps, innerRef }: ControlProps) => {
   return (
-    <div ref={innerRef} className={styles.orderTrigger} {...innerProps}>
+    <div ref={innerRef} className={styles.trigger} {...innerProps}>
       {children}
     </div>
   );
 };
 
-const BaseControl = ({ children, innerProps, innerRef }: ControlProps) => {
+const OrderControl = ({ children, innerProps, innerRef }: ControlProps) => {
   return (
-    <div ref={innerRef} className={styles.trigger} {...innerProps}>
+    <div ref={innerRef} className={styles.orderTrigger} {...innerProps}>
       {children}
     </div>
   );
@@ -161,7 +165,7 @@ const MenuList = ({ children, innerProps, innerRef }: MenuListProps) => {
 
 const MultiValue = ({ data, innerProps, children }: MultiValueProps) => {
   const currentData = data as SelectValueData;
-  const currentDataValue = currentData.value as PokemonPosibleTypes;
+  const currentDataValue = currentData.value as PokemonPossibleTypes;
   const colors = POKEMONTYPECOLORS[currentDataValue];
 
   return (
@@ -241,7 +245,7 @@ const TypeOption = ({
   innerProps,
 }: OptionProps) => {
   const currentData = data as SelectValueData;
-  const currentDataValue = currentData.value as PokemonPosibleTypes;
+  const currentDataValue = currentData.value as PokemonPossibleTypes;
   const colors = POKEMONTYPECOLORS[currentDataValue];
 
   return (
@@ -303,6 +307,7 @@ const AbilityOption = ({
 const OrderOption = ({
   data,
   isFocused,
+  isSelected,
   innerRef,
   innerProps,
 }: OptionProps) => {
@@ -310,7 +315,11 @@ const OrderOption = ({
 
   return (
     <div
-      className={classNames(styles.optionFull, isFocused && styles.optionFocus)}
+      className={classNames(
+        styles.optionFull,
+        isFocused && styles.optionFocus,
+        isSelected && styles.optionSelected
+      )}
       ref={innerRef}
       {...innerProps}
     >

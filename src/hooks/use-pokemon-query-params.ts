@@ -5,10 +5,9 @@ import {
   useQueryState,
 } from "nuqs";
 
-const parseAsPosiblePokemonTypes = createParser({
+const parseAsPossiblePokemonTypes = createParser({
   parse(queryValue) {
-    const value = queryValue as string | null;
-    const isValid = value || null;
+    const isValid = queryValue || null;
     return isValid;
   },
   serialize(value) {
@@ -22,10 +21,10 @@ export const usePokemonQueryParams = () => {
   const [order, setOrder] = useQueryState("order", parseAsString);
   const [from, setFrom] = useQueryState("from", parseAsInteger);
   const [to, setTo] = useQueryState("to", parseAsInteger);
-  const [type, setType] = useQueryState("type", parseAsPosiblePokemonTypes);
+  const [type, setType] = useQueryState("type", parseAsPossiblePokemonTypes);
   const [weakness, setWeakness] = useQueryState(
     "weakness",
-    parseAsPosiblePokemonTypes
+    parseAsPossiblePokemonTypes
   );
   const [ability, setAbility] = useQueryState("ability", parseAsString);
   const [weight, setWeight] = useQueryState("weight", parseAsInteger);

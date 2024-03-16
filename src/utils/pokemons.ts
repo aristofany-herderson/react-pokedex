@@ -1,4 +1,4 @@
-import { PosibleTypes as PokemonPosibleTypes } from "@/@types/pokemon";
+import { PossibleTypes as PokemonPossibleTypes } from "@/@types/pokemon";
 
 export type SelectPokemonNumber = {
   value: "1" | "2" | "3" | "4" | "5";
@@ -130,7 +130,7 @@ export const POKEMONFILTERLEVELCOLORS = {
 };
 
 export const POKEMONSTRENGTHBYABILITY: {
-  [key: string]: { strength: PokemonPosibleTypes };
+  [key: string]: { strength: PokemonPossibleTypes };
 } = {
   levitate: {
     strength: "ground",

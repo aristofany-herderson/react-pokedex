@@ -1,7 +1,7 @@
-import { PosibleTypes as PokemonPosibleTypes } from "./pokemon";
+import { PossibleTypes as PokemonPossibleTypes } from "./pokemon";
 
 type DamageRelation = {
-  name: PokemonPosibleTypes;
+  name: PokemonPossibleTypes;
   url: string;
 };
 
@@ -14,7 +14,7 @@ type DamageRelations = {
   no_damage_to: DamageRelation[];
 };
 
-export type PokemonsTypes = {
+export type PokemonTypes = {
   damage_relations: DamageRelations;
   game_indices: any[];
   generation: any[];

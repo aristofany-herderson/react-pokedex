@@ -1,9 +1,9 @@
-import { Pokemon, PosibleTypes as PokemonPosibleTypes } from "@/@types/pokemon";
+import { Pokemon, PossibleTypes as PokemonPossibleTypes } from "@/@types/pokemon";
 import { Chain, PokemonChain } from "@/@types/pokemon-chain";
 import { PokemonSpecies } from "@/@types/pokemon-species";
+import { PokemonTypes } from "@/@types/pokemon-types";
 import { PokemonsAbilities } from "@/@types/pokemons-abilities";
 import { PokemonsGender } from "@/@types/pokemons-gender";
-import { PokemonsTypes } from "@/@types/pokemons-types";
 import { getID } from "@/utils/pokemon-get-id-in-species";
 import { POKEMONSTRENGTHBYABILITY } from "@/utils/pokemons";
 import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE, api } from "./api";
@@ -87,7 +87,7 @@ export const getPokemonDamageRelations = async (slug: number) => {
 
   return Promise.all(
     types.map(async (type) => {
-      const { data } = await api.get<PokemonsTypes>(type.type.url);
+      const { data } = await api.get<PokemonTypes>(type.type.url);
       return data;
     })
   );
@@ -99,8 +99,8 @@ export const getPokemonWeakness = async (slug: number) => {
     getPokemonAbilities(slug),
   ]);
 
-  const lessDamage: PokemonPosibleTypes[] = [];
-  const moreDamage: PokemonPosibleTypes[] = [];
+  const lessDamage: PokemonPossibleTypes[] = [];
+  const moreDamage: PokemonPossibleTypes[] = [];
 
   abilities.forEach((ability) => {
     const currentAbility = ability.ability.name;

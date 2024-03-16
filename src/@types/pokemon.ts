@@ -30,12 +30,12 @@ type Stat = {
 export type Type = {
   slot: number;
   type: {
-    name: PosibleTypes;
+    name: PossibleTypes;
     url: string;
   };
 };
 
-export type PosibleTypes =
+export type PossibleTypes =
   | "normal"
   | "fire"
   | "fighting"
