@@ -1,6 +1,7 @@
 import { Aside } from "@/components/aside";
 import { PokemonFilters } from "@/components/pokemon-filters";
 import { PokemonsLoad } from "@/components/pokemons-load";
+import { ScrollTop } from "@/components/scrollTop";
 import styles from "@/styles/pages/home.module.scss";
 import Image from "next/image";
 import Link from "next/link";
@@ -28,6 +29,7 @@ export default function Home() {
           alt="Github icon"
         />
       </Link>
+      <ScrollTop />
     </>
   );
 }

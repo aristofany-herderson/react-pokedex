@@ -1,0 +1,28 @@
+.scrollTop {
+  position: fixed;
+  bottom: var(--space-9);
+  right: var(--space-9);
+
+  width: var(--space-8);
+  aspect-ratio: 1 / 1;
+  z-index: calc(var(--z-index-overlay) - 1);
+  transition: 0.2s;
+
+  border-radius: var(--radii-md);
+  background: var(--colors-white);
+  box-shadow: var(--shadow-light);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 60%;
+    height: auto;
+    aspect-ratio: 1 /1;
+  }
+}
+
+.visible {
+  transform: translateY(calc(-1 * var(--space-12)));
+}

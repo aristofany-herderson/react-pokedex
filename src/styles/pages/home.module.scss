@@ -13,7 +13,7 @@
   bottom: var(--space-8);
   right: var(--space-8);
 
-  padding: var(--space-2);
+  width: var(--space-10);
   aspect-ratio: 1 / 1;
   z-index: var(--z-index-overlay);
   transition: 0.2s;
@@ -28,6 +28,11 @@
 
   &:hover {
     transform: translateY(calc(-1 * var(--space-1)));
+  }
+  img {
+    width: 60%;
+    height: auto;
+    aspect-ratio: 1 /1;
   }
 }
 

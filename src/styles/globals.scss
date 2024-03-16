@@ -149,7 +149,11 @@ ul {
   list-style: none;
 }
 
-:is(a, button, input, textarea, summary):focus {
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+summary:focus {
   outline: var(--border-width-thick) solid rgba(13, 30, 47, 0.1);
 }
 
