@@ -34,6 +34,7 @@ This project was developed with the following technologies:
 - [SASS](https://sass-lang.com/)
 
 Project Dependencies:
+
 - [radix](https://www.radix-ui.com/)
 - [axios](https://axios-http.com/)
 - [nuqs](https://nuqs.47ng.com/)
@@ -102,3 +103,15 @@ Open http://localhost:3000 with your browser to see the result.
   </a>
   </p>
 </p>
+
+<br>
+
+# 🕹️ Credits
+
+Thanks to [PokéAPI.co](https://github.com/PokeAPI/pokeapi), [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/Main_Page) for the images, [duiker101](https://github.com/duiker101/pokemon-type-svg-icons) for the type icons and of course to Nintendo, Game Freak, and The Pokémon Company for making such an awesome series of games.
+
+<br>
+
+# 📰 Copyright Notice
+
+This is an unofficial, non-commercial, fan-made app and is NOT affiliated, endorsed or supported by Nintendo, Game Freak and The Pokémon Company in any way. Many images used in this app are copyrighted and are supported under fair use. Pokémon and Pokémon character names are trademarks of Nintendo. No copyright infringement intended.
