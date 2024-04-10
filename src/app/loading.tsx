@@ -1,16 +1,10 @@
-import styles from "@/styles/pages/loading.module.scss";
-import Image from "next/image";
+import { PokeballIcon } from "@/components/ui/icons/pokeball-icon";
+import styles from "@/styles/loading.module.scss";
 
 export default function LoadingPage() {
   return (
     <div className={styles.loading}>
-      <Image
-        priority
-        width={100}
-        height={100}
-        src="/icons/pokeball.svg"
-        alt="Image of pokeball (loading image)"
-      />
+      <PokeballIcon width={80} height={80} />
       <p>Loading...</p>
     </div>
   );

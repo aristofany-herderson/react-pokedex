@@ -1,4 +1,7 @@
-import { Pokemon, PossibleTypes as PokemonPossibleTypes } from "@/@types/pokemon";
+import {
+  Pokemon,
+  PossibleTypes as PokemonPossibleTypes,
+} from "@/@types/pokemon";
 import { Chain, PokemonChain } from "@/@types/pokemon-chain";
 import { PokemonSpecies } from "@/@types/pokemon-species";
 import { PokemonTypes } from "@/@types/pokemon-types";
@@ -107,7 +110,7 @@ export const getPokemonWeakness = async (slug: number) => {
     const strength = POKEMONSTRENGTHBYABILITY[currentAbility];
 
     if (strength) {
-      lessDamage.push(strength.strength);
+      lessDamage.push(strength);
     }
   });
 

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 
 const poppins = Poppins({
+  variable: "--font-default",
   weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
   subsets: ["latin"],
@@ -10,10 +11,9 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("http://localhost:3000"),
   title: "React Pokedex | For advanced pokeinfo",
   description: "A advanced pokemon data",
-  icons: "/icons/pokeball.svg",
+  icons: "/pokeball.ico",
   creator: "Aristofany Herderson",
   keywords: "Pokemon, Pokedex, Pokeapi",
   openGraph: {
@@ -31,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en-US">
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.variable}>{children}</body>
     </html>
   );
 }

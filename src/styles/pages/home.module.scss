@@ -29,7 +29,8 @@
   &:hover {
     transform: translateY(calc(-1 * var(--space-1)));
   }
-  img {
+
+  svg {
     width: 60%;
     height: auto;
     aspect-ratio: 1 /1;

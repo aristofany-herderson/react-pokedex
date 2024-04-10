@@ -8,10 +8,17 @@
   --colors-pokedex-ligth: #f6f8fc;
   --colors-pokedex-medium: #e9ebf0;
   --colors-pokedex-dark: #0d1e2f;
-  --colors-red: #ff5350;
+  
+  --colors-red-medium: #ff5350;
+  --colors-red-light: #fd6461;
   --colors-yellow: #ffc300;
+  --colors-light-blue: #85ddff; 
+  --colors-rose: #f0aaba; 
 
+  --colors-gray-100:rgb(250, 250, 250);
+  --colors-gray-200: #e3e3e3;
   --colors-gray-600: #8b9296;
+
   --colors-black: #000000;
   --colors-white: #ffffff;
 
@@ -116,7 +123,9 @@ body,
 input,
 textarea,
 button {
-  font: "Poppins", sans-serif 400 var(--font-size-sm);
+  font-family: var(--font-default);
+  font-weight: 400;
+  font-size: var(--font-size-md);
   color: var(--colors-pokedex-dark);
   line-height: var(--line-height-tall);
 }
@@ -149,17 +158,9 @@ ul {
   list-style: none;
 }
 
-a:focus,
-button:focus,
-input:focus,
-textarea:focus,
-summary:focus {
-  outline: var(--border-width-thick) solid rgba(13, 30, 47, 0.1);
-}
-
 ::selection {
   color: var(--colors-pokedex-ligth);
-  background: var(--colors-red);
+  background: var(--colors-red-medium);
 }
 
 ::-webkit-scrollbar {

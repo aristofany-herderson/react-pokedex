@@ -1,0 +1,65 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(200, 200, 200, 0.8);
+  backdrop-filter: blur(0.2rem);
+  transition: 0.15s;
+}
+
+.content {
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  max-width: 42rem;
+  max-height: 80vh;
+  margin-inline: auto;
+  outline: none;
+
+  padding: var(--space-8);
+  background: var(--colors-white);
+  border-radius: var(--radii-md);
+  overflow: auto;
+}
+
+.title {
+  margin-bottom: var(--space-4);
+  line-height: var(--line-height-base);
+}
+
+.description {
+  &:not(:last-child) {
+    margin-bottom: var(--space-8);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.overlay[data-state="open"],
+.content[data-state="open"] {
+  animation: fadeIn 0.15s ease-out;
+}
+
+.overlay[data-state="closed"],
+.content[data-state="closed"] {
+  animation: fadeOut 0.15s ease-in;
+}
