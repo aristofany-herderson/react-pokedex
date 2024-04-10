@@ -16,7 +16,7 @@ import SelectComponent, {
   SingleValueProps,
   ValueContainerProps,
 } from "react-select";
-import { SortDescendingIcon } from "../icons/sort-descending-icon";
+import { FilterIcon } from "../icons/filter-icon";
 import { StarIcon } from "../icons/star-icon";
 import styles from "./styles.module.scss";
 
@@ -218,7 +218,7 @@ const NumberSingleValue = ({
   return (
     <div className={styles.value} {...innerProps}>
       <span style={{ background: color }}>
-        <SortDescendingIcon width={10} height={10} />
+        <FilterIcon width={10} height={10} />
       </span>
       <p>{currentData.label}</p>
     </div>
@@ -332,7 +332,7 @@ const NumberOption = ({
       {...innerProps}
     >
       <span style={{ background: color }}>
-        <SortDescendingIcon width={10} height={10} />
+        <FilterIcon width={10} height={10} />
       </span>
       <p>{currentData.label}</p>
     </div>

@@ -89,6 +89,7 @@
   margin-top: var(--space-1);
   font-size: var(--font-size-2xl);
   text-transform: capitalize;
+  line-height: var(--line-height-base);
 
   &.legendary {
     color: transparent;
@@ -177,6 +178,7 @@
 
       svg {
         color: var(--colors-red-light);
+        margin-left: var(--space-2);
       }
     }
   }
@@ -406,26 +408,42 @@
 
 .noSelected {
   width: 100%;
-  max-height: calc(100vh - var(--space-24));
   height: 100%;
-
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
 
   .info {
+    width: 100%;
+    margin-top: auto;
+
     display: flex;
     align-items: center;
-    cursor: pointer;
+    justify-content: center;
+
+    svg {
+      width: var(--space-9);
+      height: var(--space-9);
+      padding: var(--space-2);
+      background: var(--colors-white);
+      border-radius: var(--radii-full);
+      margin-right: var(--space-2);
+    }
   }
 
-  svg {
-    width: var(--space-9);
-    height: var(--space-9);
-    padding: var(--space-2);
-    background: var(--colors-white);
-    border-radius: var(--radii-full);
-    margin-right: var(--space-2);
+  .copyright {
+    width: min-content;
+    padding: var(--space-1) var(--space-2);
+    margin: auto auto 0;
+    font-size: var(--font-size-xs);
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-right: var(--space-1);
+    }
   }
 
   p {
@@ -485,14 +503,14 @@
 .skeletonId {
   width: var(--space-8);
   height: var(--space-3);
-  margin-top: -3.4rem;
+  margin-top: -3.2rem;
   border-radius: var(--radii-sm);
 }
 
 .skeletonName {
   width: var(--space-32);
   height: var(--space-7);
-  margin: var(--space-3) auto 0;
+  margin: var(--space-4) auto 0;
   border-radius: var(--radii-sm);
 }
 

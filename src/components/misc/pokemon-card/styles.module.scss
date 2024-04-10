@@ -39,13 +39,6 @@
   }
 }
 
-@keyframes load {
-  100% {
-    transform: translateY(0);
-    opacity: var(--opacity-default);
-  }
-}
-
 .figure {
   width: 30%;
   min-width: 6rem;
@@ -89,5 +82,12 @@
     font-weight: var(--font-weight-bold);
     text-transform: uppercase;
     border-radius: var(--radii-sm);
+  }
+}
+
+@keyframes load {
+  100% {
+    transform: translateY(0);
+    opacity: var(--opacity-default);
   }
 }

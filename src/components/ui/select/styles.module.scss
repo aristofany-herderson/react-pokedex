@@ -15,6 +15,7 @@
 }
 
 .trigger {
+  --hover-background: var(--colors-gray-100);
   flex: 1;
   height: var(--space-10);
   padding: var(--space-1) var(--space-4);
@@ -36,7 +37,11 @@
   transition: 0.15s background;
 
   &:hover {
-    background: var(--colors-gray-100);
+    background: var(--hover-background);
+  }
+
+  input {
+    cursor: pointer;
   }
 }
 
@@ -46,6 +51,7 @@
   background: transparent;
   box-shadow: none;
   color: var(--colors-pokedex-dark);
+  --hover-background: transparent;
 }
 
 .valueContainer {
@@ -178,7 +184,7 @@
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-bold);
   text-align: center;
-  color: var(--colors-gray-600);
+  color: var(--colors-red-light);
 }
 
 .selectSkeleton {

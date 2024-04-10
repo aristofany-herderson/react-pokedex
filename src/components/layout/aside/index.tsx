@@ -4,9 +4,8 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogTrigger
 } from "@/components/ui/dialog";
 import { ChevronLeftIcon } from "@/components/ui/icons/chevron-left-icon";
 import { ChevronRightIcon } from "@/components/ui/icons/chevron-right-icon";
@@ -15,6 +14,7 @@ import { FemaleIcon } from "@/components/ui/icons/female-icon";
 import { InfoCircleIcon } from "@/components/ui/icons/info-circle-icon";
 import { MaleIcon } from "@/components/ui/icons/male-icon";
 import { MinusSquareIcon } from "@/components/ui/icons/minus-square-icon";
+import { QuestionCircleIcon } from "@/components/ui/icons/question-circle-icon";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import { getAllPokemonData } from "@/services/requests";
 import { pokemonSVGLoader } from "@/utils/pokemon-image-loader";
@@ -272,31 +272,33 @@ export const Aside = () => {
 const NoPokemonSelected = () => {
   return (
     <div className={styles.noSelected}>
+      <div className={styles.info}>
+        <InfoCircleIcon />
+        <p>Select Pokemon to view details</p>
+      </div>
       <Dialog>
         <DialogTrigger asChild>
-          <div className={styles.info}>
-            <InfoCircleIcon />
-            <p>Select Pokemon to view details</p>
-          </div>
+          <button className={styles.copyright}>
+            <QuestionCircleIcon width={16} height={16} />
+            Copyright
+          </button>
         </DialogTrigger>
         <DialogContent>
-          <DialogHeader>
-            <DialogTitle>🕹️ Credits</DialogTitle>
-            <DialogDescription>
-              Thanks to PokéAPI.co, Bulbapedia for the images, duiker101 for the
-              type icons and of course to Nintendo, Game Freak, and The Pokémon
-              Company for making such an awesome series of games.
-            </DialogDescription>
-            <DialogTitle>📰 Copyright Notice</DialogTitle>
-            <DialogDescription>
-              This is an unofficial, non-commercial, fan-made app and is NOT
-              affiliated, endorsed or supported by Nintendo, Game Freak and The
-              Pokémon Company in any way. Many images used in this app are
-              copyrighted and are supported under fair use. Pokémon and Pokémon
-              character names are trademarks of Nintendo. No copyright
-              infringement intended.
-            </DialogDescription>
-          </DialogHeader>
+          <DialogTitle>🕹️ Credits</DialogTitle>
+          <DialogDescription>
+            Thanks to PokéAPI.co, Bulbapedia for the images, duiker101 for the
+            type icons and of course to Nintendo, Game Freak, and The Pokémon
+            Company for making such an awesome series of games.
+          </DialogDescription>
+          <DialogTitle>📰 Copyright Notice</DialogTitle>
+          <DialogDescription>
+            This is an unofficial, non-commercial, fan-made app and is NOT
+            affiliated, endorsed or supported by Nintendo, Game Freak and The
+            Pokémon Company in any way. Many images used in this app are
+            copyrighted and are supported under fair use. Pokémon and Pokémon
+            character names are trademarks of Nintendo. No copyright
+            infringement intended.
+          </DialogDescription>
         </DialogContent>
       </Dialog>
     </div>
