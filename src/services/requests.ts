@@ -7,8 +7,8 @@ import { PokemonSpecies } from "@/@types/pokemon-species";
 import { PokemonTypes } from "@/@types/pokemon-types";
 import { PokemonsAbilities } from "@/@types/pokemons-abilities";
 import { PokemonsGender } from "@/@types/pokemons-gender";
-import { getID } from "@/utils/pokemon-get-id-in-species";
-import { POKEMONSTRENGTHBYABILITY } from "@/utils/pokemons";
+import { getIdInSpeciesUrl } from "@/utils/get-id-in-species-url";
+import { POKEMONSTRENGTHBYABILITY } from "@/utils/pokemon-strength-by-ability";
 import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE, api } from "./api";
 
 const POKEMONIDS = Array.from({ length: MAXPOKEMONSRENDERED }, (_, i) => i + 1);
@@ -64,10 +64,10 @@ export const getPokemonGenders = async (slug: number) => {
   ]);
 
   const isFemale = female.data.pokemon_species_details.some(
-    (pokemon) => getID(pokemon.pokemon_species.url) === slug
+    (pokemon) => getIdInSpeciesUrl(pokemon.pokemon_species.url) === slug
   );
   const isMale = male.data.pokemon_species_details.some(
-    (pokemon) => getID(pokemon.pokemon_species.url) === slug
+    (pokemon) => getIdInSpeciesUrl(pokemon.pokemon_species.url) === slug
   );
 
   return { isFemale, isMale };
@@ -149,7 +149,7 @@ export const getEvolutions = async (slug: number) => {
 
   const formatResult = (evolution: Chain) => {
     const name = evolution.species.name;
-    const id = getID(evolution.species.url);
+    const id = getIdInSpeciesUrl(evolution.species.url);
     const level = evolution.evolves_to[0]?.evolution_details[0]?.min_level || 0;
 
     return {

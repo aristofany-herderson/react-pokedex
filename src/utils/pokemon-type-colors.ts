@@ -1,5 +1,3 @@
-import { PossibleTypes as PokemonPossibleTypes } from "@/@types/pokemon";
-
 export const POKEMONTYPECOLORS = {
   normal: {
     light: "#CDCDB9",
@@ -73,50 +71,4 @@ export const POKEMONTYPECOLORS = {
     light: "#EFA7B7",
     medium: "#B0708E",
   },
-};
-
-export const POKEMONSTATCOLORS = {
-  hp: {
-    name: "hp",
-    color: "#df2140",
-  },
-  attack: {
-    name: "atk",
-    color: "#ff994d",
-  },
-  defense: {
-    name: "def",
-    color: "#fedc61",
-  },
-  "special-attack": {
-    name: "spA",
-    color: "#85ddff",
-  },
-  "special-defense": {
-    name: "spD",
-    color: "#a8ef95",
-  },
-  speed: {
-    name: "spd",
-    color: "#fb94a8",
-  },
-};
-
-export const POKEMONFILTERLEVELCOLORS = {
-  1: "#FF6B6B",
-  2: "#FF8A65",
-  3: "#FFB74D",
-  4: "#FFD54F",
-  5: "#4CAF50",
-};
-
-type PokemonStrengthByAbility = {
-  [ability: string]: PokemonPossibleTypes;
-};
-
-export const POKEMONSTRENGTHBYABILITY: PokemonStrengthByAbility = {
-  levitate: "ground",
-  "volt-absorb": "electric",
-  "water-absorb": "water",
-  "flash-fire": "fire",
 };

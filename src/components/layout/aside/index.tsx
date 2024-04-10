@@ -5,8 +5,13 @@ import {
   DialogContent,
   DialogDescription,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import { ChevronLeftIcon } from "@/components/ui/icons/chevron-left-icon";
 import { ChevronRightIcon } from "@/components/ui/icons/chevron-right-icon";
 import { EyeSlashIcon } from "@/components/ui/icons/eye-slash-icon";
@@ -17,10 +22,12 @@ import { MinusSquareIcon } from "@/components/ui/icons/minus-square-icon";
 import { QuestionCircleIcon } from "@/components/ui/icons/question-circle-icon";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import { getAllPokemonData } from "@/services/requests";
-import { pokemonSVGLoader } from "@/utils/pokemon-image-loader";
+import { padId } from "@/utils/pad-id";
+import { pokemonImagePlaceholder } from "@/utils/pokemon-image-placeholder";
 import { pokemonImageURL } from "@/utils/pokemon-image-url";
-import { padID } from "@/utils/pokemon-pad-id";
-import { POKEMONSTATCOLORS, POKEMONTYPECOLORS } from "@/utils/pokemons";
+import { POKEMONSTATS } from "@/utils/pokemon-stats";
+import { POKEMONTYPECOLORS } from "@/utils/pokemon-type-colors";
+import { POKEMONTYPEICONS } from "@/utils/pokemon-type-icons";
 import classNames from "classnames";
 import Image from "next/image";
 import { Fragment, useEffect, useState } from "react";
@@ -45,7 +52,7 @@ export const Aside = () => {
     fetchPokemon();
   }, [selectedPokemon]);
 
-  const paddedID = padID(pokemon?.id);
+  const paddedID = padId(pokemon?.id);
   const sumStats = pokemon?.stats.reduce(
     (accum, item) => accum + item.base_stat,
     0
@@ -53,8 +60,8 @@ export const Aside = () => {
   const height = (pokemon?.height || 0) / 10;
   const weight = (pokemon?.weight || 0) / 10;
   const isGenderLess = !pokemon?.gender.isFemale && !pokemon?.gender.isMale;
-  const prevPokemonPaddedID = padID(pokemon?.adjacent_pokemons.previous.id);
-  const nextPokemonPaddedID = padID(pokemon?.adjacent_pokemons.next.id);
+  const prevPokemonPaddedID = padId(pokemon?.adjacent_pokemons.previous.id);
+  const nextPokemonPaddedID = padId(pokemon?.adjacent_pokemons.next.id);
 
   const isNoSelect = !selectedPokemon;
   const isSelectAndLoading = selectedPokemon && pokemon?.id !== selectedPokemon;
@@ -89,7 +96,7 @@ export const Aside = () => {
               height={140}
               src={pokemonImageURL(pokemon.id)}
               priority
-              placeholder={pokemonSVGLoader(40, 40)}
+              placeholder={pokemonImagePlaceholder(40, 40)}
               alt={`${pokemon.name} pokemon image`}
             />
           </div>
@@ -147,19 +154,23 @@ export const Aside = () => {
                 <p>
                   {pokemon?.weakness.map((weak, key) => {
                     const colors = POKEMONTYPECOLORS[weak];
+
                     return (
-                      <span
-                        title={weak}
-                        key={key}
-                        style={{ background: colors.medium }}
-                      >
-                        <Image
-                          width={10}
-                          height={10}
-                          src={`/icons/pokemon/${weak}.svg`}
-                          alt={`Pokemon ${weak} weakness icon`}
-                        />
-                      </span>
+                      <HoverCard openDelay={100} closeDelay={0} key={key}>
+                        <HoverCardTrigger>
+                          <span key={key} style={{ background: colors.medium }}>
+                            {POKEMONTYPEICONS[weak]}
+                          </span>
+                        </HoverCardTrigger>
+                        <HoverCardContent
+                          side="top"
+                          className={styles.hoverCard}
+                          style={{ background: colors.medium }}
+                        >
+                          <span style={{color: colors.medium}} key={key}>{POKEMONTYPEICONS[weak]}</span>
+                          {weak}
+                        </HoverCardContent>
+                      </HoverCard>
                     );
                   })}
                 </p>
@@ -180,7 +191,7 @@ export const Aside = () => {
             <h2 className={styles.title}>Stats</h2>
             <div>
               {pokemon?.stats.map((stat, key) => {
-                const { color, name } = POKEMONSTATCOLORS[stat.stat.name];
+                const { color, name } = POKEMONSTATS[stat.stat.name];
                 return (
                   <p key={key}>
                     <span style={{ background: color }}>{name}</span>
@@ -189,7 +200,7 @@ export const Aside = () => {
                 );
               })}
               <p className={styles.total}>
-                <span>tot</span>
+                <span>TOT</span>
                 {sumStats}
               </p>
             </div>
@@ -212,7 +223,7 @@ export const Aside = () => {
                             width={40}
                             height={40}
                             src={pokemonImageURL(evolution.id)}
-                            placeholder={pokemonSVGLoader(40, 40)}
+                            placeholder={pokemonImagePlaceholder(40, 40)}
                             alt={`${evolution.name} image`}
                           />
                         </button>
@@ -238,7 +249,7 @@ export const Aside = () => {
                 width={18}
                 height={18}
                 src={pokemonImageURL(pokemon.adjacent_pokemons.previous.id)}
-                placeholder={pokemonSVGLoader(40, 40)}
+                placeholder={pokemonImagePlaceholder(40, 40)}
                 alt="Previous pokemon image"
               />
               <p>{pokemon.adjacent_pokemons.previous.name}</p>
@@ -257,7 +268,7 @@ export const Aside = () => {
                 width={18}
                 height={18}
                 src={pokemonImageURL(pokemon.adjacent_pokemons.next.id)}
-                placeholder={pokemonSVGLoader(40, 40)}
+                placeholder={pokemonImagePlaceholder(40, 40)}
                 alt="Next pokemon chevron icon"
               />
               <ChevronRightIcon width={12} height={12} />

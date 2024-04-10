@@ -80,6 +80,8 @@
   }
 
   span {
+    width: var(--space-4);
+    height: var(--space-4);
     padding: var(--space-1);
     border-radius: var(--radii-full);
 
@@ -110,6 +112,7 @@
   }
 
   span {
+    width: var(--space-5);
     padding: var(--space-1);
     margin-right: var(--space-2);
     border-radius: var(--radii-full);

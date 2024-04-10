@@ -10,10 +10,10 @@ import {
   SelectPlaceholder,
   SelectValueData,
 } from "@/components/ui/select";
-import { SELECTPOKEMONHEIGHTS, SELECTPOKEMONORDER, SELECTPOKEMONTYPES, SELECTPOKEMONWEIGHTS } from "@/data/select";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import { MAXPOKEMONSRENDERED } from "@/services/api";
 import { getAllPokemonAbilities } from "@/services/requests";
+import { SELECTPOKEMONHEIGHTS, SELECTPOKEMONORDER, SELECTPOKEMONTYPES, SELECTPOKEMONWEIGHTS } from "@/utils/selects-data";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 

@@ -118,6 +118,7 @@
 }
 
 .title {
+  user-select: none;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
   text-align: center;
@@ -213,10 +214,25 @@
     height: var(--space-5);
     aspect-ratio: 1 / 1;
     border-radius: var(--radii-full);
+    color: var(--colors-white);
 
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .hoverCard {
+    padding: var(--space-1) var(--space-2);
+    color: var(--colors-white);
+    text-transform:capitalize ;
+    border-radius: var(--radii-sm);
+    box-shadow: var(--shadow-light);
+    user-select: none;
+
+    span {
+      background: var(--colors-white);
+      margin-right: var(--space-2);
+    }
   }
 }
 
@@ -238,7 +254,6 @@
     font-size: 0.5rem;
     border-radius: var(--radii-full);
 
-    text-transform: uppercase;
     color: var(--colors-white);
     display: flex;
     align-items: center;
@@ -320,14 +335,6 @@
   }
 }
 
-.types p,
-.abilities p,
-.characteristics p,
-.stats p,
-.evolutions p {
-  user-select: none;
-}
-
 .nextPrevPokemons {
   position: relative;
   width: 100%;
@@ -342,12 +349,12 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: var(--space-px);
-    height: 50%;
+    width: 0.2px;
+    height: 36%;
 
-    opacity: var(--opacity-light);
     transform: translate(-50%, -50%);
-    background: var(--colors-pokedex-dark);
+    background: var(--colors-gray-600);
+    border-radius: var(--radii-full);
   }
 
   button {

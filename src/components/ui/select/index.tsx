@@ -1,8 +1,9 @@
 import { PossibleTypes as PokemonPossibleTypes } from "@/@types/pokemon";
-import { SelectPokemonRange } from "@/data/select";
-import { POKEMONFILTERLEVELCOLORS, POKEMONTYPECOLORS } from "@/utils/pokemons";
+import { SelectPokemonRange } from "@/@types/selects";
+import { POKEMONTYPECOLORS } from "@/utils/pokemon-type-colors";
+import { POKEMONTYPEICONS } from "@/utils/pokemon-type-icons";
+import { SELECTLEVELCOLORS } from "@/utils/selects-data";
 import classNames from "classnames";
-import Image from "next/image";
 import React, { ReactNode, useEffect, useState } from "react";
 import SelectComponent, {
   ContainerProps,
@@ -141,11 +142,7 @@ const ValueContainer = ({ children, innerProps }: ValueContainerProps) => {
   );
 };
 
-const Menu = ({
-  children,
-  innerProps,
-  innerRef,
-}: MenuProps) => {
+const Menu = ({ children, innerProps, innerRef }: MenuProps) => {
   return (
     <div className={styles.menu} ref={innerRef} {...innerProps}>
       {children}
@@ -169,12 +166,7 @@ const MultiValue = ({ data, innerProps, children }: MultiValueProps) => {
   return (
     <div className={styles.value} {...innerProps}>
       <span style={{ background: colors.medium }}>
-        <Image
-          width={10}
-          height={10}
-          src={`/icons/pokemon/${currentData.value}.svg`}
-          alt={currentData.value}
-        />
+        {POKEMONTYPEICONS[currentDataValue]}
       </span>
       <p style={{ color: colors.medium }}>{currentData.label}</p>
     </div>
@@ -213,7 +205,7 @@ const NumberSingleValue = ({
   children,
 }: SingleValueProps) => {
   const currentData = data as SelectPokemonRange;
-  const color = POKEMONFILTERLEVELCOLORS[currentData.value];
+  const color = SELECTLEVELCOLORS[currentData.value];
 
   return (
     <div className={styles.value} {...innerProps}>
@@ -248,12 +240,7 @@ const TypeOption = ({
       {...innerProps}
     >
       <span style={{ background: colors.medium }}>
-        <Image
-          width={10}
-          height={10}
-          src={`/icons/pokemon/${currentData.value}.svg`}
-          alt={currentData.value}
-        />
+        {POKEMONTYPEICONS[currentDataValue]}
       </span>
       <p style={{ color: colors.medium }}>{currentData.label}</p>
     </div>
@@ -319,7 +306,7 @@ const NumberOption = ({
   innerProps,
 }: OptionProps) => {
   const currentData = data as SelectPokemonRange;
-  const color = POKEMONFILTERLEVELCOLORS[currentData.value];
+  const color = SELECTLEVELCOLORS[currentData.value];
 
   return (
     <div

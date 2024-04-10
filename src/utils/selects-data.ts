@@ -1,11 +1,4 @@
-export type SelectPokemonRange = {
-  value: "1" | "2" | "3" | "4" | "5";
-  label: string;
-  range: {
-    min: number;
-    max: number;
-  };
-};
+import { SelectPokemonRange } from "@/@types/selects";
 
 export const SELECTPOKEMONORDER = [
   { value: "asc", label: "Ascending" },
@@ -118,3 +111,11 @@ export const SELECTPOKEMONWEIGHTS: SelectPokemonRange[] = [
     },
   },
 ];
+
+export const SELECTLEVELCOLORS = {
+  1: "#FF6B6B",
+  2: "#FF8A65",
+  3: "#FFB74D",
+  4: "#FFD54F",
+  5: "#4CAF50",
+};

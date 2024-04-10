@@ -3,7 +3,7 @@ const toBase64 = (string: string) =>
     ? Buffer.from(string).toString("base64")
     : window.btoa(string);
 
-export const pokemonSVGLoader = (
+export const pokemonImagePlaceholder = (
   width: number,
   height: number
 ): `data:image/${string}` => {

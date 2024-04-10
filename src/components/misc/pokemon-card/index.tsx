@@ -1,10 +1,10 @@
 "use client";
 import { Type as PokemonType } from "@/@types/pokemon";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
-import { pokemonSVGLoader } from "@/utils/pokemon-image-loader";
+import { padId } from "@/utils/pad-id";
+import { pokemonImagePlaceholder } from "@/utils/pokemon-image-placeholder";
 import { pokemonImageURL } from "@/utils/pokemon-image-url";
-import { padID } from "@/utils/pokemon-pad-id";
-import { POKEMONTYPECOLORS } from "@/utils/pokemons";
+import { POKEMONTYPECOLORS } from "@/utils/pokemon-type-colors";
 import Image from "next/image";
 import styles from "./styles.module.scss";
 
@@ -15,7 +15,7 @@ type PokemonCardProps = {
 };
 
 export const PokemonCard = ({ id, name, types }: PokemonCardProps) => {
-  const paddedID = padID(id);
+  const paddedID = padId(id);
   const { setPokemon } = usePokemonQueryParams();
 
   return (
@@ -29,7 +29,7 @@ export const PokemonCard = ({ id, name, types }: PokemonCardProps) => {
           <Image
             width={50}
             height={50}
-            placeholder={pokemonSVGLoader(40, 40)}
+            placeholder={pokemonImagePlaceholder(40, 40)}
             src={pokemonImageURL(id)}
             alt={`${name} pokemon image`}
           />
