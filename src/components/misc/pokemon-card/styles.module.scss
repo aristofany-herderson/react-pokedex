@@ -64,7 +64,10 @@
 .name {
   margin: var(--space-1) 0;
   font-size: var(--font-size-lg);
-  text-transform: capitalize;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 }
 
 .types {
@@ -82,6 +85,9 @@
     font-weight: var(--font-weight-bold);
     text-transform: uppercase;
     border-radius: var(--radii-sm);
+
+    color: var(--colors-color);
+    background: var(--colors-background);
   }
 }
 

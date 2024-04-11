@@ -1,16 +1,17 @@
 import { SVGProps } from "react";
 
 export const GithubIcon = ({
+  xmlns = "http://www.w3.org/2000/svg",
   width = "24",
   height = "24",
-  fill,
+  fill = "none",
   ...props
 }: SVGProps<SVGSVGElement>) => {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
       width={width}
       height={height}
+      fill={fill}
       viewBox="0 0 98 98"
       {...props}
     >

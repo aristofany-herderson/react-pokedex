@@ -37,18 +37,18 @@ export const PokemonCard = ({ id, name, types }: PokemonCardProps) => {
         <span className={styles.id}>nº {paddedID}</span>
         <h2 className={styles.name}>{name}</h2>
         <div className={styles.types}>
-          {types.map((type, key) => {
-            const colors = POKEMONTYPECOLORS[type.type.name];
+          {types.map(({ type }, key) => {
+            const colors = POKEMONTYPECOLORS[type.name];
 
             return (
               <p
                 style={{
-                  color: colors.medium,
-                  background: colors.light,
+                  ["--colors-color" as any]: colors.medium,
+                  ["--colors-background" as any]: colors.light,
                 }}
                 key={key}
               >
-                {type.type.name}
+                {type.name}
               </p>
             );
           })}

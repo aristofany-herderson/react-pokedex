@@ -114,7 +114,10 @@ export const Aside = () => {
               const colors = POKEMONTYPECOLORS[type.type.name];
               return (
                 <p
-                  style={{ color: colors.medium, background: colors.light }}
+                  style={{
+                    ["--colors-color" as any]: colors.medium,
+                    ["--colors-background" as any]: colors.light,
+                  }}
                   key={key}
                 >
                   {type.type.name}
@@ -158,16 +161,30 @@ export const Aside = () => {
                     return (
                       <HoverCard openDelay={100} closeDelay={0} key={key}>
                         <HoverCardTrigger>
-                          <span key={key} style={{ background: colors.medium }}>
+                          <span
+                            key={key}
+                            style={{
+                              ["--colors-background" as any]: colors.medium,
+                            }}
+                          >
                             {POKEMONTYPEICONS[weak]}
                           </span>
                         </HoverCardTrigger>
                         <HoverCardContent
                           side="top"
                           className={styles.hoverCard}
-                          style={{ background: colors.medium }}
+                          style={{
+                            ["--colors-background" as any]: colors.medium,
+                          }}
                         >
-                          <span style={{color: colors.medium}} key={key}>{POKEMONTYPEICONS[weak]}</span>
+                          <span
+                            style={{
+                              ["--colors-color" as any]: colors.medium,
+                            }}
+                            key={key}
+                          >
+                            {POKEMONTYPEICONS[weak]}
+                          </span>
                           {weak}
                         </HoverCardContent>
                       </HoverCard>

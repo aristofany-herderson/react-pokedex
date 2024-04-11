@@ -1,6 +1,6 @@
 <p id="title" align="center">
   <a href="#title">
-    <img width="80" height="80" src="./public/icons/pokeball.svg" height="128">
+    <img width="80" height="80" src="./public/images/logo.png" >
     <h1 align="center">React Pokedex</h1>
   </a>
 </p>

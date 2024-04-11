@@ -1,19 +1,18 @@
 import { SVGProps } from "react";
 
-export const TargetIcon = ({ fill, ...props }: SVGProps<SVGSVGElement>) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      fill="none"
-      viewBox="0 -960 960 960"
-      {...props}
-    >
+export const TargetIcon = ({
+  xmlns = "http://www.w3.org/2000/svg",
+  width = 24,
+  height = 24,
+  fill = "none",
+  ...props
+}: SVGProps<SVGSVGElement>) => {
+    return (
+    <svg width={width} height={height} fill={fill} viewBox="0 -960 960 960" {...props}>
       <path
         fill="currentColor"
         d="M479.882-326Q544-326 589-370.882q45-44.883 45-109Q634-544 589.118-589q-44.883-45-109-45Q416-634 371-589.118q-45 44.883-45 109Q326-416 370.882-371q44.883 45 109 45zM480-46q-91 0-169.987-34.084-78.988-34.083-137.417-92.512T80.084-310.013Q46-389 46-480t34.084-169.987q34.083-78.988 92.512-137.417t137.417-92.512Q389-914 480-914t169.987 34.084q78.988 34.083 137.417 92.512t92.512 137.417Q914-571 914-480t-34.084 169.987q-34.083 78.988-92.512 137.417T649.987-80.084Q571-46 480-46zm0-126q130 0 219-89t89-219q0-130-89-219t-219-89q-130 0-219 89t-89 219q0 130 89 219t219 89zm0-308z"
-      ></path>
+      />
     </svg>
   );
 };

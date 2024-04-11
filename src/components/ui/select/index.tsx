@@ -4,7 +4,7 @@ import { POKEMONTYPECOLORS } from "@/utils/pokemon-type-colors";
 import { POKEMONTYPEICONS } from "@/utils/pokemon-type-icons";
 import { SELECTLEVELCOLORS } from "@/utils/selects-data";
 import classNames from "classnames";
-import React, { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import SelectComponent, {
   ContainerProps,
   ControlProps,
@@ -165,10 +165,20 @@ const MultiValue = ({ data, innerProps, children }: MultiValueProps) => {
 
   return (
     <div className={styles.value} {...innerProps}>
-      <span style={{ background: colors.medium }}>
+      <span
+        style={{
+          ["--colors-background" as any]: colors.medium,
+        }}
+      >
         {POKEMONTYPEICONS[currentDataValue]}
       </span>
-      <p style={{ color: colors.medium }}>{currentData.label}</p>
+      <p
+        style={{
+          ["--colors-color" as any]: colors.medium,
+        }}
+      >
+        {currentData.label}
+      </p>
     </div>
   );
 };
@@ -235,14 +245,21 @@ const TypeOption = ({
         isFocused && styles.optionFocus,
         isSelected && styles.optionSelected
       )}
-      style={{ "--outline-color": colors.medium } as React.CSSProperties}
       ref={innerRef}
       {...innerProps}
     >
-      <span style={{ background: colors.medium }}>
+      <span
+        style={{
+          ["--colors-background" as any]: colors.medium,
+        }}
+      >
         {POKEMONTYPEICONS[currentDataValue]}
       </span>
-      <p style={{ color: colors.medium }}>{currentData.label}</p>
+      <p 
+      style={{
+        ["--colors-color" as any]: colors.medium,
+      }}
+      >{currentData.label}</p>
     </div>
   );
 };

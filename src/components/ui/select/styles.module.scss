@@ -67,6 +67,7 @@
   align-items: center;
 
   p {
+    color: var(--colors-color);
     display: none !important;
 
     &.order {
@@ -88,6 +89,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    background: var(--colors-background);
   }
   svg {
     color: var(--colors-white);
@@ -108,7 +111,11 @@
 
   p {
     font-weight: var(--font-weight-bold);
-    text-transform: capitalize;
+    color: var(--colors-color);
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
   }
 
   span {
@@ -120,6 +127,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    background: var(--colors-background);
   }
 
   svg {
