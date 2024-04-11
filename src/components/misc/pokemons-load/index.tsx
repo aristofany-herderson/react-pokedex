@@ -19,6 +19,7 @@ export const PokemonsLoad = () => {
     AsyncReturnType<typeof getLoadPokemonData>[]
   >([]);
   const [pagination, setPagination] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const { search, from, to, type, weakness, ability, weight, height, order } =
     usePokemonQueryParams();
@@ -36,14 +37,25 @@ export const PokemonsLoad = () => {
   }, [order]);
 
   useEffect(() => {
-    if (inView) {
-      fetchPokemons(pagination).then((response) => {
-        setPokemons((prevPokemons) => [...prevPokemons, ...response]);
-        setPagination(pagination + 1);
-      });
-    }
-  }, [inView, pagination]);
+    const getPokemons = async () => {
+      if (loading) return;
+      setLoading(true);
 
+      try {
+        const response = await fetchPokemons(pagination);
+        setPokemons((prevPokemons) => [...prevPokemons, ...response]);
+        setPagination((prevState) => prevState + 1);
+      } catch (error) {
+        console.error("Failed to fetch pokemons:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (inView) {
+      getPokemons();
+    }
+  }, [inView, pagination, loading, pokemons]);
   return (
     <>
       <section className={styles.pokemons}>
@@ -176,13 +188,8 @@ export const PokemonsLoad = () => {
 
             return false;
           })
-          .map((pokemon, key) => {
-            return (
-              <>
-                <PokemonCard key={key} {...pokemon} />
-                {pokemons.length == 0 && <p>Default Markup</p>}
-              </>
-            );
+          .map((pokemon, index) => {
+            return <PokemonCard key={index} {...pokemon} />;
           })}
       </section>
       {MAXPOKEMONSRENDERED + POKEMONSPERPAGE > POKEMONSPERPAGE * pagination && (
