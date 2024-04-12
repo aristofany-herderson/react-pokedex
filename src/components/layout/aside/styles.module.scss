@@ -1,3 +1,39 @@
+.openAside {
+  position: fixed;
+  top: var(--space-8);
+  right: var(--space-8);
+
+  width: var(--space-10);
+  aspect-ratio: 1 / 1;
+  z-index: var(--z-index-overlay);
+  transition: 0.2s;
+
+  border-radius: var(--radii-md);
+  background: var(--colors-white);
+  box-shadow: var(--shadow-light);
+
+  display: none;
+
+  &[data-state="opened"] {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  &[data-state="closed"] {
+    svg {
+      transform: rotate(0);
+    }
+  }
+
+  svg {
+    width: 60%;
+    height: auto;
+    aspect-ratio: 1 /1;
+    transition: 0.15s transform;
+  }
+}
+
 .aside {
   position: sticky;
   top: var(--space-6);
@@ -457,6 +493,34 @@
 
 @media screen and (max-width: 980px) {
   .aside {
-    display: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    max-height: none;
+    height: 100%;
+    border-radius: 0;
+    backdrop-filter: blur(0.2rem);
+    display: flex;
+    justify-content: center;
+    background: transparent;
+
+    transition: 0.3s left, 0.3s background step-end;
+
+    &[data-state="opened"] {
+      left: 0;
+    }
+
+    &[data-state="closed"] {
+      left: 100%;
+    }
+  }
+
+  .openAside {
+    display: flex;
+  }
+
+  .wrapper {
+    width: calc(100% - var(--space-16));
+    top: var(--space-20);
   }
 }

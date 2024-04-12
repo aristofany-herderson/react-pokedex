@@ -210,3 +210,10 @@
     background-position: 0;
   }
 }
+
+@media screen and (max-width: 980px) {
+  .wrapper {
+    width: calc(100% - var(--space-16));
+    top: var(--space-20);
+  }
+}
