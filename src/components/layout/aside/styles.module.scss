@@ -12,7 +12,7 @@
   }
 }
 
-.asideWrapper {
+.wrapper {
   position: relative;
   top: var(--space-16);
   height: max-content;
@@ -48,12 +48,20 @@
     height: var(--space-6);
   }
 
+  .male,
+  .female,
+  .genderLess {
+    background: var(--colors-pokedex-ligth);
+  }
+
   .male {
-    background: var(--colors-light-blue);
+    color: var(--colors-blue-light);
   }
+
   .female {
-    background: var(--colors-rose);
+    color: var(--colors-rose-light);
   }
+
   .genderLess {
     background: var(--colors-gray-200);
     color: var(--colors-gray-600);
@@ -89,10 +97,7 @@
   margin-top: var(--space-1);
   font-size: var(--font-size-2xl);
   line-height: var(--line-height-base);
-
-  &::first-letter {
-    text-transform: uppercase;
-  }
+  text-transform: capitalize;
 
   &.legendary {
     color: transparent;
@@ -179,6 +184,12 @@
     align-items: center;
     justify-content: space-between;
 
+    transition: 0.15s background;
+
+    &:hover {
+      background: var(--colors-gray-100);
+    }
+
     &[data-hidden="true"] {
       border: var(--border-width-thin) solid var(--colors-red-medium);
 
@@ -213,6 +224,12 @@
     align-items: center;
     justify-content: center;
     gap: var(--space-1);
+
+    transition: 0.15s background;
+
+    &:hover {
+      background: var(--colors-gray-100);
+    }
   }
 
   span {
@@ -261,6 +278,7 @@
 
   span {
     width: 100%;
+    height: auto;
     aspect-ratio: 1 / 1;
     font-size: 0.5rem;
     border-radius: var(--radii-full);
@@ -279,10 +297,20 @@
     background: var(--colors-pokedex-ligth);
     border-radius: var(--radii-full);
 
+    transition: 0.15s background, 0.15s filter;
+
+    &:hover {
+      background: var(--colors-gray-100);
+    }
+
     &.total {
       background: #98baff;
       span {
         background: #7195dc;
+      }
+
+      &:hover {
+        filter: brightness(1.05);
       }
     }
   }
@@ -304,6 +332,7 @@
   button {
     outline: none;
     transition: 0.15s;
+
     &:hover {
       transform: translateY(calc(-1 * var(--space-2)));
       z-index: var(--z-index-up);
@@ -314,12 +343,11 @@
   }
 
   button + button {
-    margin-left: calc(-1 * var(--space-2));
+    margin-left: calc(-1 * var(--space-5));
   }
 
   p {
     padding: 0 var(--space-2);
-    margin: 0 var(--space-2);
     font-size: var(--font-size-xxs);
     font-weight: var(--font-weight-bold);
     white-space: nowrap;
@@ -327,13 +355,16 @@
     background: var(--colors-pokedex-ligth);
     border-radius: var(--radii-full);
 
-    &:last-child {
-      display: none;
+    transition: 0.15s background;
+
+    &:hover {
+      background: var(--colors-gray-100);
     }
   }
 
   div {
     display: flex;
+    gap: var(--space-2);
     align-items: center;
 
     button:first-of-type {
@@ -391,13 +422,13 @@
     aspect-ratio: 1 /1;
   }
 
-  button:nth-child(1) {
+  .prev {
     justify-content: flex-start;
     border-top-left-radius: var(--radii-md);
     border-bottom-left-radius: var(--radii-md);
   }
 
-  button:nth-child(2) {
+  .next {
     justify-content: flex-end;
     border-top-right-radius: var(--radii-md);
     border-bottom-right-radius: var(--radii-md);
@@ -421,296 +452,6 @@
 
   .pokemonImage {
     margin: var(--space-1);
-  }
-}
-
-.noSelected {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  .info {
-    width: 100%;
-    margin-top: auto;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    svg {
-      width: var(--space-9);
-      height: var(--space-9);
-      padding: var(--space-2);
-      background: var(--colors-white);
-      border-radius: var(--radii-full);
-      margin-right: var(--space-2);
-    }
-  }
-
-  .copyright {
-    width: min-content;
-    padding: var(--space-1) var(--space-2);
-    margin: auto auto 0;
-    font-size: var(--font-size-xs);
-    cursor: pointer;
-
-    display: flex;
-    align-items: center;
-
-    svg {
-      margin-right: var(--space-1);
-    }
-  }
-
-  p {
-    color: var(--colors-pokedex-dark);
-    font-size: var(--font-size-xs);
-  }
-}
-
-.skeletonWrapper {
-  position: relative;
-  top: var(--space-16);
-  width: 100%;
-  height: max-content;
-  padding: var(--space-4);
-  text-align: center;
-
-  border-radius: var(--radii-lg);
-  background: var(--colors-white);
-  box-shadow: var(--shadow-light);
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-.skeletonFigure,
-.skeletonId,
-.skeletonEvolutions {
-  margin: 0 auto;
-  margin-top: var(--space-4);
-}
-
-.skeletonGender {
-  position: absolute;
-  top: var(--space-6);
-  right: var(--space-6);
-
-  display: flex;
-  gap: var(--space-2);
-  flex-direction: column;
-  align-items: center;
-
-  p {
-    width: var(--space-8);
-    aspect-ratio: 1/1;
-    border-radius: var(--radii-md);
-  }
-}
-
-.skeletonFigure {
-  width: var(--space-28);
-  aspect-ratio: 1 / 1;
-  transform: translateY(calc(-50% - var(--space-3)));
-  border-radius: var(--radii-md);
-}
-
-.skeletonId {
-  width: var(--space-8);
-  height: var(--space-3);
-  margin-top: -3.2rem;
-  border-radius: var(--radii-sm);
-}
-
-.skeletonName {
-  width: var(--space-32);
-  height: var(--space-7);
-  margin: var(--space-4) auto 0;
-  border-radius: var(--radii-sm);
-}
-
-.skeletonTypes {
-  margin: var(--space-1) auto 0;
-  display: flex;
-  gap: var(--space-2);
-  align-items: center;
-  justify-content: center;
-
-  p {
-    width: var(--space-12);
-    height: var(--space-7);
-    background: linear-gradient(
-        to left,
-        var(--colors-pokedex-ligth),
-        var(--colors-white)
-      )
-      var(--colors-pokedex-ligth);
-    border-radius: var(--radii-sm);
-  }
-}
-
-.skeletonTitle {
-  width: var(--space-20);
-  height: var(--space-5);
-  margin: var(--space-2) auto;
-  text-align: center;
-  border-radius: var(--radii-sm);
-}
-
-.skeletonEntry {
-  margin: var(--space-3) auto 0;
-
-  h2 {
-    width: var(--space-32);
-  }
-  p {
-    width: 100%;
-    height: var(--space-12);
-  }
-}
-
-.skeletonAbilities {
-  margin: var(--space-3) auto 0;
-
-  div {
-    display: flex;
-    gap: var(--space-2);
-    align-items: center;
-    justify-content: center;
-  }
-
-  p {
-    flex: 1;
-    height: var(--space-8);
-    background: linear-gradient(
-        to left,
-        var(--colors-pokedex-ligth),
-        var(--colors-white)
-      )
-      var(--colors-pokedex-ligth);
-    border-radius: var(--radii-full);
-  }
-}
-
-.skeletonCharacteristics {
-  margin: var(--space-3) auto 0;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  column-gap: var(--space-2);
-  row-gap: var(--space-2);
-
-  p {
-    width: 100%;
-    height: var(--space-7);
-    background: linear-gradient(
-        to left,
-        var(--colors-pokedex-ligth),
-        var(--colors-white)
-      )
-      var(--colors-pokedex-ligth);
-    border-radius: var(--radii-full);
-  }
-}
-
-.skeletonStats {
-  margin: var(--space-1) auto 0;
-
-  div {
-    display: flex;
-    gap: var(--space-2);
-    align-items: center;
-    justify-content: center;
-  }
-
-  h2 {
-    width: var(--space-16);
-  }
-
-  p {
-    flex: 1;
-    height: var(--space-12);
-    line-height: 100%;
-    border-radius: var(--radii-full);
-  }
-}
-
-.skeletonEvolutionsWrapper {
-  margin-top: var(--space-4);
-  display: flex;
-  gap: var(--space-2);
-  align-items: center;
-  justify-content: center;
-
-  div {
-    width: var(--space-12);
-    aspect-ratio: 1 /1;
-    border-radius: var(--radii-sm);
-  }
-
-  p {
-    width: var(--space-10);
-    height: var(--space-5);
-    border-radius: var(--radii-full);
-  }
-}
-
-.skeletonNextPrevPokemons {
-  width: 100%;
-  height: var(--space-14);
-  margin-top: var(--space-4);
-  border-radius: var(--radii-md);
-}
-
-.skeletonFigure,
-.skeletonId,
-.skeletonName,
-.skeletonTypes p,
-.skeletonGender p,
-.skeletonTitle,
-.skeletonEntry p,
-.skeletonAbilities p,
-.skeletonCharacteristics p,
-.skeletonStats p,
-.skeletonEvolutionsWrapper div,
-.skeletonEvolutionsWrapper p,
-.skeletonNextPrevPokemons {
-  animation: loading 1.5s ease infinite;
-  background-position: -150% 0;
-  background-size: 100% 100%;
-  background: linear-gradient(
-      90deg,
-      var(--colors-pokedex-medium) 35%,
-      #ffffffaa,
-      var(--colors-pokedex-medium) 55%
-    )
-    right / 300% 100%;
-}
-
-@keyframes loading {
-  to {
-    background-position: left;
-  }
-}
-
-@keyframes textGradient {
-  0% {
-    background-position: 0 0;
-  }
-  25% {
-    background-position: 100% 0;
-  }
-  50% {
-    background-position: 100% 100%;
-  }
-  75% {
-    background-position: 0 100%;
-  }
-
-  100% {
-    background-position: 0;
   }
 }
 

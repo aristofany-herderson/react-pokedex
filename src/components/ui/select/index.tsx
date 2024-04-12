@@ -255,11 +255,13 @@ const TypeOption = ({
       >
         {POKEMONTYPEICONS[currentDataValue]}
       </span>
-      <p 
-      style={{
-        ["--colors-color" as any]: colors.medium,
-      }}
-      >{currentData.label}</p>
+      <p
+        style={{
+          ["--colors-color" as any]: colors.medium,
+        }}
+      >
+        {currentData.label}
+      </p>
     </div>
   );
 };

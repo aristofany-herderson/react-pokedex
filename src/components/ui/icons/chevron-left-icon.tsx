@@ -7,8 +7,14 @@ export const ChevronLeftIcon = ({
   fill = "none",
   ...props
 }: SVGProps<SVGSVGElement>) => {
-    return (
-    <svg width={width} height={height} fill={fill} viewBox="0 0 24 24" {...props}>
+  return (
+    <svg
+      width={width}
+      height={height}
+      fill={fill}
+      viewBox="0 0 24 24"
+      {...props}
+    >
       <path
         fill="currentColor"
         d="M17.707 20.293a.999.999 0 11-1.414 1.414l-9-9a.999.999 0 010-1.414l9-9a.999.999 0 111.414 1.414L9.414 12l8.293 8.293z"

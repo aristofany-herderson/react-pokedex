@@ -1,13 +1,6 @@
 "use client";
 import { AsyncReturnType } from "@/@types/async-return-type";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
@@ -16,10 +9,8 @@ import { ChevronLeftIcon } from "@/components/ui/icons/chevron-left-icon";
 import { ChevronRightIcon } from "@/components/ui/icons/chevron-right-icon";
 import { EyeSlashIcon } from "@/components/ui/icons/eye-slash-icon";
 import { FemaleIcon } from "@/components/ui/icons/female-icon";
-import { InfoCircleIcon } from "@/components/ui/icons/info-circle-icon";
 import { MaleIcon } from "@/components/ui/icons/male-icon";
 import { MinusSquareIcon } from "@/components/ui/icons/minus-square-icon";
-import { QuestionCircleIcon } from "@/components/ui/icons/question-circle-icon";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import { getAllPokemonData } from "@/services/requests";
 import { padId } from "@/utils/pad-id";
@@ -31,6 +22,8 @@ import { POKEMONTYPEICONS } from "@/utils/pokemon-type-icons";
 import classNames from "classnames";
 import Image from "next/image";
 import { Fragment, useEffect, useState } from "react";
+import { NoPokemonSelected } from "./no-pokemon-selected";
+import { AsideSkeleton } from "./skeleton";
 import styles from "./styles.module.scss";
 
 export const Aside = () => {
@@ -72,7 +65,7 @@ export const Aside = () => {
       {isNoSelect && <NoPokemonSelected />}
       {isSelectAndLoading && <AsideSkeleton />}
       {isSelectAndLoaded && (
-        <div className={styles.asideWrapper}>
+        <div className={styles.wrapper}>
           <div className={styles.gender}>
             {pokemon?.gender.isFemale && (
               <div className={styles.male}>
@@ -255,6 +248,7 @@ export const Aside = () => {
           </div>
           <div className={styles.nextPrevPokemons}>
             <button
+              className={styles.prev}
               title={pokemon.adjacent_pokemons.previous.name}
               onClick={() =>
                 setSelectedPokemon(pokemon.adjacent_pokemons.previous.id)
@@ -273,6 +267,7 @@ export const Aside = () => {
               <span>#{prevPokemonPaddedID}</span>
             </button>
             <button
+              className={styles.next}
               title={pokemon.adjacent_pokemons.next.name}
               onClick={() =>
                 setSelectedPokemon(pokemon.adjacent_pokemons.next.id)
@@ -296,106 +291,3 @@ export const Aside = () => {
     </aside>
   );
 };
-
-const NoPokemonSelected = () => {
-  return (
-    <div className={styles.noSelected}>
-      <div className={styles.info}>
-        <InfoCircleIcon />
-        <p>Select Pokemon to view details</p>
-      </div>
-      <Dialog>
-        <DialogTrigger asChild>
-          <button className={styles.copyright}>
-            <QuestionCircleIcon width={16} height={16} />
-            Copyright
-          </button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogTitle>🕹️ Credits</DialogTitle>
-          <DialogDescription>
-            Thanks to PokéAPI.co, Bulbapedia for the images, duiker101 for the
-            type icons and of course to Nintendo, Game Freak, and The Pokémon
-            Company for making such an awesome series of games.
-          </DialogDescription>
-          <DialogTitle>📰 Copyright Notice</DialogTitle>
-          <DialogDescription>
-            This is an unofficial, non-commercial, fan-made app and is NOT
-            affiliated, endorsed or supported by Nintendo, Game Freak and The
-            Pokémon Company in any way. Many images used in this app are
-            copyrighted and are supported under fair use. Pokémon and Pokémon
-            character names are trademarks of Nintendo. No copyright
-            infringement intended.
-          </DialogDescription>
-        </DialogContent>
-      </Dialog>
-    </div>
-  );
-};
-const AsideSkeleton = () => (
-  <div className={styles.skeletonWrapper}>
-    <div className={styles.skeletonGender}>
-      <p></p>
-      <p></p>
-    </div>
-    <div className={styles.skeletonFigure}></div>
-    <div className={styles.skeletonId}></div>
-    <h2 className={styles.skeletonName}></h2>
-    <div className={styles.skeletonTypes}>
-      <p></p>
-      <p></p>
-    </div>
-    <div className={styles.skeletonEntry}>
-      <h2 className={styles.skeletonTitle}></h2>
-      <p></p>
-    </div>
-    <div className={styles.skeletonAbilities}>
-      <h2 className={styles.skeletonTitle}></h2>
-      <div>
-        <p></p>
-        <p></p>
-      </div>
-    </div>
-    <div className={styles.skeletonCharacteristics}>
-      <div>
-        <h2 className={styles.skeletonTitle}></h2>
-        <p></p>
-      </div>
-      <div>
-        <h2 className={styles.skeletonTitle}></h2>
-        <p></p>
-      </div>
-      <div>
-        <h2 className={styles.skeletonTitle}></h2>
-        <p></p>
-      </div>
-      <div>
-        <h2 className={styles.skeletonTitle}></h2>
-        <p></p>
-      </div>
-    </div>
-    <div className={styles.skeletonStats}>
-      <h2 className={styles.skeletonTitle}></h2>
-      <div>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-      </div>
-    </div>
-    <div className={styles.skeletonEvolutions}>
-      <h2 className={styles.skeletonTitle}></h2>
-      <div className={styles.skeletonEvolutionsWrapper}>
-        <div></div>
-        <p></p>
-        <div></div>
-        <p></p>
-        <div></div>
-      </div>
-    </div>
-    <div className={styles.skeletonNextPrevPokemons}></div>
-  </div>
-);

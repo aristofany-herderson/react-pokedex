@@ -7,11 +7,17 @@ export const FemaleIcon = ({
   fill = "none",
   ...props
 }: SVGProps<SVGSVGElement>) => {
-    return (
-    <svg width={width} height={height} fill={fill} viewBox="0 0 24 24" {...props}>
+  return (
+    <svg
+      width={width}
+      height={height}
+      fill={fill}
+      viewBox="0 0 24 24"
+      {...props}
+    >
       <path
-      fill="none"
-        stroke="#de2240"
+        fill="none"
+        stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="1.5"

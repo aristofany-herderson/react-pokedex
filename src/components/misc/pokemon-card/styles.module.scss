@@ -64,10 +64,7 @@
 .name {
   margin: var(--space-1) 0;
   font-size: var(--font-size-lg);
-
-  &::first-letter {
-    text-transform: uppercase;
-  }
+  text-transform: capitalize;
 }
 
 .types {

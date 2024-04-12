@@ -7,8 +7,14 @@ export const GhostIcon = ({
   fill = "none",
   ...props
 }: SVGProps<SVGSVGElement>) => {
-    return (
-    <svg width={width} height={height} fill={fill} viewBox="0 0 512 512" {...props}>
+  return (
+    <svg
+      width={width}
+      height={height}
+      fill={fill}
+      viewBox="0 0 512 512"
+      {...props}
+    >
       <path
         fill="currentColor"
         fillRule="evenodd"
