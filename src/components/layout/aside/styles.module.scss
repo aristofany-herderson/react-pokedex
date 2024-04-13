@@ -73,21 +73,22 @@
   div {
     padding: var(--space-1);
     border-radius: var(--radii-md);
+    background: var(--colors-pokedex-ligth);
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    transition: 0.15s background;
+
+    &:hover {
+      background: var(--colors-gray-200);
+    }
   }
 
   svg {
     width: var(--space-6);
     height: var(--space-6);
-  }
-
-  .male,
-  .female,
-  .genderLess {
-    background: var(--colors-pokedex-ligth);
   }
 
   .male {
@@ -177,15 +178,9 @@
   color: var(--colors-gray-600);
 }
 
-.entry,
-.abilities,
-.characteristics,
-.stats,
-.evolutions {
-  margin-top: var(--space-5);
-}
-
 .entry {
+  margin-top: var(--space-5);
+
   h2 {
     margin-bottom: var(--space-2);
   }
@@ -196,6 +191,8 @@
 }
 
 .abilities {
+  margin-top: var(--space-5);
+
   h2 {
     margin-bottom: var(--space-2);
   }
@@ -223,7 +220,7 @@
     transition: 0.15s background;
 
     &:hover {
-      background: var(--colors-gray-100);
+      background: var(--colors-gray-200);
     }
 
     &[data-hidden="true"] {
@@ -238,6 +235,7 @@
 }
 
 .characteristics {
+  margin-top: var(--space-5);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: var(--space-2);
@@ -264,7 +262,7 @@
     transition: 0.15s background;
 
     &:hover {
-      background: var(--colors-gray-100);
+      background: var(--colors-gray-200);
     }
   }
 
@@ -301,6 +299,8 @@
 }
 
 .stats {
+  margin-top: var(--space-5);
+
   h2 {
     margin-bottom: var(--space-2);
   }
@@ -336,7 +336,7 @@
     transition: 0.15s background, 0.15s filter;
 
     &:hover {
-      background: var(--colors-gray-100);
+      background: var(--colors-gray-200);
     }
 
     &.total {
@@ -346,7 +346,7 @@
       }
 
       &:hover {
-        filter: brightness(1.05);
+        filter: brightness(0.95);
       }
     }
   }
@@ -354,15 +354,10 @@
 
 .evolutions {
   width: 100%;
-  overflow-y: visible;
-  overflow-x: auto;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  margin-top: var(--space-5);
 
   h2 {
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-2);
   }
 
   button {
@@ -394,14 +389,21 @@
     transition: 0.15s background;
 
     &:hover {
-      background: var(--colors-gray-100);
+      background: var(--colors-gray-200);
     }
   }
 
   div {
+    padding-top: var(--space-2);
     display: flex;
+    overflow-y: visible;
+    overflow-x: auto;
     gap: var(--space-2);
     align-items: center;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     button:first-of-type {
       margin-left: auto;

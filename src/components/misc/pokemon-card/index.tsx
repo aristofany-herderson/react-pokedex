@@ -19,7 +19,6 @@ export const PokemonCard = ({ id, name, types }: PokemonCardProps) => {
   const { setPokemon: setSelectedPokemon } = usePokemonQueryParams();
 
   const handleClick = async () => {
-    await setSelectedPokemon(0);
     setSelectedPokemon(id);
   };
 
