@@ -16,14 +16,15 @@ type PokemonCardProps = {
 
 export const PokemonCard = ({ id, name, types }: PokemonCardProps) => {
   const paddedID = padId(id);
-  const { setPokemon } = usePokemonQueryParams();
+  const { setPokemon: setSelectedPokemon } = usePokemonQueryParams();
+
+  const handleClick = async () => {
+    await setSelectedPokemon(0);
+    setSelectedPokemon(id);
+  };
 
   return (
-    <button
-      type="button"
-      onClick={() => setPokemon(id)}
-      className={styles.card}
-    >
+    <button type="button" onClick={handleClick} className={styles.card}>
       <div className={styles.cardWrapper}>
         <div className={styles.figure}>
           <Image

@@ -36,6 +36,7 @@ export const Aside = () => {
   const [isPanelOpen, setIsPanelOpen] = useState<PanelOpenType>("closed");
   const { pokemon: selectedPokemon, setPokemon: setSelectedPokemon } =
     usePokemonQueryParams();
+
   useEffect(() => {
     const getPokemon = async () => {
       if (!selectedPokemon) return null;
@@ -46,7 +47,10 @@ export const Aside = () => {
       setPokemon(await getPokemon());
     };
 
-    setIsPanelOpen("opened")
+    if (selectedPokemon) {
+      setIsPanelOpen("opened");
+    }
+
     fetchPokemon();
   }, [selectedPokemon]);
 
@@ -73,7 +77,11 @@ export const Aside = () => {
 
   return (
     <>
-      <button data-state={isPanelOpen} onClick={handleButtonOpenAside} className={styles.openAside}>
+      <button
+        data-state={isPanelOpen}
+        onClick={handleButtonOpenAside}
+        className={styles.openAside}
+      >
         <PanelOpenIcon width={14} height={14} />
       </button>
       <aside data-state={isPanelOpen} className={styles.aside}>

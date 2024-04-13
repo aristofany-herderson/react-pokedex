@@ -501,17 +501,17 @@
     border-radius: 0;
     backdrop-filter: blur(0.2rem);
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     background: transparent;
 
-    transition: 0.3s left, 0.3s background step-end;
+    transition: 0.3s right, 0.3s background step-end;
 
     &[data-state="opened"] {
-      left: 0;
+      right: 0;
     }
 
     &[data-state="closed"] {
-      left: 100%;
+      right: -100%;
     }
   }
 
@@ -520,7 +520,9 @@
   }
 
   .wrapper {
-    width: calc(100% - var(--space-16));
     top: var(--space-20);
+    right: var(--space-8);
+    max-width: 20rem;
+    width: calc(100% - var(--space-16));
   }
 }
