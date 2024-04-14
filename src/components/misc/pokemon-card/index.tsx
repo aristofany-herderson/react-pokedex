@@ -3,7 +3,6 @@ import { Type as PokemonType } from "@/@types/pokemon";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import { padId } from "@/utils/pad-id";
 import { pokemonImagePlaceholder } from "@/utils/pokemon-image-placeholder";
-import { pokemonImageURL } from "@/utils/pokemon-image-url";
 import { POKEMONTYPECOLORS } from "@/utils/pokemon-type-colors";
 import Image from "next/image";
 import styles from "./styles.module.scss";
@@ -12,9 +11,10 @@ type PokemonCardProps = {
   id: number;
   name: string;
   types: PokemonType[];
+  sprite: string;
 };
 
-export const PokemonCard = ({ id, name, types }: PokemonCardProps) => {
+export const PokemonCard = ({ id, name, types, sprite }: PokemonCardProps) => {
   const paddedID = padId(id);
   const { setPokemon: setSelectedPokemon } = usePokemonQueryParams();
 
@@ -30,7 +30,7 @@ export const PokemonCard = ({ id, name, types }: PokemonCardProps) => {
             width={50}
             height={50}
             placeholder={pokemonImagePlaceholder(40, 40)}
-            src={pokemonImageURL(id)}
+            src={sprite}
             alt={`${name} pokemon image`}
           />
         </div>

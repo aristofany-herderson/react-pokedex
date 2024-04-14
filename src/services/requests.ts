@@ -1,3 +1,4 @@
+import { AsyncReturnType } from "@/@types/async-return-type";
 import {
   Pokemon,
   PossibleTypes as PokemonPossibleTypes,
@@ -42,6 +43,7 @@ export const getBasePokemonData = async (slug: string | number) => {
     base_experience: data.base_experience,
     weight: data.weight,
     height: data.height,
+    sprite: data.sprites.other["official-artwork"].front_default,
   };
 };
 
@@ -147,26 +149,32 @@ export const getEvolutions = async (slug: number) => {
     data: { chain },
   } = await api.get<PokemonChain>(evolution_chain.url);
 
-  const formatResult = (evolution: Chain) => {
+  const formatResult = async (evolution: Chain) => {
     const name = evolution.species.name;
     const id = getIdInSpeciesUrl(evolution.species.url);
     const level = evolution.evolves_to[0]?.evolution_details[0]?.min_level || 0;
+    const { sprite } = await getBasePokemonData(id);
 
     return {
       name,
+      sprite,
       id,
       level,
     };
   };
 
-  const evolutions: ReturnType<typeof formatResult>[][] = [];
+  const evolutions: AsyncReturnType<typeof formatResult>[][] = [];
   let currentEvolution = chain.evolves_to;
   if (currentEvolution) {
-    evolutions.push([formatResult(chain)]);
+    evolutions.push([await formatResult(chain)]);
   }
 
   while (currentEvolution?.length > 0) {
-    evolutions.push(currentEvolution.map(formatResult));
+    evolutions.push(
+      await Promise.all(
+        currentEvolution.map(async (data) => await formatResult(data))
+      )
+    );
     currentEvolution = currentEvolution[0]?.evolves_to || null;
   }
 
@@ -186,10 +194,12 @@ export const getNextAndPrevPokemonData = async (slug: number) => {
     previous: {
       id: prevPokemon.id,
       name: prevPokemon.name,
+      sprite: prevPokemon.sprite,
     },
     next: {
       id: nextPokemon.id,
       name: nextPokemon.name,
+      sprite: nextPokemon.sprite,
     },
   };
 };
@@ -221,12 +231,13 @@ export const getAllPokemonData = async (slug: number) => {
 };
 
 export const getLoadPokemonData = async (slug: number) => {
-  const [{ id, name, types, abilities, weight, height }, weakness] =
+  const [{ id, name, sprite, types, abilities, weight, height }, weakness] =
     await Promise.all([getBasePokemonData(slug), getPokemonWeakness(slug)]);
 
   return {
     id,
     name,
+    sprite,
     types,
     abilities,
     weight,

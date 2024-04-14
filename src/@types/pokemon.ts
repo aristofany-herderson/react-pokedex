@@ -57,6 +57,11 @@ export type PossibleTypes =
 
 type Sprites = {
   front_default: string;
+  other: {
+    "official-artwork": {
+      front_default: string;
+    };
+  };
 };
 
 export type Pokemon = {

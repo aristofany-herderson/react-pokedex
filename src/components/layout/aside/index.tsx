@@ -16,7 +16,6 @@ import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import { getAllPokemonData } from "@/services/requests";
 import { padId } from "@/utils/pad-id";
 import { pokemonImagePlaceholder } from "@/utils/pokemon-image-placeholder";
-import { pokemonImageURL } from "@/utils/pokemon-image-url";
 import { POKEMONSTATS } from "@/utils/pokemon-stats";
 import { POKEMONTYPECOLORS } from "@/utils/pokemon-type-colors";
 import { POKEMONTYPEICONS } from "@/utils/pokemon-type-icons";
@@ -110,7 +109,7 @@ export const Aside = () => {
               <Image
                 width={140}
                 height={140}
-                src={pokemonImageURL(pokemon.id)}
+                src={pokemon.sprite}
                 priority
                 placeholder={pokemonImagePlaceholder(40, 40)}
                 alt={`${pokemon.name} pokemon image`}
@@ -257,7 +256,7 @@ export const Aside = () => {
                               className={styles.pokemonImage}
                               width={40}
                               height={40}
-                              src={pokemonImageURL(evolution.id)}
+                              src={evolution.sprite}
                               placeholder={pokemonImagePlaceholder(40, 40)}
                               alt={`${evolution.name} image`}
                             />
@@ -284,7 +283,7 @@ export const Aside = () => {
                   className={styles.pokemonImage}
                   width={18}
                   height={18}
-                  src={pokemonImageURL(pokemon.adjacent_pokemons.previous.id)}
+                  src={pokemon.adjacent_pokemons.previous.sprite}
                   placeholder={pokemonImagePlaceholder(40, 40)}
                   alt="Previous pokemon image"
                 />
@@ -304,7 +303,7 @@ export const Aside = () => {
                   className={styles.pokemonImage}
                   width={18}
                   height={18}
-                  src={pokemonImageURL(pokemon.adjacent_pokemons.next.id)}
+                  src={pokemon.adjacent_pokemons.next.sprite}
                   placeholder={pokemonImagePlaceholder(40, 40)}
                   alt="Next pokemon chevron icon"
                 />
