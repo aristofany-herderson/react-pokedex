@@ -237,16 +237,39 @@
 .abilitiesHoverCard {
   max-width: 14rem;
   padding: var(--space-3);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  text-align: left;
-  line-height: var(--line-height-base);
+
   background: var(--colors-gray-800);
   border-radius: var(--radii-sm);
   color: var(--colors-white);
 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
   &[data-hidden="true"] {
     background: var(--colors-red-medium);
+  }
+
+  h2 {
+    margin-bottom: var(--space-2);
+    font-size: var(--font-size-sm);
+    text-transform: capitalize;
+  }
+
+  svg {
+    margin-right: var(--space-1);
+  }
+
+  p {
+    white-space: unset;
+    padding: 0 var(--space-2);
+    font-size: var(--font-size-xxs);
+    font-weight: var(--font-weight-bold);
+    text-align: left;
+    line-height: var(--line-height-base);
+    background: none;
+    border-radius: none;
+    border: none;
   }
 }
 
@@ -261,7 +284,8 @@
     margin-bottom: var(--space-2);
   }
 
-  p, .weakness{
+  p,
+  .weakness {
     width: 100%;
     height: var(--space-8);
     padding: var(--space-1) var(--space-2);

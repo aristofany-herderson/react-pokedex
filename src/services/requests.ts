@@ -14,15 +14,14 @@ import { POKEMONSTRENGTHBYABILITY } from "@/utils/pokemon-strength-by-ability";
 import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE, api } from "./api";
 
 const POKEMONIDS = Array.from({ length: MAXPOKEMONSRENDERED }, (_, i) => i + 1);
+
 export const getPokemonsByPagination = async (pagination: number) => {
-  const filteredIDsByPagination = POKEMONIDS.filter(
-    (_, index) => {
-      return (
-        index < pagination * POKEMONSPERPAGE &&
-        index >= (pagination - 1) * POKEMONSPERPAGE
-      );
-    }
-  );
+  const filteredIDsByPagination = POKEMONIDS.filter((_, index) => {
+    return (
+      index < pagination * POKEMONSPERPAGE &&
+      index >= (pagination - 1) * POKEMONSPERPAGE
+    );
+  });
 
   const response = await Promise.all(
     filteredIDsByPagination.map(async (id) => {

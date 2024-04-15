@@ -43,3 +43,19 @@
     margin-right: var(--space-1);
   }
 }
+
+.content {
+  h2 {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--space-3);
+  }
+
+  p:not(:last-child) {
+    margin-bottom: var(--space-6);
+  }
+
+  a {
+    color: var(--colors-yellow);
+    text-decoration: underline var(--colors-yellow);
+  }
+}

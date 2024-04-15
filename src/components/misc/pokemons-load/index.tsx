@@ -3,7 +3,10 @@ import { AsyncReturnType } from "@/@types/async-return-type";
 import { PossibleTypes as PokemonPossibleTypes } from "@/@types/pokemon";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE } from "@/services/api";
-import { getLoadPokemonData, getPokemonsByPagination } from "@/services/requests";
+import {
+  getLoadPokemonData,
+  getPokemonsByPagination,
+} from "@/services/requests";
 import {
   SELECTPOKEMONHEIGHTS,
   SELECTPOKEMONWEIGHTS,

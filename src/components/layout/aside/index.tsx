@@ -12,6 +12,7 @@ import { FemaleIcon } from "@/components/ui/icons/female-icon";
 import { MaleIcon } from "@/components/ui/icons/male-icon";
 import { MinusSquareIcon } from "@/components/ui/icons/minus-square-icon";
 import { PanelOpenIcon } from "@/components/ui/icons/panel-open";
+import { StarIcon } from "@/components/ui/icons/star-icon";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import { getPokemonData } from "@/services/requests";
 import { padId } from "@/utils/pad-id";
@@ -159,12 +160,17 @@ export const Aside = () => {
                         )}
                       </p>
                     </HoverCardTrigger>
-                    <HoverCardContent
-                      data-hidden={ability.is_hidden}
-                      className={styles.abilitiesHoverCard}
-                      side="top"
-                    >
-                      {ability.entry}
+                    <HoverCardContent side="top" asChild>
+                      <div
+                        data-hidden={ability.is_hidden}
+                        className={styles.abilitiesHoverCard}
+                      >
+                        <h2>
+                          {" "}
+                          <StarIcon width={12} height={12} /> {ability.name}
+                        </h2>
+                        <p> {ability.entry}</p>
+                      </div>
                     </HoverCardContent>
                   </HoverCard>
                 ))}

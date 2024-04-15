@@ -45,7 +45,6 @@ export const PokemonFilters = () => {
     weight,
   } = usePokemonQueryParams();
 
-
   useEffect(() => {
     const getPokemonAbilities = async () => {
       const abilities = await getAllPokemonsAbilities();
