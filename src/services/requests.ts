@@ -4,23 +4,25 @@ import {
   PossibleTypes as PokemonPossibleTypes,
 } from "@/@types/pokemon";
 import { Chain, PokemonChain } from "@/@types/pokemon-chain";
+import { Abilities } from "@/@types/pokemon-general-requests";
 import { PokemonSpecies } from "@/@types/pokemon-species";
 import { PokemonTypes } from "@/@types/pokemon-types";
-import { PokemonsAbilities } from "@/@types/pokemons-abilities";
+import { PokemonsAbility } from "@/@types/pokemons-abilities";
 import { PokemonsGender } from "@/@types/pokemons-gender";
 import { getIdInSpeciesUrl } from "@/utils/get-id-in-species-url";
 import { POKEMONSTRENGTHBYABILITY } from "@/utils/pokemon-strength-by-ability";
 import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE, api } from "./api";
 
 const POKEMONIDS = Array.from({ length: MAXPOKEMONSRENDERED }, (_, i) => i + 1);
-
-export const fetchPokemons = async (pagination: number) => {
-  const filteredIDsByPagination = POKEMONIDS.filter((_, index) => {
-    return (
-      index < pagination * POKEMONSPERPAGE &&
-      index >= (pagination - 1) * POKEMONSPERPAGE
-    );
-  });
+export const getPokemonsByPagination = async (pagination: number) => {
+  const filteredIDsByPagination = POKEMONIDS.filter(
+    (_, index) => {
+      return (
+        index < pagination * POKEMONSPERPAGE &&
+        index >= (pagination - 1) * POKEMONSPERPAGE
+      );
+    }
+  );
 
   const response = await Promise.all(
     filteredIDsByPagination.map(async (id) => {
@@ -31,19 +33,33 @@ export const fetchPokemons = async (pagination: number) => {
   return response;
 };
 
-export const getBasePokemonData = async (slug: string | number) => {
+export const getPokemonSimpleData = async (slug: string | number) => {
   const { data } = await api.get<Pokemon>(`pokemon/${slug}`);
 
   return {
     id: data.id,
     name: data.name,
-    types: data.types,
-    abilities: data.abilities,
-    stats: data.stats,
-    base_experience: data.base_experience,
     weight: data.weight,
     height: data.height,
+    abilities: data.abilities,
+    types: data.types,
+    stats: data.stats,
+    base_experience: data.base_experience,
     sprite: data.sprites.other["official-artwork"].front_default,
+  };
+};
+
+export const getPokemonAbility = async (name: string) => {
+  const { data } = await api.get<PokemonsAbility>(
+    `https://pokeapi.co/api/v2/ability/${name}`
+  );
+
+  const entry =
+    data.flavor_text_entries?.find((entry) => entry.language.name === "en")
+      ?.flavor_text || null;
+
+  return {
+    entry,
   };
 };
 
@@ -76,19 +92,19 @@ export const getPokemonGenders = async (slug: number) => {
 };
 
 export const getPokemonAbilities = async (slug: number) => {
-  const { abilities } = await getBasePokemonData(slug);
+  const { abilities } = await getPokemonSimpleData(slug);
   return abilities;
 };
 
-export const getAllPokemonAbilities = async () => {
-  const { data } = await api.get<PokemonsAbilities>(
+export const getAllPokemonsAbilities = async () => {
+  const { data } = await api.get<Abilities>(
     "https://pokeapi.co/api/v2/ability?offset=0&limit=99999"
   );
   return data.results;
 };
 
 export const getPokemonDamageRelations = async (slug: number) => {
-  const { types } = await getBasePokemonData(slug);
+  const { types } = await getPokemonSimpleData(slug);
 
   return Promise.all(
     types.map(async (type) => {
@@ -143,7 +159,7 @@ export const getPokemonWeakness = async (slug: number) => {
   return weakness;
 };
 
-export const getEvolutions = async (slug: number) => {
+export const getPokemonEvolutions = async (slug: number) => {
   const { evolution_chain } = await getPokemonSpecie(slug);
   const {
     data: { chain },
@@ -153,7 +169,7 @@ export const getEvolutions = async (slug: number) => {
     const name = evolution.species.name;
     const id = getIdInSpeciesUrl(evolution.species.url);
     const level = evolution.evolves_to[0]?.evolution_details[0]?.min_level || 0;
-    const { sprite } = await getBasePokemonData(id);
+    const { sprite } = await getPokemonSimpleData(id);
 
     return {
       name,
@@ -181,13 +197,13 @@ export const getEvolutions = async (slug: number) => {
   return evolutions;
 };
 
-export const getNextAndPrevPokemonData = async (slug: number) => {
+export const getAdjacentPokemonsData = async (slug: number) => {
   const prevID = slug - 1 < 1 ? MAXPOKEMONSRENDERED : slug - 1;
   const nextID = slug + 1 > MAXPOKEMONSRENDERED ? 1 : slug + 1;
 
   const [prevPokemon, nextPokemon] = await Promise.all([
-    getBasePokemonData(prevID),
-    getBasePokemonData(nextID),
+    getPokemonSimpleData(prevID),
+    getPokemonSimpleData(nextID),
   ]);
 
   return {
@@ -204,23 +220,42 @@ export const getNextAndPrevPokemonData = async (slug: number) => {
   };
 };
 
-export const getAllPokemonData = async (slug: number) => {
+export const getPokemonData = async (slug: number) => {
   const [baseData, gender, weakness, adjacent_pokemons, specie, evolution] =
     await Promise.all([
-      getBasePokemonData(slug),
+      getPokemonSimpleData(slug),
       getPokemonGenders(slug),
       getPokemonWeakness(slug),
-      getNextAndPrevPokemonData(slug),
+      getAdjacentPokemonsData(slug),
       getPokemonSpecie(slug),
-      getEvolutions(slug),
+      getPokemonEvolutions(slug),
     ]);
+
+  const abilities = await Promise.all(
+    baseData.abilities.map(async (ability) => {
+      const { entry } = await getPokemonAbility(ability.ability.name);
+      return {
+        name: ability.ability.name,
+        entry,
+        is_hidden: ability.is_hidden,
+      };
+    })
+  );
 
   const entry =
     specie.flavor_text_entries?.find((entry) => entry.language.name === "en")
       ?.flavor_text || null;
 
   return {
-    ...baseData,
+    id: baseData.id,
+    name: baseData.name,
+    types: baseData.types,
+    stats: baseData.stats,
+    base_experience: baseData.base_experience,
+    weight: baseData.weight,
+    height: baseData.height,
+    sprite: baseData.sprite,
+    abilities,
     weakness,
     entry,
     is_legendary: specie.is_legendary,
@@ -232,7 +267,7 @@ export const getAllPokemonData = async (slug: number) => {
 
 export const getLoadPokemonData = async (slug: number) => {
   const [{ id, name, sprite, types, abilities, weight, height }, weakness] =
-    await Promise.all([getBasePokemonData(slug), getPokemonWeakness(slug)]);
+    await Promise.all([getPokemonSimpleData(slug), getPokemonWeakness(slug)]);
 
   return {
     id,

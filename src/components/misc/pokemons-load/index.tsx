@@ -3,7 +3,7 @@ import { AsyncReturnType } from "@/@types/async-return-type";
 import { PossibleTypes as PokemonPossibleTypes } from "@/@types/pokemon";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE } from "@/services/api";
-import { fetchPokemons, getLoadPokemonData } from "@/services/requests";
+import { getLoadPokemonData, getPokemonsByPagination } from "@/services/requests";
 import {
   SELECTPOKEMONHEIGHTS,
   SELECTPOKEMONWEIGHTS,
@@ -20,7 +20,6 @@ export const PokemonsLoad = () => {
   >([]);
   const [pagination, setPagination] = useState(1);
   const [loading, setLoading] = useState(false);
-
   const { search, from, to, type, weakness, ability, weight, height, order } =
     usePokemonQueryParams();
 
@@ -42,7 +41,7 @@ export const PokemonsLoad = () => {
       setLoading(true);
 
       try {
-        const response = await fetchPokemons(pagination);
+        const response = await getPokemonsByPagination(pagination);
         setPokemons((prevPokemons) => [...prevPokemons, ...response]);
         setPagination((prevState) => prevState + 1);
       } catch (error) {
@@ -56,6 +55,7 @@ export const PokemonsLoad = () => {
       getPokemons();
     }
   }, [inView, pagination, loading, pokemons]);
+
   return (
     <>
       <section className={styles.pokemons}>

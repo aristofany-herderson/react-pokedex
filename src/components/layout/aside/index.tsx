@@ -13,7 +13,7 @@ import { MaleIcon } from "@/components/ui/icons/male-icon";
 import { MinusSquareIcon } from "@/components/ui/icons/minus-square-icon";
 import { PanelOpenIcon } from "@/components/ui/icons/panel-open";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
-import { getAllPokemonData } from "@/services/requests";
+import { getPokemonData } from "@/services/requests";
 import { padId } from "@/utils/pad-id";
 import { pokemonImagePlaceholder } from "@/utils/pokemon-image-placeholder";
 import { POKEMONSTATS } from "@/utils/pokemon-stats";
@@ -30,7 +30,7 @@ type PanelOpenType = "opened" | "closed";
 
 export const Aside = () => {
   const [pokemon, setPokemon] = useState<AsyncReturnType<
-    typeof getAllPokemonData
+    typeof getPokemonData
   > | null>();
   const [isPanelOpen, setIsPanelOpen] = useState<PanelOpenType>("closed");
   const { pokemon: selectedPokemon, setPokemon: setSelectedPokemon } =
@@ -39,7 +39,7 @@ export const Aside = () => {
   useEffect(() => {
     const getPokemon = async () => {
       if (!selectedPokemon) return null;
-      return await getAllPokemonData(selectedPokemon);
+      return await getPokemonData(selectedPokemon);
     };
 
     const fetchPokemon = async () => {
@@ -150,12 +150,23 @@ export const Aside = () => {
               <h2 className={styles.title}>Abilities</h2>
               <div>
                 {pokemon?.abilities.map((ability, key) => (
-                  <p data-hidden={ability.is_hidden} key={key}>
-                    {ability.ability.name}
-                    {ability.is_hidden && (
-                      <EyeSlashIcon width={18} height={18} />
-                    )}
-                  </p>
+                  <HoverCard openDelay={100} closeDelay={0} key={key}>
+                    <HoverCardTrigger>
+                      <p data-hidden={ability.is_hidden} key={key}>
+                        {ability.name}
+                        {ability.is_hidden && (
+                          <EyeSlashIcon width={18} height={18} />
+                        )}
+                      </p>
+                    </HoverCardTrigger>
+                    <HoverCardContent
+                      data-hidden={ability.is_hidden}
+                      className={styles.abilitiesHoverCard}
+                      side="top"
+                    >
+                      {ability.entry}
+                    </HoverCardContent>
+                  </HoverCard>
                 ))}
               </div>
             </div>
@@ -171,7 +182,7 @@ export const Aside = () => {
               <div>
                 <h2 className={styles.title}>Weakness</h2>
                 {pokemon.weakness.length !== 0 ? (
-                  <p>
+                  <div className={styles.weakness}>
                     {pokemon?.weakness.map((weak, key) => {
                       const colors = POKEMONTYPECOLORS[weak];
 
@@ -189,7 +200,7 @@ export const Aside = () => {
                           </HoverCardTrigger>
                           <HoverCardContent
                             side="top"
-                            className={styles.hoverCard}
+                            className={styles.weaknessHoverCard}
                             style={{
                               ["--colors-background" as any]: colors.medium,
                             }}
@@ -207,7 +218,7 @@ export const Aside = () => {
                         </HoverCard>
                       );
                     })}
-                  </p>
+                  </div>
                 ) : (
                   <p className={styles.noData}>no weakness</p>
                 )}

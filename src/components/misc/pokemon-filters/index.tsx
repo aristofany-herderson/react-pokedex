@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/select";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import { MAXPOKEMONSRENDERED } from "@/services/api";
-import { getAllPokemonAbilities } from "@/services/requests";
+import { getAllPokemonsAbilities } from "@/services/requests";
 import {
   SELECTPOKEMONHEIGHTS,
   SELECTPOKEMONORDER,
@@ -45,9 +45,10 @@ export const PokemonFilters = () => {
     weight,
   } = usePokemonQueryParams();
 
+
   useEffect(() => {
     const getPokemonAbilities = async () => {
-      const abilities = await getAllPokemonAbilities();
+      const abilities = await getAllPokemonsAbilities();
       return abilities;
     };
 

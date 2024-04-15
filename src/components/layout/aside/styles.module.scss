@@ -234,6 +234,22 @@
   }
 }
 
+.abilitiesHoverCard {
+  max-width: 14rem;
+  padding: var(--space-3);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-align: left;
+  line-height: var(--line-height-base);
+  background: var(--colors-gray-800);
+  border-radius: var(--radii-sm);
+  color: var(--colors-white);
+
+  &[data-hidden="true"] {
+    background: var(--colors-red-medium);
+  }
+}
+
 .characteristics {
   margin-top: var(--space-5);
   display: grid;
@@ -245,7 +261,7 @@
     margin-bottom: var(--space-2);
   }
 
-  p {
+  p, .weakness{
     width: 100%;
     height: var(--space-8);
     padding: var(--space-1) var(--space-2);
@@ -278,23 +294,23 @@
 
     background: var(--colors-background);
   }
+}
 
-  .hoverCard {
-    padding: var(--space-1) var(--space-2);
-    color: var(--colors-white);
-    text-transform: capitalize;
-    border-radius: var(--radii-sm);
-    box-shadow: var(--shadow-light);
-    user-select: none;
+.weaknessHoverCard {
+  padding: var(--space-1) var(--space-2);
+  color: var(--colors-white);
+  text-transform: capitalize;
+  border-radius: var(--radii-sm);
+  box-shadow: var(--shadow-light);
+  user-select: none;
 
-    span {
-      background: var(--colors-white);
-      margin-right: var(--space-2);
-    }
+  span {
+    background: var(--colors-white);
+    margin-right: var(--space-2);
+  }
 
-    svg {
-      color: var(--colors-color);
-    }
+  svg {
+    color: var(--colors-color);
   }
 }
 
