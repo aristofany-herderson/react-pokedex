@@ -270,6 +270,10 @@
     background: none;
     border-radius: none;
     border: none;
+
+    &:hover {
+      background: transparent;
+    }
   }
 }
 
