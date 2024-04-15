@@ -10,5 +10,4 @@ export type PokemonsGender = {
   id: number;
   name: string;
   pokemon_species_details: PokemonSpeciesDetails[];
-  required_for_evolution: any[];
 };

@@ -65,24 +65,14 @@ type Sprites = {
 };
 
 export type Pokemon = {
+  id: number;
+  name: string;
   abilities: Ability[];
   base_experience: number;
-  cries: any[];
-  forms: any[];
-  game_indices: any[];
   height: number;
-  held_items: any[];
-  id: number;
-  is_default: boolean;
-  location_area_encounter: string;
-  moves: any[];
-  name: string;
-  order: number;
-  past_abilities: any[];
-  past_types: any[];
+  weight: number;
   species: Species;
   sprites: Sprites;
   stats: Stat[];
   types: Type[];
-  weight: number;
 };

@@ -75,7 +75,7 @@ export const PokemonFilters = () => {
           id="search"
           onChange={(event) => setSearch(event.target.value || null)}
           type="text"
-          placeholder="Search your pokemon!"
+          placeholder="Search your pokemon"
           max={50}
         />
         <button aria-label="clear" onClick={() => setSearch(null)}>

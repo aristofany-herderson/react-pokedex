@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import styles from "./skeleton.module.scss";
+import styles from "./loading.module.scss";
 
-export const AsideSkeleton = () => {
+export const Loading = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.gender}>

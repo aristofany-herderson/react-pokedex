@@ -17,7 +17,7 @@ import { PokemonCard } from "../pokemon-card";
 import styles from "./styles.module.scss";
 
 export const PokemonsLoad = () => {
-  const { ref: loadingRef, inView } = useInView();
+  const { ref, inView } = useInView();
   const [pokemons, setPokemons] = useState<
     AsyncReturnType<typeof getLoadPokemonData>[]
   >([]);
@@ -169,15 +169,11 @@ export const PokemonsLoad = () => {
       if (loading || !inView) return;
       setLoading(true);
 
-      try {
-        const response = await getPokemonsByPagination(pagination);
-        setPokemons((prevPokemons) => [...prevPokemons, ...response]);
-        setPagination((prevState) => prevState + 1);
-      } catch (error) {
-        console.error("Failed to fetch pokemons:", error);
-      } finally {
-        setLoading(false);
-      }
+      const response = await getPokemonsByPagination(pagination);
+      setPokemons((prevPokemons) => [...prevPokemons, ...response]);
+
+      setPagination((prevState) => prevState + 1);
+      setLoading(false);
     };
 
     getPokemons();
@@ -191,7 +187,7 @@ export const PokemonsLoad = () => {
         })}
       </section>
       {MAXPOKEMONSRENDERED + POKEMONSPERPAGE > POKEMONSPERPAGE * pagination && (
-        <div ref={loadingRef} className={styles.loader}>
+        <div ref={ref} className={styles.loader}>
           <div className={styles.bar} />
           <div className={styles.bar} />
           <div className={styles.bar} />

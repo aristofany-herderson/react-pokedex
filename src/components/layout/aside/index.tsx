@@ -23,17 +23,15 @@ import { POKEMONTYPEICONS } from "@/utils/pokemon-type-icons";
 import classNames from "classnames";
 import Image from "next/image";
 import { Fragment, useEffect, useState } from "react";
-import { NoPokemonSelected } from "./no-pokemon-selected";
-import { AsideSkeleton } from "./skeleton";
+import { Loading } from "./states/loading";
+import { NoPokemonSelected } from "./states/no-pokemon-selected";
 import styles from "./styles.module.scss";
-
-type PanelOpenType = "opened" | "closed";
 
 export const Aside = () => {
   const [pokemon, setPokemon] = useState<AsyncReturnType<
     typeof getPokemonData
   > | null>();
-  const [isPanelOpen, setIsPanelOpen] = useState<PanelOpenType>("closed");
+  const [isPanelOpen, setIsPanelOpen] = useState<"opened" | "closed">("closed");
   const { pokemon: selectedPokemon, setPokemon: setSelectedPokemon } =
     usePokemonQueryParams();
 
@@ -86,7 +84,7 @@ export const Aside = () => {
       </button>
       <aside data-state={isPanelOpen} className={styles.aside}>
         {isNoSelect && <NoPokemonSelected />}
-        {isSelectAndLoading && <AsideSkeleton />}
+        {isSelectAndLoading && <Loading />}
         {isSelectAndLoaded && (
           <div className={styles.wrapper}>
             <div className={styles.gender}>

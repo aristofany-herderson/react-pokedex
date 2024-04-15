@@ -1,5 +1,5 @@
 import { PossibleTypes as PokemonPossibleTypes } from "@/@types/pokemon";
-import { SelectPokemonRange } from "@/@types/selects";
+import { SelectPokemonRange } from "@/@types/select-pokemon-range";
 import { POKEMONTYPECOLORS } from "@/utils/pokemon-type-colors";
 import { POKEMONTYPEICONS } from "@/utils/pokemon-type-icons";
 import { SELECTLEVELCOLORS } from "@/utils/selects-data";

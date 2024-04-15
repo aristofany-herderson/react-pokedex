@@ -1,4 +1,4 @@
-import { SelectPokemonRange } from "@/@types/selects";
+import { SelectPokemonRange } from "@/@types/select-pokemon-range";
 
 export const SELECTPOKEMONORDER = [
   { value: "asc", label: "Ascending" },
@@ -28,7 +28,7 @@ export const SELECTPOKEMONTYPES = [
 
 export const SELECTPOKEMONHEIGHTS: SelectPokemonRange[] = [
   {
-    value: "1",
+    value: 1,
     label: "0.1m - 3m",
     range: {
       min: 0,
@@ -36,7 +36,7 @@ export const SELECTPOKEMONHEIGHTS: SelectPokemonRange[] = [
     },
   },
   {
-    value: "2",
+    value: 2,
     label: "3.1m - 6m",
     range: {
       min: 3,
@@ -44,7 +44,7 @@ export const SELECTPOKEMONHEIGHTS: SelectPokemonRange[] = [
     },
   },
   {
-    value: "3",
+    value: 3,
     label: "6.1m - 9m",
     range: {
       min: 6,
@@ -52,7 +52,7 @@ export const SELECTPOKEMONHEIGHTS: SelectPokemonRange[] = [
     },
   },
   {
-    value: "4",
+    value: 4,
     label: "9.1m - 12m",
     range: {
       min: 9,
@@ -60,7 +60,7 @@ export const SELECTPOKEMONHEIGHTS: SelectPokemonRange[] = [
     },
   },
   {
-    value: "5",
+    value: 5,
     label: "12.1m - 14.5m",
     range: {
       min: 12,
@@ -71,7 +71,7 @@ export const SELECTPOKEMONHEIGHTS: SelectPokemonRange[] = [
 
 export const SELECTPOKEMONWEIGHTS: SelectPokemonRange[] = [
   {
-    value: "1",
+    value: 1,
     label: "0.1kg - 200.0kg",
     range: {
       min: 0,
@@ -79,7 +79,7 @@ export const SELECTPOKEMONWEIGHTS: SelectPokemonRange[] = [
     },
   },
   {
-    value: "2",
+    value: 2,
     label: "200.1kg - 400.0kg",
     range: {
       min: 200,
@@ -87,7 +87,7 @@ export const SELECTPOKEMONWEIGHTS: SelectPokemonRange[] = [
     },
   },
   {
-    value: "3",
+    value: 3,
     label: "400.1kg - 600.0kg",
     range: {
       min: 400,
@@ -95,7 +95,7 @@ export const SELECTPOKEMONWEIGHTS: SelectPokemonRange[] = [
     },
   },
   {
-    value: "4",
+    value: 4,
     label: "600.1kg - 800.0kg",
     range: {
       min: 600,
@@ -103,7 +103,7 @@ export const SELECTPOKEMONWEIGHTS: SelectPokemonRange[] = [
     },
   },
   {
-    value: "5",
+    value: 5,
     label: "800.1kg - 999.9kg",
     range: {
       min: 800,

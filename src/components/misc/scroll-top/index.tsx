@@ -9,7 +9,7 @@ export const ScrollTop = () => {
 
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.scrollY > 300) {
+      if (window.scrollY > 600) {
         setIsVisible(true);
         return;
       }
@@ -34,9 +34,7 @@ export const ScrollTop = () => {
   return (
     <button
       aria-label="Scroll to top"
-      onClick={() => {
-        scrollToTop();
-      }}
+      onClick={scrollToTop}
       className={classNames(styles.scrollTop, isVisible && styles.visible)}
     >
       <ArrowUpIcon width={15} height={15} />

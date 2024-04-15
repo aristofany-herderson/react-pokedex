@@ -11,7 +11,5 @@ type FlavorTextEntries = {
 };
 
 export type PokemonsAbility = {
-  effect_changes: any[];
-  effect_entries: any[];
   flavor_text_entries: FlavorTextEntries[];
 };

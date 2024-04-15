@@ -1,4 +1,4 @@
-type ChainSpecies = {
+type Species = {
   name: string;
   url: string;
 };
@@ -8,14 +8,14 @@ type EvolutionDetails = {
 };
 
 type EvolvesTo = {
-  species: ChainSpecies;
+  species: Species;
   evolution_details: EvolutionDetails[];
   evolves_to: EvolvesTo[];
 };
 
 export type Chain = {
   evolves_to: EvolvesTo[];
-  species: ChainSpecies;
+  species: Species;
 };
 
 export type PokemonChain = {
