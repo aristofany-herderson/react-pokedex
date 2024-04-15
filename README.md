@@ -87,20 +87,20 @@ Open http://localhost:3000 with your browser to see the result.
 ## 🧑🏻&nbsp; Author
 
 <p align="center">
-    <img width="20%" src="https://github.com/aristofany-herderson.png" alt="aristofany-herderson">
+  <img width="20%" src="https://github.com/aristofany-herderson.png" alt="aristofany-herderson">
   <p align="center">
     Aristofany Herderson
-  </p >
+  </p>
   <p align="center">
     <a  href="https://www.linkedin.com/in/aristofany-herderson/" target="_blank">
     <img align="center" src="https://img.shields.io/badge/LINKEDIN-000000.svg?style=for-the-badge&labelColor=0a66c2&logo=linkedin&logoColor=fff&logoWidth=20" alt="linkedin"/>
-  </a>
-  <a href="https://twitter.com/aristofanyherde" target="_blank">
-    <img align="center" src="https://img.shields.io/badge/TWITTER-000000.svg?style=for-the-badge&labelColor=1d9bf0&logo=twitter&logoColor=fff&logoWidth=20" alt="linkedin"/>
-  </a>
-  <a href="https://www.instagram.com/aristofany_herderson/" target="_blank">
-    <img align="center" src="https://img.shields.io/badge/INSTAGRAM-000000.svg?style=for-the-badge&labelColor=dd326f&logo=instagram&logoColor=fff&logoWidth=20" alt="linkedin"/>
-  </a>
+    </a>
+    <a href="https://twitter.com/aristofanyherde" target="_blank">
+      <img align="center" src="https://img.shields.io/badge/TWITTER-000000.svg?style=for-the-badge&labelColor=1d9bf0&logo=twitter&logoColor=fff&logoWidth=20" alt="linkedin"/>
+    </a>
+    <a href="https://www.instagram.com/aristofany_herderson/" target="_blank">
+      <img align="center" src="https://img.shields.io/badge/INSTAGRAM-000000.svg?style=for-the-badge&labelColor=dd326f&logo=instagram&logoColor=fff&logoWidth=20" alt="linkedin"/>
+    </a>
   </p>
 </p>
 
@@ -108,7 +108,7 @@ Open http://localhost:3000 with your browser to see the result.
 
 ## 🕹️ Credits
 
-Thanks to [PokéAPI.co](https://github.com/PokeAPI/pokeapi), [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/Main_Page) for the images, [duiker101](https://github.com/duiker101/pokemon-type-svg-icons) for the type icons and of course to Nintendo, Game Freak, and The Pokémon Company for making such an awesome series of games.
+Thanks to [PokéAPI.co](https://pokeapi.co/) for data, of course to Nintendo, Game Freak, and The Pokémon Company for making such an awesome series of games.
 
 <br>
 
