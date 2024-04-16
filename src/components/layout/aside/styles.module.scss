@@ -251,9 +251,12 @@
   }
 
   h2 {
-    margin-bottom: var(--space-2);
+    margin-bottom: var(--space-3);
     font-size: var(--font-size-sm);
     text-transform: capitalize;
+
+    display: flex;
+    align-items: center;
   }
 
   svg {

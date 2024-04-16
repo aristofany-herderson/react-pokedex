@@ -15,10 +15,10 @@ type PokemonCardProps = {
 };
 
 export const PokemonCard = ({ id, name, types, sprite }: PokemonCardProps) => {
-  const paddedID = padId(id);
   const { setPokemon: setSelectedPokemon } = usePokemonQueryParams();
-
-  const handleClick = async () => {
+  
+  const paddedID = padId(id);
+  const handleClick = () => {
     setSelectedPokemon(id);
   };
 

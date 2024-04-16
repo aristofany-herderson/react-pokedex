@@ -1,0 +1,33 @@
+.loader {
+  width: min-content;
+  height: var(--space-8);
+  margin: var(--space-10) auto;
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+
+  .bar {
+    width: var(--space-1);
+    height: var(--space-2);
+    background: var(--colors-red-medium);
+    animation: loader 1s infinite ease-in-out;
+
+    &:nth-child(2) {
+      animation-delay: -0.16s;
+    }
+    &:nth-child(1) {
+      animation-delay: -0.32s;
+    }
+  }
+}
+
+@keyframes loader {
+  0%,
+  80%,
+  100% {
+    height: var(--space-4);
+  }
+  40% {
+    height: var(--space-8);
+  }
+}

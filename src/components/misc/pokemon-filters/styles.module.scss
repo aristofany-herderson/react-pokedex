@@ -1,3 +1,10 @@
+.section {
+  width: 100%;
+  margin-bottom: var(--space-12);
+  display: flex;
+  flex-direction: column;
+}
+
 .search {
   padding: var(--space-4);
   margin-bottom: var(--space-6);
@@ -69,7 +76,6 @@
 .pokemonAttributes {
   position: relative;
   width: 100%;
-  margin-bottom: var(--space-12);
 
   display: flex;
   align-items: center;

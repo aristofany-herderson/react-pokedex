@@ -19,11 +19,13 @@ import {
   SELECTPOKEMONTYPES,
   SELECTPOKEMONWEIGHTS,
 } from "@/utils/selects-data";
-import { useEffect, useState } from "react";
+import { useDebounce } from '@uidotdev/usehooks';
+import { useEffect, useState, useTransition } from "react";
 import styles from "./styles.module.scss";
 
+
 export const PokemonFilters = () => {
-  const [abilities, setAbilities] = useState<SelectValueData[]>([]);
+  const [isPending, startTransition] = useTransition();
   const {
     order,
     ability,
@@ -44,6 +46,24 @@ export const PokemonFilters = () => {
     weakness,
     weight,
   } = usePokemonQueryParams();
+
+  const [abilities, setAbilities] = useState<SelectValueData[]>([]);
+  const [searchInputText, setSearchInputText] = useState(search);
+  const searchQuery = useDebounce(searchInputText, 750)
+
+  useEffect(() => {
+    if (searchQuery) {
+      startTransition(() => {
+        setSearch(searchQuery)
+      })
+
+      return;
+    }
+
+    startTransition(() => {
+      setSearch(null)
+    })
+  }, [searchQuery, setSearch, search])
 
   useEffect(() => {
     const getPokemonAbilities = async () => {
@@ -67,18 +87,18 @@ export const PokemonFilters = () => {
   }, []);
 
   return (
-    <>
+    <section className={styles.section}>
       <label htmlFor="search" className={styles.search}>
         <input
           spellCheck={false}
-          value={search || ""}
+          value={searchInputText || ""}
           id="search"
-          onChange={(event) => setSearch(event.target.value || null)}
+          onChange={(event) => setSearchInputText(event.target.value)}
           type="text"
           placeholder="Search your pokemon"
           max={50}
         />
-        <button aria-label="clear" onClick={() => setSearch(null)}>
+        <button aria-label="clear" onClick={() => setSearchInputText(null)}>
           <PokeballIcon width={20} height={20} />
         </button>
       </label>
@@ -254,6 +274,6 @@ export const PokemonFilters = () => {
           <TrashIcon width={20} height={20} />
         </button>
       </div>
-    </>
+    </section>
   );
 };
