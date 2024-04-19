@@ -1,0 +1,40 @@
+
+.trigger {
+  --hover-background: var(--colors-gray-100);
+  flex: 1;
+  height: var(--space-10);
+  padding: var(--space-1) var(--space-4);
+
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--colors-gray-600);
+
+  cursor: pointer;
+  user-select: none;
+  background: var(--colors-white);
+  border-radius: var(--radii-md);
+  box-shadow: var(--shadow-light);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  transition: 0.15s background;
+
+  &:hover {
+    background: var(--hover-background);
+  }
+
+  input {
+    cursor: pointer;
+  }
+}
+
+.transparentTrigger {
+  @extend .trigger;
+  width: min-content;
+  background: transparent;
+  box-shadow: none;
+  color: var(--colors-pokedex-dark);
+  --hover-background: transparent;
+}

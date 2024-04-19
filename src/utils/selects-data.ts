@@ -1,4 +1,4 @@
-import { SelectPokemonRange } from "@/@types/select-pokemon-range";
+import { SelectionPokemonRange } from "@/@types/select-pokemon-range";
 
 export const SELECTPOKEMONORDER = [
   { value: "asc", label: "Ascending" },
@@ -26,7 +26,7 @@ export const SELECTPOKEMONTYPES = [
   { value: "fairy", label: "fairy" },
 ];
 
-export const SELECTPOKEMONHEIGHTS: SelectPokemonRange[] = [
+export const SELECTPOKEMONHEIGHTS: SelectionPokemonRange[] = [
   {
     value: 1,
     label: "0.1m - 3m",
@@ -69,7 +69,7 @@ export const SELECTPOKEMONHEIGHTS: SelectPokemonRange[] = [
   },
 ];
 
-export const SELECTPOKEMONWEIGHTS: SelectPokemonRange[] = [
+export const SELECTPOKEMONWEIGHTS: SelectionPokemonRange[] = [
   {
     value: 1,
     label: "0.1kg - 200.0kg",

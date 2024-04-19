@@ -1,0 +1,45 @@
+.value {
+  display: flex;
+  align-items: center;
+
+  p {
+    color: var(--colors-color);
+    display: none !important;
+  }
+
+  &:not(:first-child) span {
+    margin-left: calc(-1 * var(--space-2));
+  }
+
+  span {
+    width: var(--space-4);
+    height: var(--space-4);
+    padding: var(--space-1);
+    border-radius: var(--radii-full);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--colors-background);
+  }
+
+  svg {
+    color: var(--colors-white)
+  }
+}
+
+.abilityValue {
+  @extend .value;
+  span {
+    background: var(--colors-yellow);
+  }
+  svg {
+    color: var(--colors-white);
+  }
+}
+
+.order {
+  max-width: none;
+  display: block !important;
+}
