@@ -58,6 +58,10 @@
   border-radius: var(--radii-lg);
   background: var(--colors-white);
   box-shadow: var(--shadow-light);
+
+  & * {
+    animation: fadeIn 0.3s;
+  }
 }
 
 .gender {
@@ -152,6 +156,7 @@
   gap: var(--space-3);
   align-items: center;
   justify-content: center;
+  user-select: none;
 
   p {
     padding: var(--space-px) var(--space-2);
@@ -365,6 +370,7 @@
     aspect-ratio: 1 / 1;
     font-size: 0.5rem;
     border-radius: var(--radii-full);
+    user-select: none;
 
     color: var(--colors-white);
     display: flex;
@@ -537,6 +543,16 @@
 
   .pokemonImage {
     margin: var(--space-1);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 

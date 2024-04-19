@@ -39,12 +39,14 @@ Project Dependencies:
 - [axios](https://axios-http.com/)
 - [nuqs](https://nuqs.47ng.com/)
 - [react-intersection-observer](https://react-intersection-observer.vercel.app/)
+- [react-select](https://react-select.com/home)
+- [usehooks](https://usehooks.com/)
 - [classnames](https://github.com/JedWatson/classnames#readme)
 - [sharp](https://www.npmjs.com/package/sharp)
 - [next](https://www.npmjs.com/package/next)
 - [react](https://www.npmjs.com/package/react)
 - [react-dom](https://www.npmjs.com/package/react-dom)
-
+    
 Dev Dependencies:
 
 - [@types/node](https://www.npmjs.com/package/@types/node)

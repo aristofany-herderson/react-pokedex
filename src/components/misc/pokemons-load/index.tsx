@@ -17,7 +17,9 @@ import { PokemonCard } from "../pokemon-card";
 import styles from "./styles.module.scss";
 
 export const PokemonsLoad = () => {
-  const { ref, inView } = useInView();
+  const { ref, inView } = useInView({
+    rootMargin: "0% 0% 200px"
+  });
   const { search, from, to, type, weakness, ability, weight, height, order } =
     usePokemonQueryParams();
 

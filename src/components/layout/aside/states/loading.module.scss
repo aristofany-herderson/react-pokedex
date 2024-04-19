@@ -9,6 +9,8 @@
   border-radius: var(--radii-lg);
   background: var(--colors-white);
   box-shadow: var(--shadow-light);
+
+  animation: fadeIn 0.3s;
 }
 
 .gender {
@@ -208,6 +210,19 @@
 
   100% {
     background-position: 0;
+  }
+}
+
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(var(--space-4));
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
