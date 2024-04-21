@@ -82,8 +82,19 @@ Open http://localhost:3000 with your browser to see the result.
 
 ## 💻&nbsp; Project
 
-🐉 A complete pokemon data for you. Including pokemon image, name, types, stats, characteristhics, evolutions and more!
+**Resume:** 🐉 A complete pokemon data for you. Including pokemon image, name, types, stats, characteristhics, evolutions and more!
 
+#### Why do it?
+
+Because I like the games made by Nitendo and together we test new advanced features of the next.js
+
+#### Assets
+
+**Pokemons Data:** From [pokeapi.co](https://pokeapi.co/), All the Pokémon data you'll ever need in one place,
+easily accessible through a modern free open-source RESTful API.
+
+**Design:** Inspired by the project [Pokemon Pokedex Website Redesign Concept](https://dribbble.com/shots/15128634-Pokemon-Pokedex-Website-Redesign-Concept)
+ 
 <br>
 
 ## 🧑🏻&nbsp; Author
