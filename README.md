@@ -38,7 +38,6 @@ Project Dependencies:
 - [radix](https://www.radix-ui.com/)
 - [axios](https://axios-http.com/)
 - [nuqs](https://nuqs.47ng.com/)
-- [react-intersection-observer](https://react-intersection-observer.vercel.app/)
 - [react-select](https://react-select.com/home)
 - [usehooks](https://usehooks.com/)
 - [classnames](https://github.com/JedWatson/classnames#readme)
@@ -88,6 +87,8 @@ Open http://localhost:3000 with your browser to see the result.
 
 Because I like the games made by Nitendo and together we test new advanced features of the next.js
 
+<br />
+
 #### 🎨&nbsp; Assets
 
 **Pokemons Data:** From [pokeapi.co](https://pokeapi.co/), All the Pokémon data you'll ever need in one place,
@@ -95,6 +96,8 @@ easily accessible through a modern free open-source RESTful API.
 
 **Design:** Inspired by the project [Pokemon Pokedex Website Redesign Concept](https://dribbble.com/shots/15128634-Pokemon-Pokedex-Website-Redesign-Concept)
  
+<br />
+
 #### 🚀&nbsp; Features
 
 - [x] Search Pokemons by name
@@ -102,12 +105,14 @@ easily accessible through a modern free open-source RESTful API.
 - [x] View Pokemon data (image, type, is/no legendary, gender, abilities, characteristics, stats, evolution chain and more)
 - [x] Responsive aplication
 
+<br />
+
 #### 🧠&nbsp; Used tools
 
 - **useMemo** - to memorize the state of the application, reducing part of the processing usage
 - **useTransition** - to define the most essential part of the UI to load, allowing the component not to crash while another component renders
 - **useDebounce** - to set a time interval for a task to run
-- **useInView** - to "observe" when an element comes into view on the user's screen
+- **useIntersectionObserver** - to "observe" when an element comes into view on the user's screen
 - **useQueryState** - to maintain some application state directly in the url (URLState)
 
 <br>
