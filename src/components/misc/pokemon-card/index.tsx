@@ -12,14 +12,22 @@ type PokemonCardProps = {
   name: string;
   types: PokemonType[];
   sprite: string;
+  onClick: () => void;
 };
 
-export const PokemonCard = ({ id, name, types, sprite }: PokemonCardProps) => {
+export const PokemonCard = ({
+  id,
+  name,
+  types,
+  sprite,
+  onClick,
+}: PokemonCardProps) => {
   const { setPokemon: setSelectedPokemon } = usePokemonQueryParams();
-  
+
   const paddedID = padId(id);
   const handleClick = () => {
     setSelectedPokemon(id);
+    onClick();
   };
 
   return (

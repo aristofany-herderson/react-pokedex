@@ -19,7 +19,6 @@
     "nuqs": "^1.17.1",
     "react": "^18",
     "react-dom": "^18",
-    "react-intersection-observer": "^9.8.2",
     "react-select": "^5.8.0",
     "sharp": "^0.33.3"
   },

@@ -64,6 +64,10 @@
   }
 }
 
+.background {
+  display: none;
+}
+
 .gender {
   position: absolute;
   top: var(--space-6);
@@ -563,8 +567,8 @@
     width: 100%;
     max-height: 100vh;
     height: 100%;
+    padding-bottom: calc(var(--space-20) + var(--space-10));
     border-radius: 0;
-    backdrop-filter: blur(0.2rem);
     display: flex;
     justify-content: flex-end;
     background: transparent;
@@ -573,11 +577,29 @@
 
     &[data-state="opened"] {
       right: 0;
+
+      .background {
+        right: 0;
+      }
     }
 
     &[data-state="closed"] {
       right: -100%;
+
+      .background {
+        right: -100%;
+      }
     }
+  }
+
+  .background {
+    position: fixed;
+    top: 0;
+    backdrop-filter: blur(0.2rem);
+    width: 100vw;
+    height: 100%;
+    z-index: -1;
+    display: block;
   }
 
   .openAside {

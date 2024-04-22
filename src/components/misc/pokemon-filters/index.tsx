@@ -188,9 +188,7 @@ export const PokemonFilters = () => {
           <label htmlFor="from">from</label>
           <input
             value={fromInputText || ""}
-            onChange={(event) =>
-              setFromInputText(Number(event.target.value))
-            }
+            onChange={(event) => setFromInputText(Number(event.target.value))}
             min={1}
             max={MAXPOKEMONSRENDERED}
             type="number"
@@ -200,9 +198,7 @@ export const PokemonFilters = () => {
           <label htmlFor="to">to</label>
           <input
             value={toInputText || ""}
-            onChange={(event) =>
-              setToInputText(Number(event.target.value))
-            }
+            onChange={(event) => setToInputText(Number(event.target.value))}
             min={1}
             max={MAXPOKEMONSRENDERED}
             type="number"
@@ -230,13 +226,11 @@ export const PokemonFilters = () => {
           }
           onChange={
             ((value: SelectionData[]) => {
-              startTransition(() => {
-                setType(
-                  value.length > 0
-                    ? value.map((type) => type.value).join(",")
-                    : null
-                );
-              });
+              setType(
+                value.length > 0
+                  ? value.map((type) => type.value).join(",")
+                  : null
+              );
             }) as (state: unknown) => void
           }
           components={{
@@ -246,6 +240,7 @@ export const PokemonFilters = () => {
           isMulti
           options={SELECTPOKEMONTYPES}
           closeMenuOnSelect={false}
+          blurInputOnSelect={false}
         />
         <Select
           placeholder={
@@ -278,6 +273,7 @@ export const PokemonFilters = () => {
           isMulti
           options={SELECTPOKEMONTYPES}
           closeMenuOnSelect={false}
+          blurInputOnSelect={false}
         />
 
         <Select

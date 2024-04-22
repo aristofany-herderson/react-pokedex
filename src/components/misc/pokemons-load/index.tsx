@@ -11,14 +11,18 @@ import {
   SELECTPOKEMONHEIGHTS,
   SELECTPOKEMONWEIGHTS,
 } from "@/utils/selects-data";
+import { useIntersectionObserver } from "@uidotdev/usehooks";
 import { useEffect, useMemo, useState } from "react";
-import { useInView } from "react-intersection-observer";
 import { PokemonCard } from "../pokemon-card";
 import styles from "./styles.module.scss";
 
-export const PokemonsLoad = () => {
-  const { ref, inView } = useInView({
-    rootMargin: "0% 0% 200px"
+type PokemonsLoadProps = {
+  toggleAsideIsOpen: (newValue?: boolean) => void;
+};
+
+export const PokemonsLoad = ({ toggleAsideIsOpen }: PokemonsLoadProps) => {
+  const [ref, entry] = useIntersectionObserver({
+    rootMargin: "0% 0% 200px",
   });
   const { search, from, to, type, weakness, ability, weight, height, order } =
     usePokemonQueryParams();
@@ -47,7 +51,7 @@ export const PokemonsLoad = () => {
 
   useEffect(() => {
     const getPokemons = async () => {
-      if (loading || !inView) return;
+      if (loading || !entry?.isIntersecting) return;
       setLoading(true);
 
       const response = await getPokemonsByPagination(pagination);
@@ -57,7 +61,7 @@ export const PokemonsLoad = () => {
     };
 
     getPokemons();
-  }, [pagination, loading, inView]);
+  }, [pagination, loading, entry?.isIntersecting]);
 
   const filteredPokemons = useMemo(() => {
     return pokemons.filter((pokemon) => {
@@ -117,7 +121,9 @@ export const PokemonsLoad = () => {
     <>
       <section className={styles.pokemons}>
         {filteredPokemons.map((pokemon, index) => {
-          return <PokemonCard key={index} {...pokemon} />;
+          return (
+            <PokemonCard key={index} onClick={() => toggleAsideIsOpen(true)} {...pokemon} />
+          );
         })}
       </section>
       {MAXPOKEMONSRENDERED + POKEMONSPERPAGE > POKEMONSPERPAGE * pagination && (

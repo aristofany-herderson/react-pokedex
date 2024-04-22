@@ -94,3 +94,11 @@
     opacity: var(--opacity-default);
   }
 }
+
+@media screen and (max-width: 980px) {
+  .card {
+    &:hover .cardWrapper {
+      transform: none;
+    }
+  }
+}
