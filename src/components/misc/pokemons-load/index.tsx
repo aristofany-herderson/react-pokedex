@@ -1,7 +1,7 @@
 "use client";
 import { AsyncReturnType } from "@/@types/async-return-type";
 import { Loader } from "@/components/ui/loader";
-import { useApp } from "@/contexts/AppContext";
+import { useApp } from "@/contexts/app-context";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import { MAXPOKEMONSRENDERED } from "@/services/api";
 import {

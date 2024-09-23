@@ -13,7 +13,7 @@ import { MaleIcon } from "@/components/ui/icons/male-icon";
 import { MinusSquareIcon } from "@/components/ui/icons/minus-square-icon";
 import { PanelOpenIcon } from "@/components/ui/icons/panel-open";
 import { StarIcon } from "@/components/ui/icons/star-icon";
-import { useApp } from "@/contexts/AppContext";
+import { useApp } from "@/contexts/app-context";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import { getPokemonData } from "@/services/requests";
 import { padId } from "@/utils/pad-id";
@@ -29,7 +29,7 @@ import { NoPokemonSelected } from "./states/no-pokemon-selected";
 import styles from "./styles.module.scss";
 
 export const Aside = () => {
-  const {isAsideOpen, setOrToggleIsAsideOpen} = useApp();
+  const { isAsideOpen, setOrToggleIsAsideOpen } = useApp();
   const [pokemon, setPokemon] = useState<AsyncReturnType<
     typeof getPokemonData
   > | null>();
@@ -75,8 +75,14 @@ export const Aside = () => {
       >
         <PanelOpenIcon width={14} height={14} />
       </button>
-      <aside data-state={isAsideOpen ? "opened" : "closed"} className={styles.aside}>
-        <div onClick={() => setOrToggleIsAsideOpen(false)} className={styles.background}></div>
+      <aside
+        data-state={isAsideOpen ? "opened" : "closed"}
+        className={styles.aside}
+      >
+        <div
+          onClick={() => setOrToggleIsAsideOpen(false)}
+          className={styles.background}
+        ></div>
         {isNoSelect && <NoPokemonSelected />}
         {isSelectAndLoading && <Loading />}
         {isSelectAndLoaded && (
@@ -282,7 +288,6 @@ export const Aside = () => {
             <div className={styles.nextPrevPokemons}>
               <button
                 className={styles.prev}
-                title={pokemon.adjacent_pokemons.previous.name}
                 onClick={() =>
                   setSelectedPokemon(pokemon.adjacent_pokemons.previous.id)
                 }
@@ -301,7 +306,6 @@ export const Aside = () => {
               </button>
               <button
                 className={styles.next}
-                title={pokemon.adjacent_pokemons.next.name}
                 onClick={() =>
                   setSelectedPokemon(pokemon.adjacent_pokemons.next.id)
                 }

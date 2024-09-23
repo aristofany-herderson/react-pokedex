@@ -182,7 +182,7 @@
   background: linear-gradient(
       90deg,
       var(--colors-pokedex-medium) 35%,
-      #ffffffaa,
+      var(--colors-white),
       var(--colors-pokedex-medium) 55%
     )
     right / 300% 100%;
@@ -193,26 +193,6 @@
     background-position: left;
   }
 }
-
-@keyframes textGradient {
-  0% {
-    background-position: 0 0;
-  }
-  25% {
-    background-position: 100% 0;
-  }
-  50% {
-    background-position: 100% 100%;
-  }
-  75% {
-    background-position: 0 100%;
-  }
-
-  100% {
-    background-position: 0;
-  }
-}
-
 
 @keyframes fadeIn {
   0% {
@@ -228,9 +208,10 @@
 
 @media screen and (max-width: 980px) {
   .wrapper {
-    width: calc(100% - var(--space-16));
+    top: var(--space-20);
     right: var(--space-8);
     max-width: 20rem;
-    top: var(--space-20);
+    width: calc(100% - var(--space-16));
+    margin-bottom: calc(var(--space-20) + var(--space-10));
   }
 }

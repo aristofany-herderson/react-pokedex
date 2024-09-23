@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { forwardRef } from "react";
 import { ControlProps } from "react-select";
-import styles from './styles.module.scss';
+import styles from "./styles.module.scss";
 
 export const Trigger = forwardRef<HTMLDivElement, ControlProps>(
   ({ children, className, innerProps }, ref) => {

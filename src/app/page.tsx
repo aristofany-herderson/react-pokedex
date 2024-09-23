@@ -4,7 +4,7 @@ import { PokemonFilters } from "@/components/misc/pokemon-filters";
 import { PokemonsLoad } from "@/components/misc/pokemons-load";
 import { ScrollTop } from "@/components/misc/scroll-top";
 import { GithubIcon } from "@/components/ui/icons/github-icon";
-import { AppContextProvider } from "@/contexts/AppContext";
+import { AppContextProvider } from "@/contexts/app-context";
 import styles from "@/styles/pages/home.module.scss";
 import Link from "next/link";
 
@@ -17,7 +17,7 @@ export default function Home() {
             <PokemonFilters />
             <PokemonsLoad />
           </main>
-          <Aside  />
+          <Aside />
         </div>
       </AppContextProvider>
       <Link

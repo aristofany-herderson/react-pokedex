@@ -1,4 +1,4 @@
-.noSelected {
+.wrapper {
   width: 100%;
   height: 100%;
   display: flex;
@@ -61,7 +61,20 @@
 }
 
 @media screen and (max-width: 980px) {
-  .noSelected {
+  .wrapper {
     padding: var(--space-8) 0;
+  }
+
+  .info {
+    width: min-content;
+    white-space: nowrap;
+    margin-inline: auto;
+  }
+
+  .info,
+  .copyright {
+    padding: var(--space-2) var(--space-3);
+    background: var(--colors-white);
+    border-radius: var(--radii-sm);
   }
 }

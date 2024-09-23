@@ -15,7 +15,7 @@ export const ScrollTop = () => {
     <button
       aria-label="Scroll to top"
       onClick={scrollToTop}
-      className={classNames(styles.scrollTop, (y && y >= 600) && styles.visible)}
+      className={classNames(styles.scrollTop, y && y >= 600 && styles.visible)}
     >
       <ArrowUpIcon width={15} height={15} />
     </button>

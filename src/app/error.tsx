@@ -1,29 +1,20 @@
+"use client";
 import { BASEIMAGEURL, MAXPOKEMONSRENDERED } from "@/services/api";
-import styles from "@/styles/not-found.module.scss";
+import styles from "@/styles/error.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function NotFound() {
+export default function Error() {
   const randomID = Math.floor(Math.random() * MAXPOKEMONSRENDERED) + 1;
   return (
     <section className={styles.section}>
       <div className={styles.wrapper}>
-        <figure className={styles.figure}>
-          <Link href={`/?pokemon=${randomID}`}>
-            <Image
-              width={600}
-              height={600}
-              src={`${BASEIMAGEURL}${randomID}.png`}
-              alt={`Pokemon with ID ${randomID}`}
-            />
-          </Link>
-        </figure>
         <article className={styles.article}>
-          <h2>Oops! Page not found.</h2>
+          <h2>Ops! Something went wrong.</h2>
           <p>
-            Looks like you&apos;ve found a rare Pokemon! Unfortunately, this
-            page It doesn&apos;t exist on the map. Maybe he&apos;s on another
-            route. How about giving it a try again?
+            It looks like a Pokémon used a surprise attack! This page is
+            temporarily unavailable. We are working to resolve this as soon as
+            possible. Please try again in a few minutes.
           </p>
           <div className={styles.links}>
             <Link href={"/"}>Back to Home</Link>
@@ -36,8 +27,8 @@ export default function NotFound() {
             </Link>
           </div>
           <p className={styles.message}>
-            If you need help finding your way around, I&apos;m here to help!
-            Please contact support on
+            If the problem persists or if you need additional assistance, please
+            do not hesitate to contact us at
             <Link
               target="_blank"
               rel="noreferrer noopener"
@@ -45,9 +36,20 @@ export default function NotFound() {
             >
               github.com
             </Link>
-            for immediate assistance.
+            . We&apos;re here to help train your Pokémon to withstand these
+            unexpected attacks!
           </p>
         </article>
+        <figure className={styles.figure}>
+          <Link href={`/?pokemon=${randomID}`}>
+            <Image
+              width={600}
+              height={600}
+              src={`${BASEIMAGEURL}${randomID}.png`}
+              alt={`Pokemon with ID ${randomID}`}
+            />
+          </Link>
+        </figure>
       </div>
     </section>
   );

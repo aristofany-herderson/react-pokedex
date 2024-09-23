@@ -1,19 +1,18 @@
 export type Pokemon = {
   count: number;
   next: string | null;
-  previous: string | null;
-  results: {
-    name: string;
-    url: string;
-  }[];
+  previous: null | null;
+  results: Result[];
 };
 
 export type Abilities = {
   count: number;
   next: string | null;
-  previous: string | null;
-  results: {
-    name: string;
-    url: string;
-  }[];
+  previous: null | null;
+  results: Result[];
+};
+
+export type Result = {
+  name: string;
+  url: string;
 };

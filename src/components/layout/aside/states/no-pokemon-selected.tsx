@@ -6,7 +6,7 @@ import styles from "./no-pokemon-selected.module.scss";
 
 export const NoPokemonSelected = () => {
   return (
-    <div className={styles.noSelected}>
+    <div className={styles.wrapper}>
       <div className={styles.info}>
         <InfoCircleIcon />
         <p>Select Pokemon to view details</p>
