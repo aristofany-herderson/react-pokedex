@@ -13,6 +13,7 @@ import { MaleIcon } from "@/components/ui/icons/male-icon";
 import { MinusSquareIcon } from "@/components/ui/icons/minus-square-icon";
 import { PanelOpenIcon } from "@/components/ui/icons/panel-open";
 import { StarIcon } from "@/components/ui/icons/star-icon";
+import { useApp } from "@/contexts/AppContext";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import { getPokemonData } from "@/services/requests";
 import { padId } from "@/utils/pad-id";
@@ -27,13 +28,8 @@ import { Loading } from "./states/loading";
 import { NoPokemonSelected } from "./states/no-pokemon-selected";
 import styles from "./styles.module.scss";
 
-type AsideProps = {
-  isOpen: boolean;
-  toggleAsideIsOpen: (newValue?: boolean) => void;
-  isFirstRender: boolean;
-};
-
-export const Aside = ({ isOpen, toggleAsideIsOpen, isFirstRender }: AsideProps) => {
+export const Aside = () => {
+  const {isAsideOpen, setOrToggleIsAsideOpen} = useApp();
   const [pokemon, setPokemon] = useState<AsyncReturnType<
     typeof getPokemonData
   > | null>();
@@ -50,10 +46,10 @@ export const Aside = ({ isOpen, toggleAsideIsOpen, isFirstRender }: AsideProps) 
       setPokemon(await getPokemon());
     };
 
-    if (selectedPokemon) toggleAsideIsOpen(true);
+    if (selectedPokemon) setOrToggleIsAsideOpen(true);
 
     fetchPokemon();
-  }, [selectedPokemon,toggleAsideIsOpen]);
+  }, [selectedPokemon, setOrToggleIsAsideOpen]);
 
   const paddedID = padId(pokemon?.id);
   const sumStats = pokemon?.stats.reduce(
@@ -73,14 +69,14 @@ export const Aside = ({ isOpen, toggleAsideIsOpen, isFirstRender }: AsideProps) 
   return (
     <>
       <button
-        data-state={isOpen ? "opened" : "closed"}
-        onClick={() => toggleAsideIsOpen()}
+        data-state={isAsideOpen ? "opened" : "closed"}
+        onClick={() => setOrToggleIsAsideOpen()}
         className={styles.openAside}
       >
         <PanelOpenIcon width={14} height={14} />
       </button>
-      <aside data-state={isOpen ? "opened" : "closed"} className={styles.aside}>
-        <div onClick={() => toggleAsideIsOpen(false)} className={styles.background}></div>
+      <aside data-state={isAsideOpen ? "opened" : "closed"} className={styles.aside}>
+        <div onClick={() => setOrToggleIsAsideOpen(false)} className={styles.background}></div>
         {isNoSelect && <NoPokemonSelected />}
         {isSelectAndLoading && <Loading />}
         {isSelectAndLoaded && (

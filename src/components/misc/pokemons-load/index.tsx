@@ -1,8 +1,9 @@
 "use client";
 import { AsyncReturnType } from "@/@types/async-return-type";
 import { Loader } from "@/components/ui/loader";
+import { useApp } from "@/contexts/AppContext";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
-import { MAXPOKEMONSRENDERED, POKEMONSPERPAGE } from "@/services/api";
+import { MAXPOKEMONSRENDERED } from "@/services/api";
 import {
   getLoadPokemonData,
   getPokemonsByPagination,
@@ -16,11 +17,8 @@ import { useEffect, useMemo, useState } from "react";
 import { PokemonCard } from "../pokemon-card";
 import styles from "./styles.module.scss";
 
-type PokemonsLoadProps = {
-  toggleAsideIsOpen: (newValue?: boolean) => void;
-};
-
-export const PokemonsLoad = ({ toggleAsideIsOpen }: PokemonsLoadProps) => {
+export const PokemonsLoad = () => {
+  const { setOrToggleIsAsideOpen } = useApp();
   const [ref, entry] = useIntersectionObserver({
     rootMargin: "0% 0% 200px",
   });
@@ -32,6 +30,7 @@ export const PokemonsLoad = ({ toggleAsideIsOpen }: PokemonsLoadProps) => {
   >([]);
   const [pagination, setPagination] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [allPokemonsLoaded, setAllPokemonsLoaded] = useState(false);
 
   useEffect(() => {
     const DESCPokemons = () => {
@@ -51,17 +50,29 @@ export const PokemonsLoad = ({ toggleAsideIsOpen }: PokemonsLoadProps) => {
 
   useEffect(() => {
     const getPokemons = async () => {
-      if (loading || !entry?.isIntersecting) return;
+      if (loading || !entry?.isIntersecting || allPokemonsLoaded) return;
       setLoading(true);
 
       const response = await getPokemonsByPagination(pagination);
+
       setPokemons((prevPokemons) => [...prevPokemons, ...response]);
       setPagination((prevState) => prevState + 1);
+
+      if (pokemons.length + response.length >= MAXPOKEMONSRENDERED) {
+        setAllPokemonsLoaded(true);
+      }
+
       setLoading(false);
     };
 
     getPokemons();
-  }, [pagination, loading, entry?.isIntersecting]);
+  }, [
+    allPokemonsLoaded,
+    entry?.isIntersecting,
+    loading,
+    pagination,
+    pokemons.length,
+  ]);
 
   const filteredPokemons = useMemo(() => {
     return pokemons.filter((pokemon) => {
@@ -120,15 +131,19 @@ export const PokemonsLoad = ({ toggleAsideIsOpen }: PokemonsLoadProps) => {
   return (
     <>
       <section className={styles.pokemons}>
-        {filteredPokemons.map((pokemon, index) => {
-          return (
-            <PokemonCard key={index} onClick={() => toggleAsideIsOpen(true)} {...pokemon} />
-          );
-        })}
+        {filteredPokemons.length > 0
+          ? filteredPokemons.map((pokemon, index) => (
+              <PokemonCard
+                key={index}
+                onClick={() => setOrToggleIsAsideOpen(true)}
+                {...pokemon}
+              />
+            ))
+          : allPokemonsLoaded && (
+              <p className={styles.noMatch}>There are no matching pokemons</p>
+            )}
       </section>
-      {MAXPOKEMONSRENDERED + POKEMONSPERPAGE > POKEMONSPERPAGE * pagination && (
-        <Loader ref={ref} />
-      )}
+      {!allPokemonsLoaded && <Loader ref={ref} />}
     </>
   );
 };

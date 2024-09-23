@@ -5,3 +5,10 @@
   column-gap: var(--space-5);
   row-gap: var(--space-12);
 }
+
+.noMatch {
+  grid-column-start: 2;
+  font-size: var(--font-size-sm);
+  text-align: center;
+  white-space: nowrap;
+}
