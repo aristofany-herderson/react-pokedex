@@ -3,7 +3,8 @@
 }
 
 .wrapper {
-  width: min(100%, 62rem);
+  width: min(100%, 66rem);
+  padding: var(--space-8);
   margin-inline: auto;
   display: flex;
   gap: var(--space-18);
@@ -34,6 +35,7 @@
     height: 100%;
   }
 }
+
 .article {
   flex: 1;
 
@@ -91,6 +93,30 @@
         background: var(--colors-red-medium);
         color: var(--colors-white);
       }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .section {
+    margin: var(--space-20) 0;
+  }
+
+  .wrapper {
+    padding: 0 var(--space-16);
+  }
+
+  .figure {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .links {
+    flex-direction: column;
+
+    a {
+      width: 100%;
+      text-align: center;
     }
   }
 }

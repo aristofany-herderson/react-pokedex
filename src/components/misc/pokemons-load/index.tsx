@@ -1,7 +1,6 @@
 "use client";
 import { AsyncReturnType } from "@/@types/async-return-type";
 import { Loader } from "@/components/ui/loader";
-import { useApp } from "@/contexts/app-context";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import { MAXPOKEMONSRENDERED } from "@/services/api";
 import {
@@ -18,7 +17,6 @@ import { PokemonCard } from "../pokemon-card";
 import styles from "./styles.module.scss";
 
 export const PokemonsLoad = () => {
-  const { setOrToggleIsAsideOpen } = useApp();
   const [ref, entry] = useIntersectionObserver({
     rootMargin: "0% 0% 200px",
   });
@@ -29,7 +27,7 @@ export const PokemonsLoad = () => {
     AsyncReturnType<typeof getLoadPokemonData>[]
   >([]);
   const [pagination, setPagination] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [allPokemonsLoaded, setAllPokemonsLoaded] = useState(false);
 
   useEffect(() => {
@@ -50,9 +48,9 @@ export const PokemonsLoad = () => {
 
   useEffect(() => {
     const getPokemons = async () => {
-      if (loading || !entry?.isIntersecting || allPokemonsLoaded) return;
-      setLoading(true);
+      if (isLoading || !entry?.isIntersecting || allPokemonsLoaded) return;
 
+      setIsLoading(true);
       const response = await getPokemonsByPagination(pagination);
 
       setPokemons((prevPokemons) => [...prevPokemons, ...response]);
@@ -62,14 +60,14 @@ export const PokemonsLoad = () => {
         setAllPokemonsLoaded(true);
       }
 
-      setLoading(false);
+      setIsLoading(false);
     };
 
     getPokemons();
   }, [
     allPokemonsLoaded,
     entry?.isIntersecting,
-    loading,
+    isLoading,
     pagination,
     pokemons.length,
   ]);
@@ -132,13 +130,9 @@ export const PokemonsLoad = () => {
     <>
       <section className={styles.pokemons}>
         {filteredPokemons.length > 0
-          ? filteredPokemons.map((pokemon, index) => (
-              <PokemonCard
-                key={index}
-                onClick={() => setOrToggleIsAsideOpen(true)}
-                {...pokemon}
-              />
-            ))
+          ? filteredPokemons.map((pokemon, index) => {
+              return <PokemonCard key={index} data={pokemon} />;
+            })
           : allPokemonsLoaded && (
               <p className={styles.noMatch}>There are no matching pokemons</p>
             )}
