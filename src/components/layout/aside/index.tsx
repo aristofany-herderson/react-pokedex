@@ -12,7 +12,6 @@ import { FemaleIcon } from "@/components/ui/icons/female-icon";
 import { MaleIcon } from "@/components/ui/icons/male-icon";
 import { MinusSquareIcon } from "@/components/ui/icons/minus-square-icon";
 import { PanelOpenIcon } from "@/components/ui/icons/panel-open";
-import { StarIcon } from "@/components/ui/icons/star-icon";
 import { useApp } from "@/contexts/app-context";
 import { usePokemonQueryParams } from "@/hooks/use-pokemon-query-params";
 import { getPokemonData } from "@/services/requests";
@@ -69,6 +68,7 @@ export const Aside = () => {
   return (
     <>
       <button
+        aria-label="Open aside"
         data-state={isAsideOpen ? "opened" : "closed"}
         onClick={() => setOrToggleIsAsideOpen()}
         className={styles.openAside}
@@ -163,11 +163,15 @@ export const Aside = () => {
                         data-hidden={ability.is_hidden}
                         className={styles.abilitiesHoverCard}
                       >
-                        <h2>
-                          {" "}
-                          <StarIcon width={12} height={12} /> {ability.name}
-                        </h2>
-                        <p> {ability.entry}</p>
+                        <div className={styles.abilityType}>
+                          {ability.is_hidden ? "hidden" : "shown"}
+                        </div>
+                        <h2>{ability.name}</h2>
+                        <div className={styles.line}></div>
+                        <p>
+                          <span>Description: </span>
+                          {ability.entry}
+                        </p>
                       </div>
                     </HoverCardContent>
                   </HoverCard>

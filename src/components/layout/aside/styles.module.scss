@@ -244,44 +244,78 @@
 }
 
 .abilitiesHoverCard {
-  max-width: 14rem;
-  padding: var(--space-3);
+  max-width: 16rem;
+  padding: var(--space-4) var(--space-3);
 
-  background: var(--colors-gray-800);
-  border-radius: var(--radii-sm);
-  color: var(--colors-white);
+  color: var(--colors-gray-800);
+  border: var(--border-width-thin) solid var(--colors-gray-300);
+  border-radius: var(--radii-md);
+  background: var(--colors-white);
 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 
   &[data-hidden="true"] {
-    background: var(--colors-red-medium);
+    border-color: var(--colors-red-medium);
+
+    .abilityType {
+      background: var(--colors-red-light);
+      border-color: var(--colors-red-medium);
+      color: var(--colors-white);
+    }
+  }
+
+  .abilityType {
+    padding: var(--space-1) var(--space-2);
+    margin-bottom: var(--space-2);
+    font-size: var(--font-size-xxs);
+    line-height: 100%;
+    border-radius: var(--radii-full);
+
+    background: var(--colors-gray-100);
+    border: var(--border-width-thin) solid var(--colors-gray-200);
   }
 
   h2 {
-    margin-bottom: var(--space-3);
     font-size: var(--font-size-sm);
-    text-transform: capitalize;
+    line-height: 100%;
 
     display: flex;
     align-items: center;
+  }
+
+  .line {
+    width: 100%;
+    height: var(--space-px);
+    
+    margin-block: var(--space-2);
+    background: var(--colors-gray-200);
   }
 
   svg {
     margin-right: var(--space-1);
   }
 
+  span {
+    color: var(--colors-gray-600);
+  }
+
   p {
     white-space: unset;
-    padding: 0 var(--space-2);
-    font-size: var(--font-size-xxs);
-    font-weight: var(--font-weight-bold);
+    padding: 0;
+    margin-bottom: 0;
+    font-size: var(--font-size-xs);
+    
+    font-weight: var(--font-weight-normal);
     text-align: left;
     line-height: var(--line-height-base);
+    
     background: none;
     border-radius: none;
     border: none;
+
+    display: inline;
 
     &:hover {
       background: transparent;

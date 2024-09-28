@@ -21,6 +21,7 @@ export default function Home() {
         </div>
       </AppContextProvider>
       <Link
+        aria-label="Link to github repositorie"
         className={styles.githubLink}
         target="_blank"
         rel="noreferrer noopener"
