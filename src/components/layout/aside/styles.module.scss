@@ -288,7 +288,7 @@
   .line {
     width: 100%;
     height: var(--space-px);
-    
+
     margin-block: var(--space-2);
     background: var(--colors-gray-200);
   }
@@ -306,11 +306,11 @@
     padding: 0;
     margin-bottom: 0;
     font-size: var(--font-size-xs);
-    
+
     font-weight: var(--font-weight-normal);
     text-align: left;
     line-height: var(--line-height-base);
-    
+
     background: none;
     border-radius: none;
     border: none;
@@ -581,6 +581,23 @@
 
   .pokemonImage {
     margin: var(--space-1);
+  }
+
+  .nextProvPokemonCard {
+    padding: var(--space-2);
+    background: var(--colors-white);
+    border: var(--border-width-thin) solid var(--colors-gray-300);
+    border-radius: var(--radii-md);
+
+    display: flex;
+    gap: var(--space-1);
+    align-items: center;
+
+    img {
+      width: var(--space-5);
+      height: auto;
+      aspect-ratio: 1 / 1;
+    }
   }
 }
 

@@ -290,42 +290,60 @@ export const Aside = () => {
               </div>
             </div>
             <div className={styles.nextPrevPokemons}>
-              <button
-                className={styles.prev}
-                onClick={() =>
-                  setSelectedPokemon(pokemon.adjacent_pokemons.previous.id)
-                }
-              >
-                <ChevronLeftIcon width={12} height={12} />
-                <Image
-                  className={styles.pokemonImage}
-                  width={18}
-                  height={18}
-                  src={pokemon.adjacent_pokemons.previous.sprite}
-                  placeholder={pokemonImagePlaceholder(40, 40)}
-                  alt="Previous pokemon image"
-                />
-                <p>{pokemon.adjacent_pokemons.previous.name}</p>
-                <span>#{prevPokemonPaddedID}</span>
-              </button>
-              <button
-                className={styles.next}
-                onClick={() =>
-                  setSelectedPokemon(pokemon.adjacent_pokemons.next.id)
-                }
-              >
-                <span>#{nextPokemonPaddedID}</span>
-                <p>{pokemon.adjacent_pokemons.next.name}</p>
-                <Image
-                  className={styles.pokemonImage}
-                  width={18}
-                  height={18}
-                  src={pokemon.adjacent_pokemons.next.sprite}
-                  placeholder={pokemonImagePlaceholder(40, 40)}
-                  alt="Next pokemon chevron icon"
-                />
-                <ChevronRightIcon width={12} height={12} />
-              </button>
+              <HoverCard openDelay={100} closeDelay={0}>
+                <HoverCardContent side="top">
+                  <div className={styles.nextProvPokemonCard}>
+                    <p>{pokemon.adjacent_pokemons.previous.name}</p>
+                  </div>
+                </HoverCardContent>
+                <HoverCardTrigger asChild>
+                  <button
+                    className={styles.prev}
+                    onClick={() =>
+                      setSelectedPokemon(pokemon.adjacent_pokemons.previous.id)
+                    }
+                  >
+                    <ChevronLeftIcon width={12} height={12} />
+                    <Image
+                      className={styles.pokemonImage}
+                      width={18}
+                      height={18}
+                      src={pokemon.adjacent_pokemons.previous.sprite}
+                      placeholder={pokemonImagePlaceholder(40, 40)}
+                      alt="Previous pokemon image"
+                    />
+                    <p>{pokemon.adjacent_pokemons.previous.name}</p>
+                    <span>#{prevPokemonPaddedID}</span>
+                  </button>
+                </HoverCardTrigger>
+              </HoverCard>
+              <HoverCard openDelay={100} closeDelay={0}>
+                <HoverCardContent>
+                  <div className={styles.nextProvPokemonCard}>
+                    <p>{pokemon.adjacent_pokemons.next.name}</p>
+                  </div>
+                </HoverCardContent>
+                <HoverCardTrigger asChild>
+                  <button
+                    className={styles.next}
+                    onClick={() =>
+                      setSelectedPokemon(pokemon.adjacent_pokemons.next.id)
+                    }
+                  >
+                    <span>#{nextPokemonPaddedID}</span>
+                    <p>{pokemon.adjacent_pokemons.next.name}</p>
+                    <Image
+                      className={styles.pokemonImage}
+                      width={18}
+                      height={18}
+                      src={pokemon.adjacent_pokemons.next.sprite}
+                      placeholder={pokemonImagePlaceholder(40, 40)}
+                      alt="Next pokemon chevron icon"
+                    />
+                    <ChevronRightIcon width={12} height={12} />
+                  </button>
+                </HoverCardTrigger>
+              </HoverCard>
             </div>
           </div>
         )}
