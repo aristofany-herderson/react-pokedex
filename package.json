@@ -9,26 +9,26 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@radix-ui/react-dialog": "^1.0.5",
-    "@radix-ui/react-hover-card": "^1.0.7",
-    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-dialog": "^1.1.1",
+    "@radix-ui/react-hover-card": "^1.1.1",
+    "@radix-ui/react-select": "^2.1.1",
     "@uidotdev/usehooks": "^2.4.1",
     "axios": "^1.7.7",
     "classnames": "^2.5.1",
     "next": "^14.2.13",
-    "nuqs": "^1.17.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-select": "^5.8.0",
-    "sharp": "^0.33.3"
+    "nuqs": "^1.19.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-select": "^5.8.1",
+    "sharp": "^0.33.5"
   },
   "devDependencies": {
-    "@types/node": "^20.12.7",
-    "@types/react": "^18.2.76",
-    "@types/react-dom": "^18.2.25",
-    "eslint": "^8.57.0",
+    "@types/node": "^20.16.10",
+    "@types/react": "^18.3.10",
+    "@types/react-dom": "^18.3.0",
+    "eslint": "^8.57.1",
     "eslint-config-next": "14.1.4",
-    "sass": "^1.74.1",
-    "typescript": "^5.4.5"
+    "sass": "^1.79.4",
+    "typescript": "^5.6.2"
   }
 }
