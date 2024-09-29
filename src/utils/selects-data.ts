@@ -113,9 +113,9 @@ export const SELECTPOKEMONWEIGHTS: SelectionPokemonRange[] = [
 ];
 
 export const SELECTLEVELCOLORS = {
-  1: "#FF6B6B",
-  2: "#FF8A65",
+  1: "#4CAF50",
+  2: "#FFD54F",
   3: "#FFB74D",
-  4: "#FFD54F",
-  5: "#4CAF50",
+  4: "#FF8A65",
+  5: "#FF6B6B",
 };

@@ -12,7 +12,7 @@ import {
   SELECTPOKEMONWEIGHTS,
 } from "@/utils/selects-data";
 import { useIntersectionObserver } from "@uidotdev/usehooks";
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { PokemonCard } from "../pokemon-card";
 import styles from "./styles.module.scss";
 
@@ -127,17 +127,21 @@ export const PokemonsLoad = () => {
   }, [pokemons, search, from, to, type, weakness, ability, weight, height]);
 
   return (
-    <>
-      <section className={styles.pokemons}>
-        {filteredPokemons.length > 0
-          ? filteredPokemons.map((pokemon, index) => {
+    <Fragment>
+      <section className={styles.section}>
+        {filteredPokemons.length > 0 ? (
+          <div className={styles.wrapper}>
+            {filteredPokemons.map((pokemon, index) => {
               return <PokemonCard key={index} data={pokemon} />;
-            })
-          : allPokemonsLoaded && (
-              <p className={styles.noMatch}>There are no matching pokemons</p>
-            )}
+            })}
+          </div>
+        ) : (
+          allPokemonsLoaded && (
+            <p className={styles.noMatch}>There are no matching pokemons</p>
+          )
+        )}
       </section>
       {!allPokemonsLoaded && <Loader ref={ref} />}
-    </>
+    </Fragment>
   );
 };

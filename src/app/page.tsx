@@ -7,10 +7,11 @@ import { GithubIcon } from "@/components/ui/icons/github-icon";
 import { AppContextProvider } from "@/contexts/app-context";
 import styles from "@/styles/pages/home.module.scss";
 import Link from "next/link";
+import { Fragment } from "react";
 
 export default function Home() {
   return (
-    <>
+    <Fragment>
       <AppContextProvider>
         <div className={styles.appWrapper}>
           <main className={styles.main}>
@@ -30,6 +31,6 @@ export default function Home() {
         <GithubIcon width={32} height={32} />
       </Link>
       <ScrollTop />
-    </>
+    </Fragment>
   );
 }

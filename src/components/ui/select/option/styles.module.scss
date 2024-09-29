@@ -18,6 +18,7 @@
 
   span {
     width: var(--space-5);
+    height: var(--space-5);
     padding: var(--space-1);
     margin-right: var(--space-2);
     border-radius: var(--radii-full);
@@ -30,6 +31,9 @@
   }
 
   svg {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
     color: var(--colors-white);
   }
 }

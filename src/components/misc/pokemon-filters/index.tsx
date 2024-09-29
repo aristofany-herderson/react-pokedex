@@ -61,11 +61,11 @@ export const PokemonFilters = () => {
 
   const [abilities, setAbilities] = useState<SelectionData[]>([]);
   const [searchInputText, setSearchInputText] = useState(search);
-  const searchQuery = useDebounce(searchInputText, 750);
+  const searchQuery = useDebounce(searchInputText, 1250);
   const [fromInputText, setFromInputText] = useState(from);
-  const fromQuery = useDebounce(fromInputText, 750);
+  const fromQuery = useDebounce(fromInputText, 1250);
   const [toInputText, setToInputText] = useState(to);
-  const toQuery = useDebounce(toInputText, 750);
+  const toQuery = useDebounce(toInputText, 1250);
 
   useEffect(() => {
     if (searchQuery) {

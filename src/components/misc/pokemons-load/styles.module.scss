@@ -1,4 +1,8 @@
-.pokemons {
+.section {
+  width: 100%;
+}
+
+.wrapper {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -7,8 +11,8 @@
 }
 
 .noMatch {
-  grid-column-start: 2;
+  width: 100%;
   font-size: var(--font-size-sm);
+  color: var(--colors-gray-600);
   text-align: center;
-  white-space: nowrap;
 }

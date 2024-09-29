@@ -1,4 +1,5 @@
 "use client";
+
 import { AsyncReturnType } from "@/@types/async-return-type";
 import {
   HoverCard,
@@ -20,35 +21,22 @@ import { pokemonImagePlaceholder } from "@/utils/pokemon-image-placeholder";
 import { POKEMONSTATS } from "@/utils/pokemon-stats";
 import { POKEMONTYPECOLORS } from "@/utils/pokemon-type-colors";
 import { POKEMONTYPEICONS } from "@/utils/pokemon-type-icons";
+import { removeSpecialCharacters } from "@/utils/remove-special-characters";
 import classNames from "classnames";
 import Image from "next/image";
-import { Fragment, useEffect, useState } from "react";
+import { CSSProperties, Fragment, useEffect, useState } from "react";
 import { Loading } from "./states/loading";
 import { NoPokemonSelected } from "./states/no-pokemon-selected";
 import styles from "./styles.module.scss";
 
 export const Aside = () => {
   const { isAsideOpen, setOrToggleIsAsideOpen } = useApp();
-  const [pokemon, setPokemon] = useState<AsyncReturnType<
-    typeof getPokemonData
-  > | null>();
   const { pokemon: selectedPokemon, setPokemon: setSelectedPokemon } =
     usePokemonQueryParams();
 
-  useEffect(() => {
-    const getPokemon = async () => {
-      if (!selectedPokemon) return null;
-      return await getPokemonData(selectedPokemon);
-    };
-
-    const fetchPokemon = async () => {
-      setPokemon(await getPokemon());
-    };
-
-    if (selectedPokemon) setOrToggleIsAsideOpen(true);
-
-    fetchPokemon();
-  }, [selectedPokemon, setOrToggleIsAsideOpen]);
+  const [pokemon, setPokemon] = useState<AsyncReturnType<
+    typeof getPokemonData
+  > | null>();
 
   const paddedID = padId(pokemon?.id);
   const sumStats = pokemon?.stats.reduce(
@@ -65,13 +53,28 @@ export const Aside = () => {
   const isSelectAndLoading = selectedPokemon && pokemon?.id !== selectedPokemon;
   const isSelectAndLoaded = selectedPokemon && pokemon?.id === selectedPokemon;
 
+  useEffect(() => {
+    const getPokemon = async () => {
+      if (!selectedPokemon) return null;
+      return await getPokemonData(selectedPokemon);
+    };
+
+    const fetchPokemon = async () => {
+      setPokemon(await getPokemon());
+    };
+
+    if (selectedPokemon) setOrToggleIsAsideOpen(true);
+
+    fetchPokemon();
+  }, [selectedPokemon, setOrToggleIsAsideOpen]);
+
   return (
-    <>
+    <Fragment>
       <button
         aria-label="Open aside"
         data-state={isAsideOpen ? "opened" : "closed"}
         onClick={() => setOrToggleIsAsideOpen()}
-        className={styles.openAside}
+        className={styles.openAsideButton}
       >
         <PanelOpenIcon width={14} height={14} />
       </button>
@@ -81,10 +84,12 @@ export const Aside = () => {
       >
         <div
           onClick={() => setOrToggleIsAsideOpen(false)}
-          className={styles.background}
-        ></div>
+          className={styles.asideBackground}
+        />
+
         {isNoSelect && <NoPokemonSelected />}
         {isSelectAndLoading && <Loading />}
+
         {isSelectAndLoaded && (
           <div className={styles.wrapper}>
             <div className={styles.gender}>
@@ -104,6 +109,7 @@ export const Aside = () => {
                 </div>
               )}
             </div>
+
             <div className={styles.figure}>
               <Image
                 width={140}
@@ -111,10 +117,12 @@ export const Aside = () => {
                 src={pokemon.sprite}
                 priority
                 placeholder={pokemonImagePlaceholder(40, 40)}
-                alt={`${pokemon.name} pokemon image`}
+                alt={`artwork of ${pokemon.name}`}
               />
             </div>
+
             <p className={styles.id}>#{paddedID}</p>
+
             <h2
               className={classNames(
                 styles.name,
@@ -123,35 +131,41 @@ export const Aside = () => {
             >
               {pokemon?.name}
             </h2>
+
             <div className={styles.types}>
-              {pokemon?.types.map((type, key) => {
-                const colors = POKEMONTYPECOLORS[type.type.name];
+              {pokemon?.types.map(({ type: { name } }, key) => {
+                const colors = POKEMONTYPECOLORS[name];
+
                 return (
                   <p
-                    style={{
-                      ["--colors-color" as any]: colors.medium,
-                      ["--colors-background" as any]: colors.light,
-                    }}
                     key={key}
+                    style={
+                      {
+                        "--colors-color": colors.medium,
+                        "--colors-background": colors.light,
+                      } as CSSProperties
+                    }
                   >
-                    {type.type.name}
+                    {name}
                   </p>
                 );
               })}
             </div>
+
             {pokemon?.entry && (
               <div className={styles.entry}>
                 <h2 className={styles.title}>POKÉDEX ENTRY</h2>
-                <p>{pokemon.entry.replace("\f", " ")}</p>
+                <p>{removeSpecialCharacters(pokemon.entry)}</p>
               </div>
             )}
+
             <div className={styles.abilities}>
               <h2 className={styles.title}>Abilities</h2>
               <div>
                 {pokemon?.abilities.map((ability, key) => (
                   <HoverCard openDelay={100} closeDelay={0} key={key}>
                     <HoverCardTrigger>
-                      <p data-hidden={ability.is_hidden} key={key}>
+                      <p key={key} data-hidden={ability.is_hidden}>
                         {ability.name}
                         {ability.is_hidden && (
                           <EyeSlashIcon width={18} height={18} />
@@ -163,11 +177,11 @@ export const Aside = () => {
                         data-hidden={ability.is_hidden}
                         className={styles.abilitiesHoverCard}
                       >
-                        <div className={styles.abilityType}>
+                        <div className={styles.type}>
                           {ability.is_hidden ? "hidden" : "shown"}
                         </div>
                         <h2>{ability.name}</h2>
-                        <div className={styles.line}></div>
+                        <div className={styles.divider} />
                         <p>
                           <span>Description: </span>
                           {ability.entry}
@@ -178,6 +192,7 @@ export const Aside = () => {
                 ))}
               </div>
             </div>
+
             <div className={styles.characteristics}>
               <div>
                 <h2 className={styles.title}>Height</h2>
@@ -196,33 +211,40 @@ export const Aside = () => {
 
                       return (
                         <HoverCard openDelay={100} closeDelay={0} key={key}>
+                          <HoverCardContent side="top">
+                            <div
+                              className={styles.weaknessHoverCard}
+                              style={
+                                {
+                                  "--colors-background": colors.medium,
+                                } as CSSProperties
+                              }
+                            >
+                              <span
+                                style={
+                                  {
+                                    "--colors-color": colors.medium,
+                                  } as CSSProperties
+                                }
+                                key={key}
+                              >
+                                {POKEMONTYPEICONS[weak]}
+                              </span>
+                              {weak}
+                            </div>
+                          </HoverCardContent>
                           <HoverCardTrigger>
                             <span
                               key={key}
-                              style={{
-                                ["--colors-background" as any]: colors.medium,
-                              }}
+                              style={
+                                {
+                                  "--colors-background": colors.medium,
+                                } as CSSProperties
+                              }
                             >
                               {POKEMONTYPEICONS[weak]}
                             </span>
                           </HoverCardTrigger>
-                          <HoverCardContent
-                            side="top"
-                            className={styles.weaknessHoverCard}
-                            style={{
-                              ["--colors-background" as any]: colors.medium,
-                            }}
-                          >
-                            <span
-                              style={{
-                                ["--colors-color" as any]: colors.medium,
-                              }}
-                              key={key}
-                            >
-                              {POKEMONTYPEICONS[weak]}
-                            </span>
-                            {weak}
-                          </HoverCardContent>
                         </HoverCard>
                       );
                     })}
@@ -233,13 +255,10 @@ export const Aside = () => {
               </div>
               <div>
                 <h2 className={styles.title}>Base EXP</h2>
-                {pokemon.base_experience ? (
-                  <p>{pokemon.base_experience}</p>
-                ) : (
-                  <p className={styles.noData}>no data</p>
-                )}
+                <p>{pokemon.base_experience || "no data"}</p>
               </div>
             </div>
+
             <div className={styles.stats}>
               <h2 className={styles.title}>Stats</h2>
               <div>
@@ -258,6 +277,7 @@ export const Aside = () => {
                 </p>
               </div>
             </div>
+
             <div className={styles.evolutions}>
               <h2 className={styles.title}>Evolution</h2>
               <div>
@@ -289,10 +309,11 @@ export const Aside = () => {
                 ))}
               </div>
             </div>
+
             <div className={styles.nextPrevPokemons}>
               <HoverCard openDelay={100} closeDelay={0}>
                 <HoverCardContent side="top">
-                  <div className={styles.nextProvPokemonCard}>
+                  <div className={styles.nextProvPokemonHoverCard}>
                     <p>{pokemon.adjacent_pokemons.previous.name}</p>
                   </div>
                 </HoverCardContent>
@@ -319,7 +340,7 @@ export const Aside = () => {
               </HoverCard>
               <HoverCard openDelay={100} closeDelay={0}>
                 <HoverCardContent>
-                  <div className={styles.nextProvPokemonCard}>
+                  <div className={styles.nextProvPokemonHoverCard}>
                     <p>{pokemon.adjacent_pokemons.next.name}</p>
                   </div>
                 </HoverCardContent>
@@ -348,6 +369,6 @@ export const Aside = () => {
           </div>
         )}
       </aside>
-    </>
+    </Fragment>
   );
 };

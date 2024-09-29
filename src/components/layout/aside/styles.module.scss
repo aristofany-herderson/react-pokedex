@@ -1,4 +1,4 @@
-.openAside {
+.openAsideButton {
   position: fixed;
   top: var(--space-8);
   right: var(--space-8);
@@ -64,7 +64,7 @@
   }
 }
 
-.background {
+.asideBackground {
   display: none;
 }
 
@@ -259,14 +259,14 @@
   &[data-hidden="true"] {
     border-color: var(--colors-red-medium);
 
-    .abilityType {
+    .type {
       background: var(--colors-red-light);
       border-color: var(--colors-red-medium);
       color: var(--colors-white);
     }
   }
 
-  .abilityType {
+  .type {
     padding: var(--space-1) var(--space-2);
     margin-bottom: var(--space-2);
     font-size: var(--font-size-xxs);
@@ -285,16 +285,12 @@
     align-items: center;
   }
 
-  .line {
+  .divider {
     width: 100%;
     height: var(--space-px);
 
     margin-block: var(--space-2);
     background: var(--colors-gray-200);
-  }
-
-  svg {
-    margin-right: var(--space-1);
   }
 
   span {
@@ -374,9 +370,13 @@
   padding: var(--space-1) var(--space-2);
   color: var(--colors-white);
   text-transform: capitalize;
+  background: var(--colors-background);
   border-radius: var(--radii-sm);
   box-shadow: var(--shadow-light);
   user-select: none;
+
+  display: flex;
+  align-items: center;
 
   span {
     background: var(--colors-white);
@@ -583,7 +583,7 @@
     margin: var(--space-1);
   }
 
-  .nextProvPokemonCard {
+  .nextProvPokemonHoverCard {
     padding: var(--space-2);
     background: var(--colors-white);
     border: var(--border-width-thin) solid var(--colors-gray-300);
@@ -647,7 +647,7 @@
     &[data-state="opened"] {
       right: 0;
 
-      .background {
+      .asideBackground {
         right: 0;
       }
     }
@@ -655,13 +655,13 @@
     &[data-state="closed"] {
       right: -100%;
 
-      .background {
+      .asideBackground {
         right: -100%;
       }
     }
   }
 
-  .background {
+  .asideBackground {
     position: fixed;
     top: 0;
     backdrop-filter: blur(0.2rem);
@@ -671,7 +671,7 @@
     display: block;
   }
 
-  .openAside {
+  .openAsideButton {
     display: flex;
   }
 
