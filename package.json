@@ -9,11 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@radix-ui/react-dialog": "^1.1.15",
-    "@radix-ui/react-hover-card": "^1.1.15",
-    "@radix-ui/react-select": "^2.2.6",
+    "@radix-ui/react-dialog": "^1.1.16",
+    "@radix-ui/react-hover-card": "^1.1.16",
+    "@radix-ui/react-select": "^2.3.0",
     "@uidotdev/usehooks": "^2.4.1",
-    "axios": "^1.13.2",
+    "axios": "^1.17.0",
     "classnames": "^2.5.1",
     "next": "^14.2.35",
     "nuqs": "^1.20.0",
@@ -23,12 +23,12 @@
     "sharp": "^0.33.5"
   },
   "devDependencies": {
-    "@types/node": "^20.19.30",
-    "@types/react": "^18.3.27",
+    "@types/node": "^20.19.42",
+    "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",
     "eslint": "^8.57.1",
     "eslint-config-next": "14.1.4",
-    "sass": "^1.97.2",
+    "sass": "^1.100.0",
     "typescript": "^5.9.3"
   }
 }
