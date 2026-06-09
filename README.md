@@ -126,13 +126,10 @@ easily accessible through a modern free open-source RESTful API.
   </p>
   <p align="center">
     <a  href="https://www.linkedin.com/in/aristofany-herderson/" target="_blank">
-    <img align="center" src="https://img.shields.io/badge/LINKEDIN-000000.svg?style=for-the-badge&labelColor=0a66c2&logo=linkedin&logoColor=fff&logoWidth=20" alt="linkedin"/>
+    <img align="center" src="https://img.shields.io/badge/LINKEDIN-000000.svg?style=for-the-badge&labelColor=0a66c2&logo=inspire&logoColor=fff&logoWidth=20" alt="linkedin"/>
     </a>
-    <a href="https://twitter.com/aristofanyherde" target="_blank">
-      <img align="center" src="https://img.shields.io/badge/TWITTER-000000.svg?style=for-the-badge&labelColor=1d9bf0&logo=twitter&logoColor=fff&logoWidth=20" alt="linkedin"/>
-    </a>
-    <a href="https://www.instagram.com/aristofany_herderson/" target="_blank">
-      <img align="center" src="https://img.shields.io/badge/INSTAGRAM-000000.svg?style=for-the-badge&labelColor=dd326f&logo=instagram&logoColor=fff&logoWidth=20" alt="linkedin"/>
+    <a href="https://www.instagram.com/aristo.dev/" target="_blank">
+      <img align="center" src="https://img.shields.io/badge/INSTAGRAM-000000.svg?style=for-the-badge&labelColor=dd326f&logo=instagram&logoColor=fff&logoWidth=20" alt="instagram"/>
     </a>
   </p>
 </p>
