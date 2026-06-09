@@ -41,7 +41,7 @@ export const Aside = () => {
   const paddedID = padId(pokemon?.id);
   const sumStats = pokemon?.stats.reduce(
     (accum, item) => accum + item.base_stat,
-    0
+    0,
   );
   const height = (pokemon?.height || 0) / 10;
   const weight = (pokemon?.weight || 0) / 10;
@@ -126,7 +126,7 @@ export const Aside = () => {
             <h2
               className={classNames(
                 styles.name,
-                pokemon.is_legendary && styles.legendary
+                pokemon.is_legendary && styles.legendary,
               )}
             >
               {pokemon?.name}
@@ -300,7 +300,7 @@ export const Aside = () => {
                               alt={`${evolution.name} image`}
                             />
                           </button>
-                        )
+                        ),
                     )}
                     {index != pokemon.evolution.length - 1 && evolutions[0] && (
                       <p>Lvl {evolutions[0].level}</p>
@@ -330,7 +330,7 @@ export const Aside = () => {
                       width={18}
                       height={18}
                       src={pokemon.adjacent_pokemons.previous.sprite}
-                      placeholder={pokemonImagePlaceholder(40, 40)}
+                      placeholder={pokemonImagePlaceholder(18, 18)}
                       alt="Previous pokemon image"
                     />
                     <p>{pokemon.adjacent_pokemons.previous.name}</p>
@@ -339,7 +339,7 @@ export const Aside = () => {
                 </HoverCardTrigger>
               </HoverCard>
               <HoverCard openDelay={100} closeDelay={0}>
-                <HoverCardContent>
+                <HoverCardContent side="top">
                   <div className={styles.nextProvPokemonHoverCard}>
                     <p>{pokemon.adjacent_pokemons.next.name}</p>
                   </div>
@@ -358,7 +358,7 @@ export const Aside = () => {
                       width={18}
                       height={18}
                       src={pokemon.adjacent_pokemons.next.sprite}
-                      placeholder={pokemonImagePlaceholder(40, 40)}
+                      placeholder={pokemonImagePlaceholder(18, 18)}
                       alt="Next pokemon chevron icon"
                     />
                     <ChevronRightIcon width={12} height={12} />

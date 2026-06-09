@@ -1,6 +1,7 @@
 import "@/styles/globals.scss";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 const poppins = Poppins({
   variable: "--font-default",
@@ -32,7 +33,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en-US">
-      <body className={poppins.variable}>{children}</body>
+      <body className={poppins.variable}>
+        <NuqsAdapter>{children}</NuqsAdapter>
+      </body>
     </html>
   );
 }
